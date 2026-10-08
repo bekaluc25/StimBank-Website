@@ -1,0 +1,961 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>3D MNI Brain Viewer — StimBank</title>
+  <meta name="description" content="Explore human brain stimulation sites and reported effects in 3D MNI152 stereotaxic space using Three.js WebGL rendering.">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Three.js + OrbitControls -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+  <!-- StimBank Central Design System Stylesheet -->
+  <link rel="stylesheet" href="static/css/ebs_custom.css">
+
+  <style>
+    .viewer-canvas-container {
+      position: relative;
+      width: 100%;
+      height: 720px;
+      background: radial-gradient(circle at center, #1E293B 0%, #090D16 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.15);
+    }
+
+    #brainCanvas {
+      width: 100%;
+      height: 100%;
+      display: block;
+      cursor: grab;
+    }
+    #brainCanvas:active {
+      cursor: grabbing;
+    }
+
+    /* HUD Floating Overlays */
+    .hud-panel {
+      position: absolute;
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      border-radius: 6px;
+      padding: 9px 13px;
+      color: #F8FAFC;
+      font-size: 12px;
+      z-index: 20;
+    }
+
+    .hud-top-left {
+      top: 14px;
+      left: 14px;
+      max-width: 310px;
+    }
+
+    .hud-top-right {
+      top: 14px;
+      right: 14px;
+      width: 260px;
+    }
+
+    .hud-bottom-bar {
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      padding: 6px 14px;
+    }
+
+    .hud-bottom-bar button {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      color: #E2E8F0;
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .hud-bottom-bar button:hover, .hud-bottom-bar button.active {
+      background: #0284C7;
+      border-color: #38BDF8;
+      color: #FFFFFF;
+    }
+
+    /* Hover Tooltip */
+    #brainTooltip {
+      position: absolute;
+      display: none;
+      pointer-events: none;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 6px;
+      padding: 8px 12px;
+      color: #FFFFFF;
+      font-size: 11.5px;
+      line-height: 1.4;
+      z-index: 40;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.3);
+      max-width: 250px;
+    }
+
+    .category-dot {
+      display: inline-block;
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      margin-right: 6px;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation: Minimal horizontal navigation -->
+  <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
+    <div class="container-fluid px-4 px-xl-5" style="max-width: 1800px;">
+      <a class="navbar-brand" href="index.html">
+        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo">
+        <span>Stim<b>Bank</b></span>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="explorer.html">Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="viewer.html">3D Brain Viewer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="methods.html">Methods</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="team.html">Team</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Viewer Content -->
+  <div class="container-fluid px-4 px-xl-5 py-4" style="max-width: 1800px;">
+    
+    <!-- Header -->
+    <div class="d-flex flex-wrap justify-content-between align-items-end mb-3">
+      <div>
+        <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.76rem;">
+          High-Definition 3D WebGL Engine &bull; MNI152 Stereotaxic Space
+        </div>
+        <h2 class="fw-bold mb-0">3D MNI Brain Stimulation Viewer</h2>
+        <p class="text-secondary small mb-0 mt-1">
+          FreeSurfer MNI152 Pial Cortical Atlas &bull; Left Click + Drag to rotate 3D volume &bull; Right Click / Two-finger drag to pan &bull; Scroll to zoom &bull; Click any contact to inspect
+        </p>
+      </div>
+      <div class="d-flex gap-2 mt-2 mt-md-0">
+        <button id="btnResetView" class="btn-stimbank-secondary btn-stimbank-sm">Reset View</button>
+        <a href="explorer.html" class="btn-stimbank-primary btn-stimbank-sm">Search Database Table</a>
+      </div>
+    </div>
+
+    <!-- Quick Category Pill Filter Bar -->
+    <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="viewerCategoryPills">
+      <span class="fw-bold text-uppercase me-1" style="font-size: 0.85rem; letter-spacing: 0.05em; color: #000000;">Filter Domain:</span>
+      <button type="button" class="category-pill active" data-cat="">
+        <span class="category-dot" style="background-color: #000000;"></span>All (<span id="pillCountAll">173</span>)
+      </button>
+      <button type="button" class="category-pill" data-cat="Cognitive & Language">
+        <span class="category-dot" style="background-color: #8B5CF6;"></span>Cognitive &amp; Language (<span id="pillCountCog">146</span>)
+      </button>
+      <button type="button" class="category-pill" data-cat="Motor">
+        <span class="category-dot" style="background-color: #2563EB;"></span>Motor (<span id="pillCountMot">15</span>)
+      </button>
+      <button type="button" class="category-pill" data-cat="Sensory & Perceptual">
+        <span class="category-dot" style="background-color: #0284C7;"></span>Sensory &amp; Perceptual (<span id="pillCountSens">12</span>)
+      </button>
+      <button type="button" class="category-pill" data-cat="Affective">
+        <span class="category-dot" style="background-color: #E11D48;"></span>Affective (0)
+      </button>
+      <button type="button" class="category-pill" data-cat="Autonomic">
+        <span class="category-dot" style="background-color: #059669;"></span>Autonomic (0)
+      </button>
+    </div>
+
+    <!-- Filter Control & MNI Coordinate Search Bar -->
+    <div class="stimbank-card p-3 mb-3">
+      <div class="row g-2 align-items-end">
+        <!-- 1. Domain Filter -->
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">1. Domain</label>
+          <select id="filterCategory" class="form-select form-select-sm">
+            <option value="">All Domains (5)</option>
+            <option value="Cognitive & Language">Cognitive &amp; Language</option>
+            <option value="Motor">Motor</option>
+            <option value="Sensory & Perceptual">Sensory &amp; Perceptual</option>
+            <option value="Affective">Affective</option>
+            <option value="Autonomic">Autonomic</option>
+          </select>
+        </div>
+
+        <!-- 2. Sub-Domain (Cascading) -->
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">2. Sub-Domain</label>
+          <select id="filterSubCategory" class="form-select form-select-sm">
+            <option value="">All Sub-Domains</option>
+          </select>
+        </div>
+
+        <!-- 3. EBS Procedure -->
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">3. EBS Procedure</label>
+          <select id="filterProcedure" class="form-select form-select-sm">
+            <option value="">All Procedures</option>
+          </select>
+        </div>
+
+        <!-- 4. Location / Region -->
+        <div class="col-lg-2 col-md-4 col-sm-6">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">4. Location</label>
+          <select id="filterRegion" class="form-select form-select-sm">
+            <option value="">All Locations</option>
+          </select>
+        </div>
+
+        <!-- 5. Search by MNI Coordinates -->
+        <div class="col-lg-3 col-md-6 col-sm-12">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">Search Nearest 50 by MNI (X, Y, Z)</label>
+          <div class="input-group input-group-sm">
+            <input type="number" id="mniSearchX" placeholder="X" class="form-control text-center font-monospace" style="max-width: 60px;">
+            <input type="number" id="mniSearchY" placeholder="Y" class="form-control text-center font-monospace" style="max-width: 60px;">
+            <input type="number" id="mniSearchZ" placeholder="Z" class="form-control text-center font-monospace" style="max-width: 60px;">
+            <button class="btn btn-primary btn-sm" type="button" id="btnSearchMni" title="Find nearest 50 stimulation sites">Find 50</button>
+          </div>
+        </div>
+
+        <!-- Reset Button -->
+        <div class="col-lg-1 col-md-2 col-sm-12">
+          <button id="btnResetAllFilters" class="btn btn-outline-secondary btn-sm w-100">Reset</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- THREE.JS 3D BRAIN CONTAINER -->
+    <div class="viewer-canvas-container" id="viewerWrapper">
+      
+      <!-- Canvas Container -->
+      <div id="brainCanvas" style="width: 100%; height: 100%;"></div>
+
+      <!-- Hover Tooltip -->
+      <div id="brainTooltip"></div>
+
+      <!-- HUD Top Left: Info & Live Site Count -->
+      <div class="hud-panel hud-top-left">
+        <div class="d-flex align-items-center justify-content-between mb-1">
+          <span class="fw-bold" style="font-size: 12.5px; color: #38BDF8;">MNI152 Standard Atlas</span>
+          <span class="badge bg-primary text-white" id="nvSiteCountBadge">173 Sites</span>
+        </div>
+        <div class="text-secondary small" style="color: #94A3B8 !important; font-size: 11px;" id="hudHoverInfo">
+          Hover over contacts or click to inspect clinical parameters.
+        </div>
+      </div>
+
+      <!-- HUD Top Right: Controls (Hemispheres, Opacity, Site Size, Subcortical) -->
+      <div class="hud-panel hud-top-right">
+        <!-- Cortex Opacity -->
+        <div class="mb-2">
+          <label class="d-flex justify-content-between text-uppercase small mb-1" style="font-size: 10px; letter-spacing: 0.05em; color: #CBD5E1;">
+            <span>Cortex Opacity</span>
+            <span id="opacityLabel">35%</span>
+          </label>
+          <input type="range" class="form-range form-range-sm" id="sliderOpacity" min="0.05" max="0.9" step="0.05" value="0.35" style="height: 5px;">
+        </div>
+
+        <!-- Stimulation Site Size Slider -->
+        <div class="mb-2">
+          <label class="d-flex justify-content-between text-uppercase small mb-1" style="font-size: 10px; letter-spacing: 0.05em; color: #CBD5E1;">
+            <span>Site Sphere Size</span>
+            <span id="siteSizeLabel">1.5 mm</span>
+          </label>
+          <input type="range" class="form-range form-range-sm" id="sliderSiteSize" min="0.6" max="3.5" step="0.1" value="1.5" style="height: 5px;">
+        </div>
+
+        <!-- Hemisphere Peeling -->
+        <div class="mb-2">
+          <label class="text-uppercase small d-block mb-1" style="font-size: 10px; letter-spacing: 0.05em; color: #CBD5E1;">Hemisphere</label>
+          <div class="btn-group btn-group-sm w-100" role="group">
+            <button type="button" class="btn btn-dark active" id="btnHemiBoth" style="font-size: 11px; padding: 2px 6px;">Both</button>
+            <button type="button" class="btn btn-dark" id="btnHemiLeft" style="font-size: 11px; padding: 2px 6px;">Left</button>
+            <button type="button" class="btn btn-dark" id="btnHemiRight" style="font-size: 11px; padding: 2px 6px;">Right</button>
+          </div>
+        </div>
+
+        <!-- Subcortical Structures Toggle -->
+        <div class="form-check form-switch pt-1 border-top" style="border-color: rgba(255,255,255,0.12) !important;">
+          <input class="form-check-input" type="checkbox" role="switch" id="toggleSubcortical" checked style="cursor: pointer;">
+          <label class="form-check-label text-uppercase small" for="toggleSubcortical" style="font-size: 10px; letter-spacing: 0.04em; color: #CBD5E1; cursor: pointer;">
+            Subcortical Cores
+          </label>
+        </div>
+      </div>
+
+      <!-- HUD Bottom Bar: Camera Presets -->
+      <div class="hud-panel hud-bottom-bar">
+        <span class="me-1 text-uppercase" style="font-size: 10px; color: #94A3B8; letter-spacing: 0.05em;">View Angle:</span>
+        <button type="button" class="active" id="btnViewIso">Isometric</button>
+        <button type="button" id="btnViewAnt">Anterior</button>
+        <button type="button" id="btnViewPost">Posterior</button>
+        <button type="button" id="btnViewLeft">Left Lat</button>
+        <button type="button" id="btnViewRight">Right Lat</button>
+        <button type="button" id="btnViewSup">Superior</button>
+        <button type="button" id="btnViewInf">Inferior</button>
+      </div>
+
+    </div>
+
+    <!-- Quick Jump to Site -->
+    <div class="stimbank-card p-3 mt-3">
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
+        <div class="d-flex align-items-center gap-2">
+          <span class="small fw-semibold text-secondary">Jump to Specific Site:</span>
+          <select id="selectSiteJump" class="form-select form-select-sm" style="max-width: 320px;">
+            <option value="">Select a stimulation site to focus...</option>
+          </select>
+        </div>
+        <div class="d-flex align-items-center gap-3">
+          <div class="small text-secondary">
+            <strong>Active Legend:</strong>
+            <span class="ms-2"><span class="category-dot" style="background-color: #8B5CF6;"></span>Cognitive</span>
+            <span class="ms-2"><span class="category-dot" style="background-color: #2563EB;"></span>Motor</span>
+            <span class="ms-2"><span class="category-dot" style="background-color: #0284C7;"></span>Sensory</span>
+            <span class="ms-2"><span class="category-dot" style="background-color: #E11D48;"></span>Affective</span>
+            <span class="ms-2"><span class="category-dot" style="background-color: #059669;"></span>Autonomic</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Detailed Inspection Modal -->
+  <div class="modal fade" id="siteDetailModal" tabindex="-1" aria-labelledby="siteModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content border-0 shadow">
+        <div class="modal-header border-bottom" style="border-color: var(--border-subtle) !important; padding: 1rem 1.5rem;">
+          <div class="d-flex align-items-center gap-2">
+            <span class="cat-badge" id="modalCategoryBadge">
+              <span class="category-dot"></span>Domain
+            </span>
+            <h5 class="modal-title fw-bold mb-0" id="siteModalTitle">Stimulation Site Details</h5>
+          </div>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body" style="padding: 1.5rem;">
+          <div class="row g-3 mb-3">
+            <div class="col-md-6">
+              <span class="text-secondary small text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">Anatomical Target</span>
+              <h5 class="fw-bold text-dark mb-0" id="modalRegion">Region</h5>
+            </div>
+            <div class="col-md-6">
+              <span class="text-secondary small text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">Stereotaxic Coordinates (MNI152)</span>
+              <h5 class="font-monospace fw-bold text-dark mb-0" id="modalMni">X: 0, Y: 0, Z: 0 mm</h5>
+            </div>
+          </div>
+
+          <div class="p-3 border rounded mb-3" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <span class="text-secondary small text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">Evoked Phenomenological Response</span>
+            <h6 class="fw-bold text-dark mb-1" id="modalSubdomain">Sub-domain</h6>
+            <p class="small text-secondary mb-0" id="modalRawDescription" style="line-height: 1.5;">Description of evoked response</p>
+          </div>
+
+          <div class="row g-3 mb-3">
+            <div class="col-md-4">
+              <span class="text-secondary small text-uppercase d-block" style="font-size: 0.72rem; letter-spacing: 0.05em;">Patient Demographics</span>
+              <strong class="text-dark small" id="modalPatientInfo">Age, Sex</strong>
+            </div>
+            <div class="col-md-4">
+              <span class="text-secondary small text-uppercase d-block" style="font-size: 0.72rem; letter-spacing: 0.05em;">Clinical Pathology</span>
+              <strong class="text-dark small" id="modalPathology">Pathology</strong>
+            </div>
+            <div class="col-md-4">
+              <span class="text-secondary small text-uppercase d-block" style="font-size: 0.72rem; letter-spacing: 0.05em;">EBS Modality</span>
+              <strong class="text-dark small" id="modalProcedure">Procedure</strong>
+            </div>
+          </div>
+
+          <hr style="border-color: var(--border-subtle);">
+
+          <span class="text-secondary small text-uppercase d-block mb-2" style="font-size: 0.72rem; letter-spacing: 0.05em;">Research Publication Reference</span>
+          <div class="p-3 border rounded" style="background-color: var(--surface-card); border-color: var(--border-subtle) !important;">
+            <h6 class="fw-bold mb-1" id="modalPaperTitle">Article Title</h6>
+            <p class="small text-secondary mb-1" id="modalPaperAuthors">Authors</p>
+            <div class="small text-secondary mb-2" id="modalPaperJournal">Journal (Year) &bull; Country</div>
+            <a href="#" target="_blank" class="small fw-semibold" id="modalPaperLink">
+              View DOI &rarr;
+            </a>
+          </div>
+        </div>
+        <div class="modal-footer border-top" style="border-color: var(--border-subtle) !important; padding: 0.75rem 1.5rem;">
+          <button type="button" class="btn-stimbank-secondary btn-stimbank-sm" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="stimbank-footer mt-5">
+    <div class="container px-4">
+      <div class="row gy-4 align-items-center">
+        <div class="col-md-7">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+          </div>
+          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
+            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
+          </p>
+        </div>
+        <div class="col-md-5 text-md-end">
+          <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
+          <ul class="list-inline small mb-0 d-flex flex-wrap justify-content-md-end gap-3">
+            <li class="list-inline-item"><a href="explorer.html">Database</a></li>
+            <li class="list-inline-item"><a href="viewer.html">3D Brain Viewer</a></li>
+            <li class="list-inline-item"><a href="methods.html">Methods</a></li>
+            <li class="list-inline-item"><a href="importer.html">Upload Data</a></li>
+            <li class="list-inline-item"><a href="team.html">Team</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load Dataset & Anatomical Brain Mesh -->
+  <script src="data/ebs_dataset.js"></script>
+  <script src="static/models/fsaverage5_pial.js"></script>
+  <script src="static/js/mni_brain_mesh.js"></script>
+
+  <!-- 3D Brain Viewer Engine Script -->
+  <script>
+    class StimBank3DViewer {
+      constructor(containerId) {
+        this.container = document.getElementById(containerId);
+        this.sites = [];
+        this.filteredSites = [];
+        this.siteMeshes = [];
+        this.hoveredMesh = null;
+        this.siteRadius = 1.5; // Sleek, small pinpoint contact default
+
+        this.categoryColors = {
+          "Sensory & Perceptual": 0x0284C7,
+          "Affective": 0xE11D48,
+          "Autonomic": 0x059669,
+          "Cognitive & Language": 0x8B5CF6,
+          "Motor": 0x2563EB
+        };
+
+        this.initThree();
+        this.initLights();
+        this.initBrainMesh();
+        this.initRaycaster();
+        this.initEvents();
+        this.animate();
+      }
+
+      initThree() {
+        this.width = this.container.clientWidth || 1000;
+        this.height = this.container.clientHeight || 720;
+
+        this.scene = new THREE.Scene();
+        this.camera = new THREE.PerspectiveCamera(45, this.width / this.height, 1, 2000);
+        // Bigger brain in view: closer camera position
+        this.camera.position.set(0, 65, 185);
+
+        this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        this.renderer.setSize(this.width, this.height);
+        this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        this.renderer.toneMapping = THREE.ACESFilmicToneMapping;
+        this.renderer.toneMappingExposure = 1.15;
+        this.container.appendChild(this.renderer.domElement);
+
+        this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
+        this.controls.enableDamping = true;
+        this.controls.dampingFactor = 0.06;
+        this.controls.minDistance = 35;
+        this.controls.maxDistance = 450;
+        this.controls.target.set(0, 8, 0);
+      }
+
+      initLights() {
+        const ambLight = new THREE.AmbientLight(0xFFFFFF, 0.95);
+        this.scene.add(ambLight);
+
+        const dirLight1 = new THREE.DirectionalLight(0xFFFFFF, 0.95);
+        dirLight1.position.set(120, 160, 150);
+        this.scene.add(dirLight1);
+
+        const dirLight2 = new THREE.DirectionalLight(0x93C5FD, 0.6);
+        dirLight2.position.set(-150, -80, -120);
+        this.scene.add(dirLight2);
+
+        const dirLight3 = new THREE.DirectionalLight(0xFFFFFF, 0.4);
+        dirLight3.position.set(0, -100, 50);
+        this.scene.add(dirLight3);
+      }
+
+      initBrainMesh() {
+        this.brain = window.MNIBrainMeshBuilder.createHemispheres({ opacity: 0.35 });
+        this.scene.add(this.brain.group);
+
+        this.sitesGroup = new THREE.Group();
+        this.scene.add(this.sitesGroup);
+      }
+
+      initRaycaster() {
+        this.raycaster = new THREE.Raycaster();
+        this.mouse = new THREE.Vector2();
+        this.tooltip = document.getElementById('brainTooltip');
+      }
+
+      setSites(sites) {
+        this.sites = sites;
+        this.filteredSites = [...sites];
+        this.rebuildSites();
+      }
+
+      setSiteRadius(rad) {
+        this.siteRadius = rad;
+        this.rebuildSites();
+      }
+
+      rebuildSites() {
+        while (this.sitesGroup.children.length > 0) {
+          const m = this.sitesGroup.children[0];
+          if (m.geometry) m.geometry.dispose();
+          if (m.material) m.material.dispose();
+          this.sitesGroup.remove(m);
+        }
+        this.siteMeshes = [];
+
+        const geom = new THREE.SphereGeometry(this.siteRadius, 18, 14);
+
+        this.filteredSites.forEach(s => {
+          const col = this.categoryColors[s.category] || 0x0284C7;
+          const mat = new THREE.MeshStandardMaterial({
+            color: col,
+            roughness: 0.2,
+            metalness: 0.15,
+            emissive: col,
+            emissiveIntensity: 0.25
+          });
+
+          const mesh = new THREE.Mesh(geom, mat);
+          const pos = window.MNIBrainMeshBuilder.mniToThree(s.mni[0], s.mni[1], s.mni[2]);
+          mesh.position.copy(pos);
+          mesh.userData = { site: s, baseColor: col };
+
+          this.sitesGroup.add(mesh);
+          this.siteMeshes.push(mesh);
+        });
+
+        document.getElementById('nvSiteCountBadge').innerText = `${this.filteredSites.length} / ${this.sites.length} Sites`;
+      }
+
+      filterSites(filterFn) {
+        this.filteredSites = this.sites.filter(filterFn);
+        this.rebuildSites();
+      }
+
+      setOpacity(val) {
+        if (!this.brain) return;
+        this.brain.materials.forEach(mat => {
+          mat.opacity = val;
+        });
+        if (this.brain.subMaterials) {
+          this.brain.subMaterials.forEach(m => {
+            m.opacity = Math.min(0.9, val * 1.6);
+          });
+        }
+      }
+
+      setHemisphere(mode) {
+        if (!this.brain) return;
+        if (mode === 'both') {
+          this.brain.leftMesh.visible = true;
+          this.brain.rightMesh.visible = true;
+        } else if (mode === 'left') {
+          this.brain.leftMesh.visible = true;
+          this.brain.rightMesh.visible = false;
+        } else if (mode === 'right') {
+          this.brain.leftMesh.visible = false;
+          this.brain.rightMesh.visible = true;
+        }
+      }
+
+      setSubcorticalVisible(visible) {
+        if (!this.brain || !this.brain.subcorticalGroup) return;
+        this.brain.subcorticalGroup.visible = visible;
+      }
+
+      setCameraView(angle) {
+        const dist = 185; // Focused, large brain distance
+        this.controls.target.set(0, 8, 0);
+
+        if (angle === 'iso') {
+          this.camera.position.set(0, 65, 185);
+        } else if (angle === 'anterior') {
+          this.camera.position.set(0, 8, -dist);
+        } else if (angle === 'posterior') {
+          this.camera.position.set(0, 8, dist);
+        } else if (angle === 'left') {
+          this.camera.position.set(-dist, 8, 0);
+        } else if (angle === 'right') {
+          this.camera.position.set(dist, 8, 0);
+        } else if (angle === 'superior') {
+          this.camera.position.set(0, dist + 25, 0.1);
+        } else if (angle === 'inferior') {
+          this.camera.position.set(0, -(dist + 25), 0.1);
+        }
+        this.controls.update();
+      }
+
+      focusSite(siteId) {
+        const found = this.siteMeshes.find(m => m.userData.site.id === siteId);
+        if (found) {
+          this.siteMeshes.forEach(m => {
+            m.scale.set(1.0, 1.0, 1.0);
+            m.material.emissiveIntensity = 0.25;
+          });
+          found.scale.set(2.6, 2.6, 2.6);
+          found.material.emissiveIntensity = 0.9;
+          this.controls.target.copy(found.position);
+          this.controls.update();
+        }
+      }
+
+      initEvents() {
+        window.addEventListener('resize', () => {
+          this.width = this.container.clientWidth;
+          this.height = this.container.clientHeight;
+          this.camera.aspect = this.width / this.height;
+          this.camera.updateProjectionMatrix();
+          this.renderer.setSize(this.width, this.height);
+        });
+
+        // Hover & Click interaction
+        this.container.addEventListener('mousemove', (e) => {
+          const rect = this.container.getBoundingClientRect();
+          this.mouse.x = ((e.clientX - rect.left) / this.width) * 2 - 1;
+          this.mouse.y = -((e.clientY - rect.top) / this.height) * 2 + 1;
+
+          this.raycaster.setFromCamera(this.mouse, this.camera);
+          const intersects = this.raycaster.intersectObjects(this.siteMeshes);
+
+          if (intersects.length > 0) {
+            const hit = intersects[0].object;
+            const site = hit.userData.site;
+            this.container.style.cursor = 'pointer';
+
+            this.tooltip.style.display = 'block';
+            this.tooltip.style.left = `${e.clientX - rect.left + 15}px`;
+            this.tooltip.style.top = `${e.clientY - rect.top + 15}px`;
+            this.tooltip.innerHTML = `
+              <div class="fw-bold" style="color: #38BDF8;">${site.id} &bull; ${site.category}</div>
+              <div class="fw-semibold text-white">${site.subcategory || site.effect}</div>
+              <div class="text-secondary small mt-1" style="color: #CBD5E1 !important;">
+                ${site.region}<br>
+                <span class="font-monospace">MNI: [${site.mni.join(', ')}]</span>
+              </div>
+            `;
+          } else {
+            this.container.style.cursor = 'grab';
+            this.tooltip.style.display = 'none';
+          }
+        });
+
+        this.container.addEventListener('click', (e) => {
+          const rect = this.container.getBoundingClientRect();
+          this.mouse.x = ((e.clientX - rect.left) / this.width) * 2 - 1;
+          this.mouse.y = -((e.clientY - rect.top) / this.height) * 2 + 1;
+
+          this.raycaster.setFromCamera(this.mouse, this.camera);
+          const intersects = this.raycaster.intersectObjects(this.siteMeshes);
+
+          if (intersects.length > 0) {
+            const site = intersects[0].object.userData.site;
+            openDetailModal(site);
+          }
+        });
+      }
+
+      animate() {
+        requestAnimationFrame(() => this.animate());
+        if (this.controls) this.controls.update();
+        this.renderer.render(this.scene, this.camera);
+      }
+    }
+
+    let viewer = null;
+    let allSites = [];
+
+    function openDetailModal(site) {
+      document.getElementById('siteModalTitle').innerText = `Stimulation Site ${site.id}`;
+      document.getElementById('modalRegion').innerText = `${site.region} (${site.hemisphere === 'L' ? 'Left' : 'Right'} Hemisphere)`;
+      document.getElementById('modalMni').innerText = `X: ${site.mni[0]}, Y: ${site.mni[1]}, Z: ${site.mni[2]} mm`;
+      document.getElementById('modalSubdomain').innerText = site.subcategory || site.effect;
+      document.getElementById('modalPatientInfo').innerText = site.patient_display || `${site.patient_age || 35} yrs, ${site.patient_sex || 'N/A'}`;
+      document.getElementById('modalRawDescription').innerText = site.raw_description || site.effect;
+      
+      const colMap = {
+        "Sensory & Perceptual": "#0284C7",
+        "Affective": "#E11D48",
+        "Autonomic": "#059669",
+        "Cognitive & Language": "#8B5CF6",
+        "Motor": "#2563EB"
+      };
+      const catBadge = document.getElementById('modalCategoryBadge');
+      catBadge.innerHTML = `<span class="category-dot" style="background-color: ${colMap[site.category] || '#0284C7'};"></span>${site.category}`;
+
+      document.getElementById('modalPathology').innerText = site.pathology || 'N/A';
+      document.getElementById('modalProcedure').innerText = site.procedure || 'Intracranial EBS';
+
+      if (site.publication) {
+        document.getElementById('modalPaperTitle').innerText = site.publication.title || 'Published Study';
+        document.getElementById('modalPaperAuthors').innerText = site.publication.authors || 'Research Consortium';
+        document.getElementById('modalPaperJournal').innerText = `${site.publication.journal || 'Journal'} (${site.publication.year || 2024}) &bull; ${site.publication.country || 'Global'}`;
+        const doiLink = document.getElementById('modalPaperLink');
+        if (doiLink) {
+          doiLink.href = site.publication.doi ? `https://doi.org/${site.publication.doi}` : '#';
+          doiLink.innerText = site.publication.doi ? `DOI: ${site.publication.doi} ↗` : 'Reference Archive';
+        }
+      }
+
+      const modal = new bootstrap.Modal(document.getElementById('siteDetailModal'));
+      modal.show();
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const data = window.EBS_DATASET;
+      if (!data) return;
+
+      allSites = data.sites;
+      viewer = new StimBank3DViewer('brainCanvas');
+      viewer.setSites(allSites);
+
+      // Populate Jump Select
+      const jumpSelect = document.getElementById('selectSiteJump');
+      allSites.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerText = `${s.id} — ${s.region} (${s.subcategory || s.effect})`;
+        jumpSelect.appendChild(opt);
+      });
+      jumpSelect.addEventListener('change', (e) => {
+        if (e.target.value) {
+          viewer.focusSite(e.target.value);
+          const found = allSites.find(s => s.id === e.target.value);
+          if (found) openDetailModal(found);
+        }
+      });
+
+      // Populate Filters
+      const procSelect = document.getElementById('filterProcedure');
+      [...new Set(allSites.map(s => s.procedure).filter(Boolean))].sort().forEach(p => {
+        const opt = document.createElement('option');
+        opt.value = p; opt.innerText = p;
+        procSelect.appendChild(opt);
+      });
+
+      const regSelect = document.getElementById('filterRegion');
+      [...new Set(allSites.map(s => s.region).filter(Boolean))].sort().forEach(r => {
+        const opt = document.createElement('option');
+        opt.value = r; opt.innerText = r;
+        regSelect.appendChild(opt);
+      });
+
+      function updateSubCats(domain) {
+        const subSelect = document.getElementById('filterSubCategory');
+        subSelect.innerHTML = '<option value="">All Sub-Domains</option>';
+        const relevant = domain ? allSites.filter(s => s.category === domain) : allSites;
+        [...new Set(relevant.map(s => s.subcategory || s.effect).filter(Boolean))].sort().forEach(sub => {
+          const opt = document.createElement('option');
+          opt.value = sub; opt.innerText = sub;
+          subSelect.appendChild(opt);
+        });
+      }
+      updateSubCats('');
+
+      function applyFilters() {
+        const cat = document.getElementById('filterCategory').value;
+        const sub = document.getElementById('filterSubCategory').value;
+        const proc = document.getElementById('filterProcedure').value;
+        const reg = document.getElementById('filterRegion').value;
+
+        viewer.filterSites(s => {
+          if (cat && s.category !== cat) return false;
+          if (sub && (s.subcategory || s.effect) !== sub) return false;
+          if (proc && s.procedure !== proc) return false;
+          if (reg && s.region !== reg) return false;
+          return true;
+        });
+      }
+
+      document.getElementById('filterCategory').addEventListener('change', (e) => {
+        updateSubCats(e.target.value);
+        document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(btn => {
+          btn.classList.toggle('active', btn.getAttribute('data-cat') === e.target.value);
+        });
+        applyFilters();
+      });
+      document.getElementById('filterSubCategory').addEventListener('change', applyFilters);
+      document.getElementById('filterProcedure').addEventListener('change', applyFilters);
+      document.getElementById('filterRegion').addEventListener('change', applyFilters);
+
+      // Pill filters
+      document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(btn => {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const cat = btn.getAttribute('data-cat');
+          document.getElementById('filterCategory').value = cat;
+          updateSubCats(cat);
+          applyFilters();
+        });
+      });
+
+      // Reset All
+      document.getElementById('btnResetAllFilters').addEventListener('click', () => {
+        document.getElementById('filterCategory').value = '';
+        document.getElementById('filterSubCategory').value = '';
+        document.getElementById('filterProcedure').value = '';
+        document.getElementById('filterRegion').value = '';
+        document.getElementById('mniSearchX').value = '';
+        document.getElementById('mniSearchY').value = '';
+        document.getElementById('mniSearchZ').value = '';
+        updateSubCats('');
+        document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-cat') === '');
+        });
+        viewer.setSites(allSites);
+      });
+
+      // MNI Nearest Search
+      document.getElementById('btnSearchMni').addEventListener('click', () => {
+        const x = parseFloat(document.getElementById('mniSearchX').value);
+        const y = parseFloat(document.getElementById('mniSearchY').value);
+        const z = parseFloat(document.getElementById('mniSearchZ').value);
+
+        if (isNaN(x) || isNaN(y) || isNaN(z)) {
+          alert('Please enter valid numeric coordinates for X, Y, and Z.');
+          return;
+        }
+
+        const sorted = [...allSites].map(s => {
+          const dist = Math.hypot(s.mni[0] - x, s.mni[1] - y, s.mni[2] - z);
+          return { site: s, dist: dist };
+        }).sort((a, b) => a.dist - b.dist);
+
+        const nearest50 = sorted.slice(0, 50).map(item => item.site);
+        viewer.filterSites(s => nearest50.some(n => n.id === s.id));
+      });
+
+      // Opacity Slider
+      const opSlider = document.getElementById('sliderOpacity');
+      const opLabel = document.getElementById('opacityLabel');
+      opSlider.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        opLabel.innerText = `${Math.round(val * 100)}%`;
+        viewer.setOpacity(val);
+      });
+
+      // Contact Sphere Size Slider
+      const sizeSlider = document.getElementById('sliderSiteSize');
+      const sizeLabel = document.getElementById('siteSizeLabel');
+      sizeSlider.addEventListener('input', (e) => {
+        const val = parseFloat(e.target.value);
+        sizeLabel.innerText = `${val.toFixed(1)} mm`;
+        viewer.setSiteRadius(val);
+      });
+
+      // Subcortical Toggle
+      const subToggle = document.getElementById('toggleSubcortical');
+      subToggle.addEventListener('change', (e) => {
+        viewer.setSubcorticalVisible(e.target.checked);
+      });
+
+      // Hemisphere buttons
+      ['btnHemiBoth', 'btnHemiLeft', 'btnHemiRight'].forEach(id => {
+        document.getElementById(id).addEventListener('click', (e) => {
+          ['btnHemiBoth', 'btnHemiLeft', 'btnHemiRight'].forEach(b => document.getElementById(b).classList.remove('active'));
+          e.target.classList.add('active');
+          const mode = id === 'btnHemiBoth' ? 'both' : (id === 'btnHemiLeft' ? 'left' : 'right');
+          viewer.setHemisphere(mode);
+        });
+      });
+
+      // Camera view buttons
+      const viewMap = {
+        'btnViewIso': 'iso',
+        'btnViewAnt': 'anterior',
+        'btnViewPost': 'posterior',
+        'btnViewLeft': 'left',
+        'btnViewRight': 'right',
+        'btnViewSup': 'superior',
+        'btnViewInf': 'inferior'
+      };
+      Object.keys(viewMap).forEach(id => {
+        document.getElementById(id).addEventListener('click', (e) => {
+          document.querySelectorAll('.hud-bottom-bar button').forEach(b => b.classList.remove('active'));
+          e.target.classList.add('active');
+          viewer.setCameraView(viewMap[id]);
+        });
+      });
+
+      document.getElementById('btnResetView').addEventListener('click', () => {
+        document.querySelectorAll('.hud-bottom-bar button').forEach(b => b.classList.remove('active'));
+        document.getElementById('btnViewIso').classList.add('active');
+        viewer.setCameraView('iso');
+      });
+
+      // URL parameters (category / site jump)
+      const urlParams = new URLSearchParams(window.location.search);
+      const urlCat = urlParams.get('category');
+      const urlSite = urlParams.get('site');
+
+      if (urlCat) {
+        document.getElementById('filterCategory').value = urlCat;
+        updateSubCats(urlCat);
+        document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(b => {
+          b.classList.toggle('active', b.getAttribute('data-cat') === urlCat);
+        });
+        applyFilters();
+      }
+
+      if (urlSite) {
+        setTimeout(() => {
+          jumpSelect.value = urlSite;
+          viewer.focusSite(urlSite);
+          const found = allSites.find(s => s.id === urlSite);
+          if (found) openDetailModal(found);
+        }, 300);
+      }
+    });
+  </script>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

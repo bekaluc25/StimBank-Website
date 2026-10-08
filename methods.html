@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StimBank - Scientific Methodology &amp; Clinical Protocols</title>
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- StimBank Custom Design System -->
+  <link rel="stylesheet" href="static/css/ebs_custom.css">
+</head>
+<body>
+
+  <!-- Navigation: Minimal horizontal navigation -->
+  <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
+    <div class="container px-4">
+      <a class="navbar-brand" href="index.html">
+        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo">
+        <span>Stim<b>Bank</b></span>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="explorer.html">Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="viewer.html">3D Brain Viewer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="methods.html">Methods</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="team.html">Team</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Header & Content: Wider Container with narrower side margins -->
+  <div class="container px-4 py-4" style="max-width: 1200px;">
+    <div class="mb-4">
+      <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.78rem;">
+        Scientific Rigor
+      </div>
+      <h1 class="fw-bold mb-2">Methodology &amp; Clinical Framework</h1>
+      <p class="lead text-secondary mb-0" style="font-size: 1.05rem; max-width: 900px;">
+        StimBank standardizes human intracranial electrical brain stimulation (EBS) data across neurosurgical modalities, anatomical references, and behavioral observations.
+      </p>
+    </div>
+
+    <!-- Section 1: Stereotaxic Normalization -->
+    <div class="stimbank-card p-4 mb-4">
+      <h3 class="fw-bold mb-2">Stereotaxic Coordinate Normalization</h3>
+      <p class="small text-secondary mb-3">
+        Every stimulation contact site archived in StimBank is mapped to standard stereotaxic coordinate space (Montreal Neurological Institute, <strong>MNI152 nonlinear 6th-generation asymmetric template</strong>). 
+      </p>
+      <div class="row g-3">
+        <div class="col-md-4">
+          <div class="p-3 border rounded text-center h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="fw-bold fs-5 text-dark font-monospace mb-1">X-Axis</div>
+            <div class="small text-secondary">Left (&minus;) to Right (+)</div>
+            <div class="small text-muted mt-1">&minus;78 mm to +78 mm</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 border rounded text-center h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="fw-bold fs-5 text-dark font-monospace mb-1">Y-Axis</div>
+            <div class="small text-secondary">Posterior (&minus;) to Anterior (+)</div>
+            <div class="small text-muted mt-1">&minus;112 mm to +72 mm</div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="p-3 border rounded text-center h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="fw-bold fs-5 text-dark font-monospace mb-1">Z-Axis</div>
+            <div class="small text-secondary">Inferior (&minus;) to Superior (+)</div>
+            <div class="small text-muted mt-1">&minus;50 mm to +84 mm</div>
+          </div>
+        </div>
+      </div>
+      <p class="small text-secondary mt-3 mb-0">
+        Coordinates published in Talairach stereotaxic space are converted using the Lancaster transformation (<a href="https://doi.org/10.1002/hbm.20345" target="_blank" class="text-decoration-underline">Lancaster et al., 2007</a>) to ensure rigorous spatial congruence.
+      </p>
+    </div>
+
+    <!-- Section 2: Stimulation Modalities -->
+    <div class="stimbank-card p-4 mb-4">
+      <h3 class="fw-bold mb-3">Intracranial Electrical Stimulation Modalities</h3>
+      <div class="row g-3">
+        <div class="col-md-6 col-lg-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Stereo-EEG (sEEG)</h5>
+            <p class="small text-secondary mb-0">
+              Multicontact intracerebral depth electrodes (0.8 mm diameter with 5–18 platinum contacts) implanted stereotaxically. Bipolar stimulation is applied between adjacent contact pairs (50 Hz, 0.5 ms, 0.5–4.0 mA) to map functional eloquence.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Subdural ECoG</h5>
+            <p class="small text-secondary mb-0">
+              Silastic grids and strips placed directly on the cortical pial surface after craniotomy. Electrodes (2.3 mm exposed surface, 10 mm spacing) provide high spatial resolution extraoperative functional mapping over lateral cortex.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Intraoperative DES</h5>
+            <p class="small text-secondary mb-0">
+              Direct electrical stimulation during awake craniotomy for brain tumor (e.g. glioma) resection. A bipolar probe (5 mm spacing) delivers biphasic square pulses (60 Hz, 1 ms, 1.5–5.0 mA) to map safe functional boundaries.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Deep Brain Stimulation</h5>
+            <p class="small text-secondary mb-0">
+              Chronic high-frequency electrical pulses (130–180 Hz, 60–90 &mu;s, 1.5–4.5 mA) delivered through permanently implanted leads targeted at subcortical nuclei (STN, VIM, GPi, Area 25).
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Section 3: 5 Core Categories of Phenomena Taxonomy -->
+    <div class="stimbank-card p-4 mb-4">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <h3 class="fw-bold mb-0">The 5 Categories of Phenomena</h3>
+        <span class="badge bg-light text-dark border">Consensus Taxonomy</span>
+      </div>
+      <p class="small text-secondary mb-3">
+        Evoked behavioral, sensory, and subjective responses are organized into 5 standardized neurofunctional domains, each identified by a consistent color throughout the StimBank platform:
+      </p>
+
+      <div class="table-responsive">
+        <table class="table-stimbank small">
+          <thead>
+            <tr>
+              <th>Phenomenon Domain</th>
+              <th>Key Anatomical Hubs</th>
+              <th>Prototypical Clinical Responses</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                <span class="cat-badge cat-Sensory-Perceptual">
+                  <span class="category-dot"></span>Sensory &amp; Perceptual
+                </span>
+              </td>
+              <td>Postcentral gyrus (S1), Operculum (S2), Calcarine (V1), Lingual (V4), Fusiform Face Area (FFA), Heschl's gyrus (A1)</td>
+              <td>Paresthesias, limb tingling, thermal warmth, bright phosphenes, colored circles, facial metamorphopsia, pure acoustic tones, buzzing sounds</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cat-badge cat-Affective">
+                  <span class="category-dot"></span>Affective
+                </span>
+              </td>
+              <td>Basolateral amygdala, Anterior cingulate (ACC), Anterior midcingulate (aMCC), Subgenual cingulate (Area 25), Nucleus accumbens</td>
+              <td>Acute unmotivated fear/dread, mirthful uncontrollable laughter, 'will to persevere', rapid depression/dysphoria lifting, euphoria</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cat-badge cat-Autonomic">
+                  <span class="category-dot"></span>Autonomic
+                </span>
+              </td>
+              <td>Anterior insular cortex, Periaqueductal gray (PAG), Hypothalamus</td>
+              <td>Rising epigastric sensation, sinus tachycardia (+28 bpm), bilateral goosebumps (piloerection), vasomotor flushing</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cat-badge cat-Cognitive-Language">
+                  <span class="category-dot"></span>Cognitive &amp; Language
+                </span>
+              </td>
+              <td>Broca (Pars opercularis/triangularis), Wernicke, pMTG, VWFA, Hippocampus (CA1), Entorhinal cortex, DLPFC, TPJ</td>
+              <td>Speech arrest during counting, phonemic paraphasias, anomia, pure alexia, déjà vu, experiential childhood recall, working memory disruption</td>
+            </tr>
+            <tr>
+              <td>
+                <span class="cat-badge cat-Motor">
+                  <span class="category-dot"></span>Motor
+                </span>
+              </td>
+              <td>Precentral gyrus (Hand Knob), SMA, Frontal Eye Field (FEF), Subthalamic nucleus (STN), VIM Thalamus</td>
+              <td>Clonic twitching of fingers/thumb, tonic limb contraction, conjugate eye deviation, lip/tongue movement, tremor suppression</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Section 4: Research Distribution & Literature Diversity -->
+    <div class="stimbank-card p-4 mb-4">
+      <div class="d-flex align-items-center gap-2 mb-2">
+        <h3 class="fw-bold mb-0">Global Research Distribution &amp; Literature Diversity</h3>
+        <span class="badge bg-light text-dark border">Cross-Cohort Synthesis</span>
+      </div>
+      <p class="small text-secondary mb-3">
+        StimBank standardizes and synthesizes intracranial human electrical stimulation findings published across leading international neurosurgical centers, epilepsy monitoring units, and academic research institutions worldwide.
+      </p>
+
+      <!-- Diversity Highlights Grid -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Geographic Scope</div>
+            <div class="fs-5 fw-bold text-dark mb-1">International</div>
+            <div class="small text-secondary">Cohorts from North America (USA, Canada) &amp; Europe (France, Italy, Switzerland)</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Clinical Populations</div>
+            <div class="fs-5 fw-bold text-dark mb-1">Diverse Etiologies</div>
+            <div class="small text-secondary">Drug-resistant focal epilepsy, low/high-grade gliomas, vascular malformations</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Mapping Protocols</div>
+            <div class="fs-5 fw-bold text-dark mb-1">Multi-Modal EBS</div>
+            <div class="small text-secondary">Stereo-EEG depth leads, intraoperative DES probes, subdural cortical grids &amp; DBS</div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Standardization</div>
+            <div class="fs-5 fw-bold text-dark mb-1">100% MNI152</div>
+            <div class="small text-secondary">Harmonized stereotaxic alignment eliminating cross-institutional coordinate divergence</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Cohort & Institutional Distribution Breakdown -->
+      <div class="row g-3">
+        <div class="col-lg-6">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-card); border-color: var(--border-subtle) !important;">
+            <h5 class="fw-bold mb-2" style="font-size: 0.95rem;">Geographic &amp; Institutional Representation</h5>
+            <p class="small text-secondary mb-3">
+              Literature in StimBank spans landmark historical foundational series alongside contemporary stereo-EEG and intraoperative awake mapping publications:
+            </p>
+            <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
+              <li class="d-flex align-items-start gap-2">
+                <span class="badge bg-dark text-white mt-1" style="font-size: 0.7rem;">North America</span>
+                <div>
+                  <strong>United States &amp; Canada:</strong> Stanford University Medical Center, Montreal Neurological Institute (MNI), Hospital of the University of Pennsylvania.
+                </div>
+              </li>
+              <li class="d-flex align-items-start gap-2">
+                <span class="badge bg-secondary text-white mt-1" style="font-size: 0.7rem;">Europe</span>
+                <div>
+                  <strong>France, Italy &amp; Switzerland:</strong> AP-HM Timone Hospital (Marseille), Gui de Chauliac Hospital (Montpellier), Niguarda Hospital "Claudio Munari" Epilepsy Center (Milan), Geneva University Hospitals.
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="p-3 border rounded h-100" style="background-color: var(--surface-card); border-color: var(--border-subtle) !important;">
+            <h5 class="fw-bold mb-2" style="font-size: 0.95rem;">Pathology &amp; Surgical Context Coverage</h5>
+            <p class="small text-secondary mb-3">
+              Combining data across surgical contexts provides comprehensive causal mapping of both cortical surfaces and deep subcortical structures:
+            </p>
+            <div class="d-flex flex-column gap-2 small">
+              <div class="p-2 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+                <strong>Refractory Epilepsy Monitoring (sEEG &amp; ECoG):</strong> Deep insular, amygdalar, hippocampal, and cingulate stereotaxic mapping during pre-surgical evaluation.
+              </div>
+              <div class="p-2 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+                <strong>Awake Brain Tumor Resection (Intraoperative DES):</strong> Eloquent subcortical white matter pathway mapping and functional cortical boundaries across motor, speech, and associative networks.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-3 text-end">
+        <a href="team.html#contribute" class="small fw-semibold text-decoration-underline" style="color: var(--cat-sensory);">
+          Have data from another center or cohort? Submit a dataset contribution &rarr;
+        </a>
+      </div>
+    </div>
+
+    <div class="text-center pt-3">
+      <a href="importer.html" class="btn-stimbank-secondary btn-stimbank-sm me-2">Upload Data</a>
+      <a href="explorer.html" class="btn-stimbank-secondary btn-stimbank-sm me-2">Search Database</a>
+      <a href="viewer.html" class="btn-stimbank-primary btn-stimbank-sm">Explore 3D Brain</a>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="stimbank-footer mt-5">
+    <div class="container px-4">
+      <div class="row gy-4 align-items-center">
+        <div class="col-md-7">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+          </div>
+          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
+            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
+          </p>
+        </div>
+        <div class="col-md-5 text-md-end">
+          <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
+          <ul class="list-inline small mb-0 d-flex flex-wrap justify-content-md-end gap-3">
+            <li class="list-inline-item"><a href="explorer.html">Database</a></li>
+            <li class="list-inline-item"><a href="viewer.html">3D Brain Viewer</a></li>
+            <li class="list-inline-item"><a href="methods.html">Methods</a></li>
+            <li class="list-inline-item"><a href="importer.html">Upload Data</a></li>
+            <li class="list-inline-item"><a href="team.html">Team</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

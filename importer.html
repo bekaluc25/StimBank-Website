@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dataset Importer — StimBank</title>
+  <meta name="description" content="Import custom Excel (.xlsx) or CSV brain stimulation datasets into StimBank.">
+
+  <!-- Bootstrap 5 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- SheetJS for client-side Excel reading -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+
+  <!-- StimBank Central Design System Stylesheet -->
+  <link rel="stylesheet" href="static/css/ebs_custom.css">
+  <style>
+    .stimbank-dropzone {
+      border: 1.5px dashed var(--border-strong);
+      border-radius: 6px;
+      padding: 3rem 2rem;
+      text-align: center;
+      background-color: var(--surface-card);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .stimbank-dropzone:hover, .stimbank-dropzone.dragover {
+      background-color: var(--surface-muted);
+      border-color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation: Minimal horizontal navigation -->
+  <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
+    <div class="container px-4">
+      <a class="navbar-brand" href="index.html">
+        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo" >
+        <span>Stim<b>Bank</b></span>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item">
+            <a class="nav-link" href="explorer.html">Database</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="viewer.html">3D Brain Viewer</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="methods.html">Methods</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" href="importer.html">Upload Data</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="team.html">Team</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Main Container -->
+  <div class="container px-4 py-5" style="max-width: 900px; padding-top: 3.5rem !important;">
+    <div class="mb-4">
+      <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.78rem;">
+        Data Pipeline
+      </div>
+      <h1 class="display-6 fw-bold mb-2" style="letter-spacing: -0.02em;">Import Custom Dataset</h1>
+      <p class="lead text-secondary" style="font-size: 1rem;">
+        Load an Excel (<code>.xlsx</code>, <code>.xls</code>) or <code>.csv</code> spreadsheet containing 3D MNI coordinates and anatomical region labels to immediately render your data in the 3D MNI brain viewer and search table.
+      </p>
+    </div>
+
+    <!-- Drop Zone Card -->
+    <div class="stimbank-card p-4 mb-4">
+      <div class="stimbank-dropzone" id="dropZone">
+        <h5 class="fw-bold mb-1">Drag and drop your spreadsheet here</h5>
+        <p class="text-secondary small mb-3">Accepts .xlsx, .xls, or .csv files</p>
+        <input type="file" id="fileInput" accept=".xlsx, .xls, .csv" style="display: none;">
+        <button type="button" class="btn-stimbank-secondary btn-stimbank-sm" onclick="document.getElementById('fileInput').click()">
+          Browse Files
+        </button>
+      </div>
+
+      <div class="mt-3 text-center">
+        <button id="btnDownloadTemplate" class="btn btn-link text-decoration-none small text-secondary p-0">
+          Download sample spreadsheet template (.xlsx) &rarr;
+        </button>
+      </div>
+    </div>
+
+    <!-- Mapping Configuration Card (Hidden until file selected) -->
+    <div class="stimbank-card p-4 mb-4" id="mappingCard" style="display:none;">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h4 class="fw-bold mb-0">Column Mapping</h4>
+        <span class="small text-secondary" id="fileStatsBadge">Loaded 0 rows</span>
+      </div>
+      <p class="small text-secondary mb-3">
+        Confirm which columns in your spreadsheet match the StimBank data fields:
+      </p>
+
+      <div class="row g-3 mb-4">
+        <div class="col-md-4">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">MNI X Coordinate *</label>
+          <select class="form-select form-select-sm" id="mapX"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">MNI Y Coordinate *</label>
+          <select class="form-select form-select-sm" id="mapY"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">MNI Z Coordinate *</label>
+          <select class="form-select form-select-sm" id="mapZ"></select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">Anatomical Region *</label>
+          <select class="form-select form-select-sm" id="mapRegion"></select>
+        </div>
+        <div class="col-md-6">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">Evoked Effect / Response *</label>
+          <select class="form-select form-select-sm" id="mapEffect"></select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">Effect Category</label>
+          <select class="form-select form-select-sm" id="mapCategory"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">Pathology</label>
+          <select class="form-select form-select-sm" id="mapPathology"></select>
+        </div>
+        <div class="col-md-4">
+          <label class="small text-secondary mb-1 d-block" style="font-size: 0.76rem; text-transform: uppercase;">EBS Procedure</label>
+          <select class="form-select form-select-sm" id="mapProcedure"></select>
+        </div>
+      </div>
+
+      <!-- Preview Table -->
+      <span class="text-secondary small text-uppercase d-block mb-2" style="font-size: 0.72rem; letter-spacing: 0.05em;">Preview (First 5 Rows)</span>
+      <div class="table-responsive mb-4" style="max-height: 200px;">
+        <table class="table-stimbank small" id="previewTable"></table>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <button id="btnCancelImport" class="btn-stimbank-secondary btn-stimbank-sm">Cancel</button>
+        <button id="btnApplyImport" class="btn-stimbank-primary btn-stimbank-sm">
+          Load into 3D Viewer &amp; Explorer
+        </button>
+      </div>
+    </div>
+
+    <!-- Active Dataset Status Card -->
+    <div class="stimbank-card p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <div>
+          <span class="text-secondary small d-block" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.05em;">Active Dataset</span>
+          <strong class="text-dark small" id="activeDatasetLabel">Default Demo Corpus (135 sites across 22 publications)</strong>
+        </div>
+        <button id="btnResetToDefault" class="btn-stimbank-secondary btn-stimbank-sm" style="display:none;">
+          Reset to Default
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="stimbank-footer mt-5">
+    <div class="container px-4">
+      <div class="row gy-4">
+        <div class="col-md-6">
+          <div class="d-flex align-items-center gap-2 mb-2">
+            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 38px; width: auto; object-fit: contain;">
+          </div>
+          <p class="small text-secondary mb-0" style="max-width: 480px;">
+            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
+          </p>
+        </div>
+        <div class="col-md-3">
+          <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform</div>
+          <ul class="list-unstyled small mb-0 d-flex flex-column gap-1">
+            <li><a href="explorer.html">Database</a></li>
+            <li><a href="viewer.html">3D Brain Viewer</a></li>
+            <li><a href="methods.html">Methods</a></li>
+            <li><a href="importer.html">Upload Data</a></li>
+            <li><a href="team.html">Team</a></li>
+          </ul>
+        </div>
+        <div class="col-md-3">
+          <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Phenomena (5 Domains)</div>
+          <ul class="list-unstyled small mb-0 d-flex flex-column gap-1">
+            <li><span class="category-dot dot-Sensory-Perceptual"></span>Sensory &amp; Perceptual</li>
+            <li><span class="category-dot dot-Affective"></span>Affective</li>
+            <li><span class="category-dot dot-Autonomic"></span>Autonomic</li>
+            <li><span class="category-dot dot-Cognitive-Language"></span>Cognitive &amp; Language</li>
+            <li><span class="category-dot dot-Motor"></span>Motor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Load Dataset Script -->
+  <script src="data/ebs_dataset.js"></script>
+
+  <script>
+    let rawWorkbook = null;
+    let parsedRows = [];
+    let headers = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const customData = localStorage.getItem('CUSTOM_EBS_DATASET');
+      if (customData) {
+        try {
+          const parsed = JSON.parse(customData);
+          document.getElementById('activeDatasetLabel').innerText = `Custom Dataset: ${parsed.sites.length} sites loaded`;
+          document.getElementById('btnResetToDefault').style.display = 'inline-block';
+        } catch(e) {}
+      }
+
+      document.getElementById('btnResetToDefault').addEventListener('click', () => {
+        localStorage.removeItem('CUSTOM_EBS_DATASET');
+        alert('Reset to default StimBank dataset. Redirecting to home...');
+        window.location.href = 'index.html';
+      });
+
+      const dropZone = document.getElementById('dropZone');
+      const fileInput = document.getElementById('fileInput');
+
+      dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+      });
+
+      dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+
+      dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        if (e.dataTransfer.files.length) {
+          processFile(e.dataTransfer.files[0]);
+        }
+      });
+
+      fileInput.addEventListener('change', (e) => {
+        if (e.target.files.length) {
+          processFile(e.target.files[0]);
+        }
+      });
+
+      function processFile(file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const data = new Uint8Array(e.target.result);
+          rawWorkbook = XLSX.read(data, { type: 'array' });
+          
+          const firstSheetName = rawWorkbook.SheetNames[0];
+          const worksheet = rawWorkbook.Sheets[firstSheetName];
+          parsedRows = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
+
+          if (parsedRows.length === 0) {
+            alert("No rows found in sheet!");
+            return;
+          }
+
+          headers = Object.keys(parsedRows[0]);
+          showMappingInterface(file.name);
+        };
+        reader.readAsArrayBuffer(file);
+      }
+
+      function showMappingInterface(fileName) {
+        document.getElementById('mappingCard').style.display = 'block';
+        document.getElementById('fileStatsBadge').innerText = `${fileName}: ${parsedRows.length} rows`;
+
+        const selects = ['mapX', 'mapY', 'mapZ', 'mapRegion', 'mapEffect', 'mapCategory', 'mapPathology', 'mapProcedure'];
+        selects.forEach(id => {
+          const sel = document.getElementById(id);
+          sel.innerHTML = '<option value="">-- Choose Column --</option>';
+          headers.forEach(h => {
+            const opt = document.createElement('option');
+            opt.value = h;
+            opt.innerText = h;
+            sel.appendChild(opt);
+          });
+        });
+
+        headers.forEach(h => {
+          const low = h.toLowerCase();
+          if (low === 'x' || low.includes('mni_x') || low.includes('coord_x')) document.getElementById('mapX').value = h;
+          if (low === 'y' || low.includes('mni_y') || low.includes('coord_y')) document.getElementById('mapY').value = h;
+          if (low === 'z' || low.includes('mni_z') || low.includes('coord_z')) document.getElementById('mapZ').value = h;
+          if (low.includes('region') || low.includes('label') || low.includes('anat')) document.getElementById('mapRegion').value = h;
+          if (low.includes('effect') || low.includes('response') || low.includes('symptom')) document.getElementById('mapEffect').value = h;
+          if (low.includes('cat')) document.getElementById('mapCategory').value = h;
+          if (low.includes('path') || low.includes('etiology') || low.includes('dx')) document.getElementById('mapPathology').value = h;
+          if (low.includes('proc') || low.includes('elect') || low.includes('type')) document.getElementById('mapProcedure').value = h;
+        });
+
+        const table = document.getElementById('previewTable');
+        table.innerHTML = '';
+        const thead = document.createElement('thead');
+        thead.innerHTML = `<tr>${headers.map(h => `<th>${h}</th>`).join('')}</tr>`;
+        table.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+        parsedRows.slice(0, 5).forEach(row => {
+          const tr = document.createElement('tr');
+          tr.innerHTML = headers.map(h => `<td>${row[h]}</td>`).join('');
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+      }
+
+      document.getElementById('btnApplyImport').addEventListener('click', () => {
+        const colX = document.getElementById('mapX').value;
+        const colY = document.getElementById('mapY').value;
+        const colZ = document.getElementById('mapZ').value;
+        const colReg = document.getElementById('mapRegion').value;
+        const colEff = document.getElementById('mapEffect').value;
+        const colCat = document.getElementById('mapCategory').value;
+        const colPath = document.getElementById('mapPathology').value;
+        const colProc = document.getElementById('mapProcedure').value;
+
+        if (!colX || !colY || !colZ || !colReg || !colEff) {
+          alert('Please map at least X, Y, Z, Anatomical Region, and Evoked Effect.');
+          return;
+        }
+
+        const newSites = parsedRows.map((row, idx) => {
+          const x = parseFloat(row[colX]) || 0;
+          const y = parseFloat(row[colY]) || 0;
+          const z = parseFloat(row[colZ]) || 0;
+          return {
+            id: `CUSTOM_${idx + 1}`,
+            region: String(row[colReg] || 'Unknown Region'),
+            hemisphere: x < 0 ? 'L' : 'R',
+            mni: [x, y, z],
+            category: colCat && row[colCat] ? String(row[colCat]) : 'Motor',
+            effect: String(row[colEff] || 'Stimulation response'),
+            pathology: colPath && row[colPath] ? String(row[colPath]) : 'Clinical Case',
+            procedure: colProc && row[colProc] ? String(row[colProc]) : 'Intracranial EBS',
+            frequency_hz: 50,
+            current_ma: 2.0,
+            pulse_width_ms: 0.5,
+            bipolar: true,
+            pub_id: 'CUSTOM_PUB',
+            publication: {
+              authors: 'User Uploaded Dataset',
+              year: 2026,
+              title: 'Custom Stimulation Dataset',
+              journal: 'Custom Import',
+              country: 'Local',
+              doi: '',
+              pmid: ''
+            }
+          };
+        });
+
+        const customDataset = {
+          name: 'User Uploaded Custom Dataset',
+          total_sites: newSites.length,
+          publications: [{
+            id: 'CUSTOM_PUB',
+            authors: 'User Dataset',
+            year: 2026,
+            title: 'Custom Stimulation Dataset',
+            journal: 'Imported',
+            country: 'Custom',
+            procedure_type: 'EBS'
+          }],
+          sites: newSites
+        };
+
+        localStorage.setItem('CUSTOM_EBS_DATASET', JSON.stringify(customDataset));
+        alert(`Successfully imported ${newSites.length} stimulation sites! Redirecting to 3D MNI Brain Viewer...`);
+        window.location.href = 'viewer.html';
+      });
+
+      document.getElementById('btnCancelImport').addEventListener('click', () => {
+        document.getElementById('mappingCard').style.display = 'none';
+      });
+
+      document.getElementById('btnDownloadTemplate').addEventListener('click', () => {
+        const sampleRows = [
+          { MNI_X: -38, MNI_Y: -22, MNI_Z: 56, Region: "Precentral Gyrus", Effect: "Right Thumb Twitch", Category: "Motor", Pathology: "Refractory Focal Epilepsy", Procedure: "Stereo-EEG (sEEG)" },
+          { MNI_X: -42, MNI_Y: -26, MNI_Z: 54, Region: "Postcentral Gyrus", Effect: "Right Hand Paresthesia", Category: "Somatosensory", Pathology: "Refractory Focal Epilepsy", Procedure: "Stereo-EEG (sEEG)" },
+          { MNI_X: -52, MNI_Y: 16, MNI_Z: 18, Region: "Pars Opercularis (Broca)", Effect: "Speech Arrest", Category: "Language/Speech", Pathology: "Low-grade Glioma", Procedure: "Intraoperative DES" },
+          { MNI_X: 42, MNI_Y: -54, MNI_Z: -18, Region: "Fusiform Face Area", Effect: "Facial Metamorphopsia", Category: "Visual", Pathology: "Intractable Epilepsy", Procedure: "Subdural ECoG" },
+          { MNI_X: 24, MNI_Y: -4, MNI_Z: -20, Region: "Basolateral Amygdala", Effect: "Acute Fear and Dread", Category: "Affective/Emotional", Pathology: "Refractory Epilepsy", Procedure: "Stereo-EEG (sEEG)" }
+        ];
+
+        const ws = XLSX.utils.json_to_sheet(sampleRows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, "StimulationSites");
+        XLSX.writeFile(wb, "StimBank_Template.xlsx");
+      });
+    });
+  </script>
+
+  <!-- Bootstrap 5 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

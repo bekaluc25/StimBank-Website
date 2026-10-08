@@ -1,0 +1,575 @@
+/* ==========================================================================
+   StimBank Design System
+   "Bold, High-Contrast Black & White with Vibrant Scientific Phenomenon Colors"
+   Updated: Bold Typography, Pure Black Contrast, Circular Category Indicators
+   ========================================================================== */
+
+:root {
+  /* Surfaces */
+  --bg-main: #FFFFFF;          /* Pure white background */
+  --surface-card: #FFFFFF;     /* Crisp white card surface */
+  --surface-elevated: #FFFFFF; /* White elevated components */
+  --surface-muted: #F8F9FA;    /* Soft neutral container background */
+  
+  /* Bold High-Contrast Text Colors */
+  --text-primary: #000000;     /* Pure Deep Black */
+  --text-secondary: #1F2937;   /* High-Contrast Bold Charcoal / Dark Slate */
+  --text-muted: #4B5563;       /* Crisp Readable Dark Slate Gray */
+  
+  /* Structural Borders */
+  --border-subtle: #E2E8F0;    /* Crisp light border */
+  --border-strong: #94A3B8;    /* Strong defined border */
+  
+  /* 5 Core Scientific Categories of Phenomena (Vibrant Unique Hues) */
+  --cat-sensory: #0284C7;        /* Sensory & Perceptual - Cerulean Sky Blue */
+  --cat-affective: #E11D48;      /* Affective - Crimson Rose */
+  --cat-autonomic: #059669;      /* Autonomic - Emerald Green */
+  --cat-cognitive-lang: #8B5CF6; /* Cognitive & Language - Vivid Violet */
+  --cat-motor: #2563EB;          /* Motor - Royal Motor Blue */
+
+  /* Legacy Category Aliases */
+  --cat-somatosensory: #0284C7;
+  --cat-visual: #0284C7;
+  --cat-auditory: #0284C7;
+  --cat-language: #8B5CF6;
+  --cat-cognitive: #8B5CF6;
+  --cat-emotional: #E11D48;
+}
+
+/* Base Document */
+html {
+  font-size: 16.5px; /* Increased base scale for bold readability */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background-color: var(--bg-main);
+  color: var(--text-primary);
+  font-family: 'Avenir Next Arabic', 'Avenir Next', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 500; /* Bold baseline text */
+  margin: 0;
+  padding-top: 92px; /* space for larger fixed navbar */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  line-height: 1.6;
+  letter-spacing: -0.01em;
+}
+
+/* Headings: Deep Black, Bold, Authoritative */
+h1, h2, h3, h4, h5, h6 {
+  color: #000000;
+  font-family: 'Avenir Next Arabic', 'Avenir Next', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 750;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5em;
+}
+
+h1 { font-size: 2.35rem; line-height: 1.2; font-weight: 800; }
+h2 { font-size: 1.75rem; line-height: 1.25; font-weight: 750; }
+h3 { font-size: 1.4rem; line-height: 1.3; font-weight: 700; }
+h4 { font-size: 1.18rem; font-weight: 700; }
+h5 { font-size: 1.02rem; font-weight: 700; }
+
+p {
+  color: #111111;
+  font-size: 1.02rem;
+  font-weight: 450;
+  margin-bottom: 1rem;
+}
+
+.lead {
+  font-size: 1.15rem !important;
+  font-weight: 500 !important;
+  color: #1F2937 !important;
+  line-height: 1.6;
+}
+
+.text-secondary {
+  color: #1F2937 !important; /* Bold, high-contrast black/charcoal */
+  font-weight: 500;
+}
+
+.text-muted {
+  color: #4B5563 !important;
+  font-weight: 500;
+}
+
+small, .small {
+  font-size: 0.88rem !important;
+  color: #1F2937;
+  font-weight: 500;
+}
+
+strong, b, .fw-bold {
+  font-weight: 750 !important;
+  color: #000000;
+}
+
+a {
+  color: #000000;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
+
+/* Navigation: Clean white navbar with black bold links */
+.navbar-stimbank {
+  background-color: #FFFFFF !important;
+  border-bottom: 1.5px solid var(--border-subtle);
+  padding: 0.65rem 0;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.03) !important;
+}
+
+.navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'Avenir Next Arabic', 'Avenir Next', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: -0.02em;
+  color: #000000 !important;
+  padding: 0;
+}
+
+/* Prominent, crisp logo */
+.navbar-brand img {
+  height: 54px;
+  width: auto;
+  object-fit: contain;
+  display: block;
+  transition: transform 0.15s ease;
+}
+
+.navbar-brand img:hover {
+  transform: scale(1.02);
+}
+
+.navbar-brand span {
+  display: none;
+}
+
+.navbar-nav {
+  gap: 6px;
+}
+
+.nav-link {
+  font-family: 'Avenir Next Arabic', 'Avenir Next', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  font-size: 1.02rem;
+  font-weight: 600;
+  color: #000000 !important;
+  padding: 0.5rem 1rem !important;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+}
+
+.nav-link:hover {
+  color: #000000 !important;
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.nav-link.active {
+  color: #000000 !important;
+  font-weight: 800;
+  background-color: rgba(0, 0, 0, 0.08);
+}
+
+/* Surfaces and Cards */
+.stimbank-card {
+  background-color: var(--surface-card);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.6rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stimbank-card:hover {
+  border-color: #000000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.07);
+}
+
+/* Metric / Stat Boxes */
+.stat-box {
+  background-color: var(--surface-card);
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.35rem 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  text-align: left;
+}
+
+.stat-box .stat-number {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #000000;
+  line-height: 1.1;
+  letter-spacing: -0.03em;
+}
+
+.stat-box .stat-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #1F2937;
+  margin-top: 0.4rem;
+}
+
+/* Buttons: Bold, high-contrast, black */
+.btn-stimbank-primary {
+  background-color: #000000;
+  color: #FFFFFF;
+  border: 2px solid #000000;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  padding: 0.55rem 1.35rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-stimbank-primary:hover, .btn-stimbank-primary:focus {
+  background-color: #222222;
+  color: #FFFFFF;
+  border-color: #222222;
+  transform: translateY(-1px);
+}
+
+.btn-stimbank-secondary {
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1.5px solid #000000;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  padding: 0.55rem 1.35rem;
+  border-radius: 6px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-stimbank-secondary:hover, .btn-stimbank-secondary:focus {
+  background-color: #000000;
+  color: #FFFFFF;
+  border-color: #000000;
+  transform: translateY(-1px);
+}
+
+.btn-stimbank-sm {
+  padding: 0.4rem 0.95rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+
+/* Category Indicators & Badges: Always a colored circle next to category name */
+.category-dot {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  min-width: 12px;
+  border-radius: 50%;
+  margin-right: 8px;
+  vertical-align: middle;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.8);
+}
+
+.category-dot-lg {
+  width: 15px;
+  height: 15px;
+  min-width: 15px;
+  margin-right: 10px;
+}
+
+.cat-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.88rem;
+  font-weight: 600;
+  padding: 0.3rem 0.75rem;
+  border-radius: 6px;
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1.5px solid var(--border-subtle);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+}
+
+/* Category Filter Pill (Interactive button with circle next to name) */
+.category-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 1rem;
+  border-radius: 30px;
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--border-subtle);
+  color: #000000;
+  font-size: 0.92rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  user-select: none;
+}
+
+.category-pill:hover {
+  border-color: #000000;
+  background-color: #F8FAFC;
+  transform: translateY(-1px);
+}
+
+.category-pill.active {
+  background-color: #000000;
+  color: #FFFFFF !important;
+  border-color: #000000;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.category-pill.active .category-dot {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.8);
+}
+
+/* 5 Phenomenon Badges & Dots */
+.cat-badge.cat-Sensory-Perceptual .category-dot, .dot-Sensory-Perceptual { background-color: var(--cat-sensory); }
+.cat-badge.cat-Affective .category-dot, .dot-Affective { background-color: var(--cat-affective); }
+.cat-badge.cat-Autonomic .category-dot, .dot-Autonomic { background-color: var(--cat-autonomic); }
+.cat-badge.cat-Cognitive-Language .category-dot, .dot-Cognitive-Language { background-color: var(--cat-cognitive-lang); }
+.cat-badge.cat-Motor .category-dot, .dot-Motor { background-color: var(--cat-motor); }
+
+/* Backward compatibility aliases */
+.cat-badge.cat-Somatosensory .category-dot, .dot-Somatosensory { background-color: var(--cat-sensory); }
+.cat-badge.cat-Visual .category-dot, .dot-Visual { background-color: var(--cat-sensory); }
+.cat-badge.cat-Auditory .category-dot, .dot-Auditory { background-color: var(--cat-sensory); }
+.cat-badge.cat-Language-Speech .category-dot, .dot-Language { background-color: var(--cat-cognitive-lang); }
+.cat-badge.cat-Cognitive-Memory .category-dot, .dot-Cognitive { background-color: var(--cat-cognitive-lang); }
+.cat-badge.cat-Affective-Emotional .category-dot, .dot-Emotional { background-color: var(--cat-affective); }
+
+/* Spotlight Section (Distinct visual block on Home) */
+.spotlight-section {
+  background-color: #F8FAFC !important;
+  border-top: 1.5px solid var(--border-subtle);
+  border-bottom: 1.5px solid var(--border-subtle);
+  position: relative;
+}
+
+#categorySpotlight {
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  border-radius: 12px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.06);
+}
+
+/* Effect Category Interactive Cards: With circle indicator */
+.effect-category-card {
+  background-color: #FFFFFF;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 1.25rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04);
+  transition: all 0.15s ease;
+  position: relative;
+}
+
+.effect-category-card:hover {
+  background-color: #FFFFFF;
+  border-color: #000000;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.effect-category-card.selected {
+  background-color: #FFFFFF;
+  border-color: #000000;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
+  outline: 2px solid #000000;
+}
+
+/* 3D Brain Viewer Container */
+.brain-viewport {
+  position: relative;
+  width: 100%;
+  height: 640px;
+  background-color: #FAFAFA;
+  border: 1.5px solid var(--border-subtle);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#brainCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* 3D Viewer HUD Overlays */
+.hud-panel {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 0.85rem 1.15rem;
+  color: #000000;
+  font-size: 0.88rem;
+  font-weight: 600;
+  z-index: 10;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.hud-top-left {
+  top: 14px;
+  left: 14px;
+  max-width: 280px;
+}
+
+.hud-top-right {
+  top: 14px;
+  right: 14px;
+  max-width: 270px;
+  max-height: 85%;
+  overflow-y: auto;
+}
+
+.hud-controls-bottom {
+  position: absolute;
+  bottom: 14px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(255, 255, 255, 0.97);
+  backdrop-filter: blur(8px);
+  border: 1.5px solid #CBD5E1;
+  border-radius: 8px;
+  padding: 8px 16px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  z-index: 10;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.hud-controls-bottom button {
+  background: #FFFFFF;
+  border: 1.5px solid #000000;
+  color: #000000;
+  font-family: inherit;
+  font-size: 0.84rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.hud-controls-bottom button:hover {
+  background-color: #000000;
+  color: #FFFFFF;
+}
+
+/* Floating Tooltip */
+#brainTooltip {
+  position: absolute;
+  display: none;
+  background-color: #FFFFFF;
+  color: #000000;
+  border: 1.5px solid #000000;
+  border-radius: 8px;
+  padding: 0.85rem 1.15rem;
+  font-size: 0.88rem;
+  font-weight: 500;
+  pointer-events: none;
+  z-index: 100;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  max-width: 320px;
+  line-height: 1.45;
+}
+
+/* Tables */
+.table-stimbank {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 0.95rem;
+  color: #000000;
+}
+
+.table-stimbank thead th {
+  background-color: #F1F5F9;
+  color: #000000;
+  font-weight: 750;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+  letter-spacing: 0.04em;
+  padding: 0.85rem 1rem;
+  border-top: 1.5px solid var(--border-subtle);
+  border-bottom: 2px solid #CBD5E1;
+}
+
+.table-stimbank tbody td {
+  padding: 0.95rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: #000000;
+  font-weight: 500;
+}
+
+.table-stimbank tbody tr {
+  background-color: #FFFFFF;
+  transition: background-color 0.1s ease;
+}
+
+.table-stimbank tbody tr:hover {
+  background-color: #F8FAFC;
+}
+
+/* Form Controls */
+.form-control, .form-select {
+  background-color: #FFFFFF;
+  border: 1.5px solid #CBD5E1;
+  color: #000000;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 0.5rem 0.85rem;
+}
+
+.form-control:focus, .form-select:focus {
+  background-color: #FFFFFF;
+  border-color: #000000;
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
+  outline: none;
+  color: #000000;
+}
+
+/* Footer */
+footer.stimbank-footer {
+  margin-top: auto;
+  background-color: #FFFFFF;
+  border-top: 1.5px solid var(--border-subtle);
+  padding: 3rem 0 2.5rem 0;
+  color: #1F2937;
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+
+footer.stimbank-footer a {
+  color: #1F2937;
+  font-weight: 600;
+}
+
+footer.stimbank-footer a:hover {
+  color: #000000;
+  text-decoration: underline;
+}
