@@ -1,6 +1,6 @@
 # StimBank
 
-Welcome to **StimBank**! - an open scientific database cataloging intracranial electrical brain stimulation (EBS) sites, evoked behavioral and sensorimotor responses, and peer-reviewed literature across clinical cohorts. In addition, this database translates intracranial functional mapping findings (sEEG, subdural ECoG, awake craniotomy DES, and DBS) into standard **MNI152 stereotaxic coordinate space**.
+Welcome to **StimBank** - an open scientific database cataloging intracranial electrical brain stimulation (EBS) sites, evoked behavioral and sensorimotor responses, and peer-reviewed literature across clinical cohorts. In addition, this database translates intracranial functional mapping findings (sEEG, subdural ECoG, awake craniotomy DES, and DBS) into standard MNI152 stereotaxic coordinate space.
 
 ---
 
