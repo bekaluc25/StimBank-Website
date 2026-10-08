@@ -1,8 +1,6 @@
-# EBSBank: Electrical Brain Stimulation Database & 3D MNI Explorer
+# StimBank
 
-Welcome to **EBSBank**! This open-source platform hosts an interactive database and 3D stereotaxic explorer for human electrical brain stimulation (EBS) sites, evoked behavioral and sensory responses, and published neurosurgical literature.
-
-Inspired by and designed to complement [LesionBank.org](https://lesionbank.org), EBSBank translates intracranial functional mapping findings (sEEG, subdural ECoG, awake craniotomy DES, and DBS) into standard **MNI152 stereotaxic coordinate space**.
+Welcome to **StimBank**! - an open scientific database cataloging intracranial electrical brain stimulation (EBS) sites, evoked behavioral and sensorimotor responses, and peer-reviewed literature across clinical cohorts. In addition, this database translates intracranial functional mapping findings (sEEG, subdural ECoG, awake craniotomy DES, and DBS) into standard **MNI152 stereotaxic coordinate space**.
 
 ---
 
