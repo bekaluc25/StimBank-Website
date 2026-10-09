@@ -14,23 +14,23 @@
   <link rel="stylesheet" href="static/css/ebs_custom.css">
 
   <style>
-    /* Minimal, spacious hero styling */
+    /* Minimal, spacious hero styling with compact margins */
     .hero-big-section {
-      min-height: 60vh;
+      min-height: 42vh;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
-      padding: 4.5rem 1.5rem 2.5rem;
+      padding: 2rem 1rem 1rem;
       border-bottom: 1px solid var(--border-subtle);
     }
 
     .hero-logo-img {
-      max-height: 180px;
+      max-height: 150px;
       width: auto;
       object-fit: contain;
-      margin-bottom: 1.75rem;
+      margin-bottom: 1rem;
       transition: transform 0.2s ease;
     }
     .hero-logo-img:hover {
@@ -42,7 +42,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       color: var(--text-muted);
-      margin-top: 2.5rem;
+      margin-top: 1.25rem;
       display: inline-flex;
       align-items: center;
       gap: 6px;
@@ -54,59 +54,61 @@
     }
 
     .spotlight-section {
-      scroll-margin-top: 80px;
+      scroll-margin-top: 70px;
       position: relative;
+      padding: 1.25rem 0 2.5rem;
     }
 
     /* Big Centerpiece Interactive Radial Wheel Styles */
     .wheel-stage-wrapper {
       position: relative;
+      width: 100%;
       display: flex;
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      min-height: 720px;
-      padding: 1.5rem 0 2rem;
+      min-height: 820px;
+      padding: 0;
+      margin: 0 auto;
     }
 
     .wheel-container {
       position: relative;
       width: 100%;
-      max-width: 680px;
+      max-width: 1020px;
       margin: 0 auto;
       user-select: none;
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .wheel-svg {
       width: 100%;
       height: auto;
       display: block;
-      filter: drop-shadow(0 8px 30px rgba(0,0,0,0.08));
+      filter: drop-shadow(0 8px 32px rgba(0,0,0,0.07));
     }
 
     .wheel-arc-domain {
       cursor: pointer;
-      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.2s ease;
       stroke: #FFFFFF;
-      stroke-width: 2.5px;
+      stroke-width: 3px;
     }
     .wheel-arc-domain:hover, .wheel-arc-domain.active {
-      filter: brightness(1.12) drop-shadow(0 0 12px rgba(0,0,0,0.28));
-      transform-origin: 320px 320px;
-      transform: scale(1.025);
+      filter: brightness(1.08) drop-shadow(0 0 14px rgba(0,0,0,0.22));
+      transform-origin: 480px 480px;
+      transform: scale(1.018);
     }
 
     .wheel-arc-sub {
       cursor: pointer;
-      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: all 0.18s ease;
       stroke: #FFFFFF;
       stroke-width: 2px;
     }
     .wheel-arc-sub:hover, .wheel-arc-sub.active {
-      filter: brightness(1.2) drop-shadow(0 0 10px rgba(0,0,0,0.3));
-      transform-origin: 320px 320px;
-      transform: scale(1.035);
+      filter: brightness(1.1) drop-shadow(0 0 12px rgba(0,0,0,0.22));
+      transform-origin: 480px 480px;
+      transform: scale(1.022);
     }
 
     .wheel-center-circle {
@@ -114,8 +116,8 @@
       fill: #FFFFFF;
       stroke: var(--border-strong);
       stroke-width: 2px;
-      transition: all 0.25s ease;
-      filter: drop-shadow(0 2px 8px rgba(0,0,0,0.08));
+      transition: all 0.2s ease;
+      filter: drop-shadow(0 2px 10px rgba(0,0,0,0.06));
     }
     .wheel-center-circle:hover {
       fill: #F8FAFC;
@@ -123,28 +125,27 @@
     }
 
     .wheel-text-domain {
-      font-size: 13.5px;
-      font-weight: 800;
-      fill: #FFFFFF;
+      font-size: 15px;
+      font-weight: 500;
+      fill: #0F172A;
       pointer-events: none;
       text-anchor: middle;
-      letter-spacing: 0.03em;
-      filter: drop-shadow(0 1px 2px rgba(0,0,0,0.4));
+      letter-spacing: 0.02em;
     }
 
     .wheel-text-sub {
-      font-size: 11px;
-      font-weight: 700;
-      fill: #0F172A;
+      font-size: 12px;
+      font-weight: 400;
+      fill: #1E293B;
       pointer-events: none;
       text-anchor: middle;
       letter-spacing: -0.01em;
     }
 
     .cat-btn-pill {
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 0.4rem 0.9rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      padding: 0.45rem 1.05rem;
       border-radius: 24px;
       border: 1.5px solid var(--border-subtle);
       background-color: var(--surface-card);
@@ -156,66 +157,49 @@
       border-color: #000000;
       background-color: #0F172A;
       color: #FFFFFF;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
 
-    /* Hover-Activated Spotlight Overlay Card */
-    .spotlight-hover-overlay {
+    /* Floating Compact Side Spotlight Card - Hidden until hover */
+    .spotlight-side-card {
       position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%) scale(0.94);
-      width: 92%;
-      max-width: 580px;
-      max-height: 85vh;
-      overflow-y: auto;
-      background-color: rgba(255, 255, 255, 0.98);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
-      border: 2px solid #0F172A;
-      border-radius: 16px;
-      padding: 1.75rem;
-      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22), 0 0 0 1px rgba(255, 255, 255, 0.8);
+      top: 10px;
+      right: 15px;
+      width: 320px;
+      max-width: calc(100vw - 30px);
+      background-color: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1.5px solid var(--border-subtle);
+      border-radius: 14px;
+      padding: 1.15rem 1.25rem;
+      box-shadow: 0 16px 36px rgba(0, 0, 0, 0.12);
       opacity: 0;
       visibility: hidden;
       pointer-events: none;
-      transition: opacity 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
-                  visibility 0.24s;
-      z-index: 100;
+      transform: translateY(8px) scale(0.98);
+      transition: opacity 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+                  visibility 0.22s;
+      z-index: 50;
     }
 
-    .spotlight-hover-overlay.is-visible {
+    .spotlight-side-card.is-visible {
       opacity: 1;
       visibility: visible;
       pointer-events: auto;
-      transform: translate(-50%, -50%) scale(1);
+      transform: translateY(0) scale(1);
     }
 
-    .spotlight-close-btn {
-      position: absolute;
-      top: 14px;
-      right: 14px;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #F1F5F9;
-      border: 1px solid #CBD5E1;
-      color: #0F172A;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.1rem;
-      cursor: pointer;
-      line-height: 1;
-      transition: all 0.15s ease;
-      z-index: 10;
-    }
-    .spotlight-close-btn:hover {
-      background: #000000;
-      color: #FFFFFF;
-      border-color: #000000;
-      transform: scale(1.08);
+    @media (max-width: 1100px) {
+      .spotlight-side-card {
+        position: fixed;
+        top: auto;
+        bottom: 20px;
+        right: 20px;
+        width: 310px;
+        z-index: 1050;
+      }
     }
 
     /* Interactive hint badge */
@@ -223,15 +207,15 @@
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      padding: 0.5rem 1.25rem;
+      padding: 0.45rem 1.15rem;
       background: #FFFFFF;
       border: 1.5px solid var(--border-subtle);
       border-radius: 30px;
-      font-size: 0.86rem;
-      font-weight: 600;
+      font-size: 0.84rem;
+      font-weight: 500;
       color: var(--text-secondary);
       box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
   </style>
 </head>
@@ -303,91 +287,90 @@
   </section>
 
   <!-- Interactive 5 Categories of Phenomena Section -->
+  <!-- Interactive 8 Categories of Phenomena Section -->
   <section class="py-5 spotlight-section" id="phenomena">
-    <div class="container px-4" style="max-width: 1200px;">
+    <div class="container-fluid px-lg-5 px-3" style="max-width: 1720px;">
       
       <!-- Section Header -->
       <div class="text-center mb-4">
-        <div class="text-uppercase small mb-1" style="letter-spacing: 0.1em; color: var(--cat-sensory); font-weight: 700; font-size: 0.8rem;">
+        <div class="text-uppercase small mb-1" style="letter-spacing: 0.1em; color: #3B82F6; font-weight: 600; font-size: 0.82rem;">
           Interactive Phenomenological Taxonomy
         </div>
-        <h2 class="fw-bold mb-2 display-6" style="font-size: 2.1rem;">The 5 Categories of Brain Phenomena</h2>
-        <p class="text-secondary mx-auto mb-3" style="max-width: 780px; font-size: 1.02rem;">
-          Human direct intracranial stimulation evokes diverse sensorimotor, cognitive, and affective responses. Hover over or tap any sector of the <strong>interactive wheel</strong> to open anatomical hubs, clinical effects, and stereotaxic coordinates.
+        <h2 class="fw-bold mb-2 display-6" style="font-size: 2.1rem;">The 8 Consensus Categories of Brain Phenomena</h2>
+        <p class="text-secondary mx-auto mb-3" style="max-width: 820px; font-size: 1.02rem;">
+          Human direct intracranial stimulation evokes diverse sensorimotor, cognitive, and affective responses. Hover over or tap any sector of the <strong>interactive wheel</strong> to inspect anatomical hubs, clinical effects, and stereotaxic coordinates.
         </p>
 
         <!-- Quick Selector Category Pills -->
         <div class="d-flex flex-wrap gap-2 justify-content-center mt-3" id="wheelPillsContainer">
-          <!-- Rendered via JS -->
+          <!-- Rendered dynamically via JS from taxonomy -->
         </div>
       </div>
 
-      <!-- Main Stage: Large Centerpiece Wheel Container -->
+      <!-- Main Stage: Centerpiece Large Wheel & Floating Spotlight Card -->
       <div class="wheel-stage-wrapper">
         
-        <!-- Center Wheel -->
-        <div class="wheel-container" id="wheelContainer">
-          <svg viewBox="0 0 640 640" class="wheel-svg" id="phenomenaWheelSvg">
-            <!-- SVG dynamically drawn by JavaScript -->
-          </svg>
+        <!-- Large Centerpiece Interactive Wheel -->
+        <div class="d-flex flex-column align-items-center w-100">
+          <div class="wheel-container" id="wheelContainer">
+            <svg viewBox="0 0 960 960" class="wheel-svg" id="phenomenaWheelSvg">
+              <!-- SVG dynamically drawn by JavaScript -->
+            </svg>
+          </div>
+          <div class="wheel-hint-badge text-center" id="wheelHint">
+            <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#3B82F6;"></span>
+            <span>Hover over inner domains or outer petals to explore</span>
+          </div>
         </div>
 
-        <!-- Center / Bottom Hint -->
-        <div class="wheel-hint-badge text-center" id="wheelHint">
-          <span style="display:inline-block; width:8px; height:8px; border-radius:50%; background-color:#2563EB; animation: pulseDot 1.8s infinite;"></span>
-          <span>Hover over inner domains or outer petals to open detailed effects</span>
-        </div>
-
-        <!-- Hover-Activated Spotlight Popover Box -->
-        <div class="spotlight-hover-overlay" id="categorySpotlight" role="dialog" aria-modal="true">
+        <!-- Floating Compact Spotlight Information Card (Appears on Hover) -->
+        <div class="spotlight-side-card" id="categorySpotlight" role="region" aria-label="Category Spotlight">
           
-          <button type="button" class="spotlight-close-btn" id="spotlightCloseBtn" title="Close Spotlight">&times;</button>
-
           <!-- Header Badges -->
-          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-3 pe-4">
-            <div class="d-flex align-items-center gap-2">
-              <span class="cat-badge" id="spotlightBadge">
-                <span class="category-dot" id="spotlightDot"></span>
-                <span id="spotlightCategoryName" class="fw-bold">Cognitive &amp; Language</span>
+          <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-2">
+            <div class="d-flex align-items-center gap-1">
+              <span class="cat-badge" id="spotlightBadge" style="background-color: #93C5FD; color: #1E3A8A; font-size: 0.78rem; padding: 2px 8px;">
+                <span class="category-dot" id="spotlightDot" style="background-color: #3B82F6; width: 6px; height: 6px;"></span>
+                <span id="spotlightCategoryName" style="font-weight: 600;">Sensory</span>
               </span>
-              <span class="badge bg-dark text-white" id="spotlightSubBadge">General Domain</span>
+              <span class="badge bg-dark text-white" id="spotlightSubBadge" style="font-size: 0.72rem; padding: 3px 6px;">All Sub-Domains</span>
             </div>
-            <span class="text-secondary small fw-bold" id="spotlightCount">146 stimulation sites</span>
+            <span class="text-secondary small fw-medium" id="spotlightCount" style="font-size: 0.78rem;">30 sites</span>
           </div>
 
           <!-- Main Titles & Description -->
-          <h3 class="fw-bold mb-2" id="spotlightTitle" style="font-size: 1.35rem;">Cognitive &amp; Language Responses</h3>
-          <p class="text-secondary mb-3" id="spotlightDescription" style="line-height: 1.55; font-size: 0.94rem;">
-            Higher-order associative networks including mentalizing (Theory of Mind), speech arrest, naming anomia, intense experiential déjà vu, memory recall, and working memory disruption.
+          <h4 class="mb-1" id="spotlightTitle" style="font-size: 1.15rem; font-weight: 600; color: #0F172A;">Sensory Responses</h4>
+          <p class="text-secondary mb-2" id="spotlightDescription" style="line-height: 1.45; font-size: 0.84rem;">
+            Somatosensory, visual, auditory, gustatory, olfactory, vestibular, and body perception pathways evoking elementary or complex sensations, illusions, and altered body schema.
           </p>
 
           <!-- Key Anatomical Hubs -->
-          <div class="mb-3">
-            <span class="text-uppercase text-secondary small d-block mb-1 fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em;">Key Anatomical Hubs</span>
-            <div class="d-flex flex-wrap gap-1" id="spotlightRegions"></div>
+          <div class="mb-2">
+            <span class="text-uppercase text-secondary small d-block mb-1 fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.05em;">Key Anatomical Hubs</span>
+            <div class="d-flex flex-wrap gap-1" id="spotlightRegions" style="font-size: 0.75rem;"></div>
           </div>
 
           <!-- Sub-domains List -->
-          <div class="mb-3">
-            <span class="text-uppercase text-secondary small d-block mb-1 fw-bold" style="font-size: 0.72rem; letter-spacing: 0.06em;">Sub-Domains in this Category</span>
-            <div class="d-flex flex-wrap gap-1" id="spotlightEffects"></div>
+          <div class="mb-2">
+            <span class="text-uppercase text-secondary small d-block mb-1 fw-semibold" style="font-size: 0.68rem; letter-spacing: 0.05em;">Sub-Domains in this Category</span>
+            <div class="d-flex flex-wrap gap-1" id="spotlightEffects" style="font-size: 0.75rem;"></div>
           </div>
 
           <!-- Footer Meta & Actions -->
-          <div class="pt-3 border-top mt-3" style="border-color: var(--border-subtle) !important;">
+          <div class="pt-2 border-top mt-2" style="border-color: var(--border-subtle) !important;">
             <div class="row align-items-center g-2">
-              <div class="col-sm-6">
-                <div class="p-2 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-                  <span class="text-secondary text-uppercase d-block fw-bold" style="font-size: 0.65rem; letter-spacing: 0.05em;">Stereotaxic Bounds (MNI)</span>
-                  <div class="fw-semibold text-dark small font-monospace mt-1" id="spotlightBounds" style="font-size: 0.8rem;">X: [-56, 62], Y: [-51, 35], Z: [2, 75] mm</div>
+              <div class="col-12 mb-1">
+                <div class="px-2 py-1 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
+                  <span class="text-secondary text-uppercase d-block fw-semibold" style="font-size: 0.64rem; letter-spacing: 0.04em;">Stereotaxic Bounds (MNI)</span>
+                  <div class="fw-medium text-dark small font-monospace mt-0" id="spotlightBounds" style="font-size: 0.76rem;">Loading bounds...</div>
                 </div>
               </div>
-              <div class="col-sm-6">
+              <div class="col-12">
                 <div class="d-flex gap-2">
-                  <a href="viewer.html?category=Cognitive%20%26%20Language" class="btn-stimbank-primary btn-stimbank-sm flex-fill text-center" id="spotlightViewerBtn">
-                    Explore in 3D
+                  <a href="viewer.html?category=Sensory" class="btn-stimbank-primary btn-stimbank-sm flex-fill text-center py-1" id="spotlightViewerBtn" style="font-size: 0.8rem;">
+                    3D Brain
                   </a>
-                  <a href="explorer.html?category=Cognitive%20%26%20Language" class="btn-stimbank-secondary btn-stimbank-sm flex-fill text-center" id="spotlightTableBtn">
+                  <a href="explorer.html?category=Sensory" class="btn-stimbank-secondary btn-stimbank-sm flex-fill text-center py-1" id="spotlightTableBtn" style="font-size: 0.8rem;">
                     Search Table
                   </a>
                 </div>
@@ -437,127 +420,151 @@
       const data = window.EBS_DATASET;
       const sites = data ? data.sites : [];
 
-      // 5 Core Phenomena Taxonomy with Structured Sub-Domains
-      const taxonomyData = {
-        "Cognitive & Language": {
-          color: "#8B5CF6",
-          desc: "Higher-order associative networks including mentalizing (Theory of Mind), speech arrest, naming anomia, intense experiential déjà vu, memory recall, and working memory disruption.",
-          regions: ["Middle Frontal Gyrus", "Pars Opercularis (Broca)", "Posterior STG (Wernicke)", "Entorhinal Cortex", "Hippocampus", "DLPFC", "Temporoparietal Junction (TPJ)"],
+      // Fallback taxonomy if dataset not ready
+      const defaultTaxonomy = {
+        "Sensory": {
+          color: "#93C5FD",
+          desc: "Somatosensory, visual, auditory, gustatory, olfactory, vestibular, and body perception pathways evoking elementary or complex sensations, illusions, and altered body schema.",
+          regions: ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Calcarine Sulcus (V1)", "Fusiform Face Area (FFA)", "Heschl's Gyrus (A1)", "Posterior Insula", "Temporoparietal Junction (TPJ)"],
           subdomains: [
-            { name: "Mentalizing (ToM)", desc: "Social cognition, Theory of Mind, attributing mental states, perspective-taking, and intentions to others.", hubs: ["TPJ", "mPFC", "Precuneus"] },
-            { name: "Speech & Naming Arrest", desc: "Complete interruption of vocalization or speech counting during stimulation without loss of awareness.", hubs: ["Pars Opercularis (Broca)", "SMA", "vPMC"] },
-            { name: "Language Processing", desc: "Phonemic paraphasias, comprehension breakdown, semantic paraphasia, and pure alexia without agraphia.", hubs: ["Posterior STG", "Angular Gyrus", "pMTG"] },
-            { name: "Déjà vu & Memory", desc: "Experiential illusion of familiarity (déjà vu/jamais vu), autobiographical episodic memory retrieval, and dreamy states.", hubs: ["Hippocampus (CA1)", "Entorhinal Cortex", "Amygdala"] },
-            { name: "Derealization", desc: "Altered perception of reality, feeling detached from surroundings, and temporal associative disruptions.", hubs: ["Temporoparietal Cortex", "Posterior Cingulate"] }
+            { name: "Auditory", desc: "Evoked simple or complex auditory perceptions and illusions.", hubs: ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus"] },
+            { name: "Visual", desc: "Evoked simple or complex visual perceptions and illusions.", hubs: ["Calcarine Sulcus (V1)", "FFA", "MT/V5"] },
+            { name: "Gustatory & Olfactory", desc: "Taste and smell sensations with hedonic valence.", hubs: ["Anterior Insula", "Piriform Cortex"] },
+            { name: "Vestibular", desc: "Dizziness, vertigo, and graviceptive illusions.", hubs: ["PIVC", "Insular Operculum"] },
+            { name: "Body Perception", desc: "Out-of-body experiences, limb illusions, and body schema alterations.", hubs: ["Right TPJ", "Angular Gyrus"] },
+            { name: "Somatosensory", desc: "Painful or non-painful somatosensory mapped responses.", hubs: ["Postcentral Gyrus (S1)", "S2 Operculum"] }
           ]
         },
         "Motor": {
-          color: "#2563EB",
-          desc: "Primary and supplementary motor circuits controlling voluntary muscle contractions, eye movements, tremor regulation, and motor inhibition.",
+          color: "#8E7CC3",
+          desc: "Primary, supplementary, and subcortical motor circuits controlling voluntary muscle contractions, eye movements, tremor regulation, and motor inhibition.",
           regions: ["Precentral Gyrus (Hand Knob)", "Supplementary Motor Area (SMA)", "Frontal Eye Field (FEF)", "Subthalamic Nucleus (STN)", "VIM Thalamus"],
           subdomains: [
-            { name: "Saccadic Eye Movement", desc: "Conjugate horizontal and oblique saccadic eye deviations evoked by frontal eye field stimulation.", hubs: ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"] },
-            { name: "Upper Limb & Hand", desc: "Tonic contraction, clonic twitching of thumb, fingers, wrist, or forearm mapped to the precentral motor strip.", hubs: ["Precentral Gyrus (M1 Hand Knob)", "Paracentral Lobule"] },
-            { name: "Articulatory Arrest", desc: "Involuntary clonic or tonic contraction of lips, tongue, vocal cords, and larynx preventing articulation.", hubs: ["Precentral Gyrus Face Area", "Opercular M1"] },
-            { name: "Motor Arrest & Paresis", desc: "Inability to maintain active muscle movement or voluntary limb posture during stimulation.", hubs: ["Negative Motor Areas (NMA)", "Pre-SMA"] },
-            { name: "Tremor Modulation", desc: "Acute therapeutic suppression of resting and action tremors during deep high-frequency stimulation.", hubs: ["VIM Thalamus", "Subthalamic Nucleus (STN)"] }
+            { name: "Upper Limb & Hand", desc: "Tonic contraction, clonic twitching of thumb, fingers, wrist, or forearm.", hubs: ["M1 Hand Knob", "SMA"] },
+            { name: "Saccadic Eye", desc: "Conjugate horizontal, oblique, or vertical saccadic eye deviations.", hubs: ["Frontal Eye Field (FEF)"] },
+            { name: "Face & Vocal", desc: "Involuntary clonic or tonic contraction of lips, oral angle, tongue, and vocal folds.", hubs: ["M1 Face Area", "SMA"] },
+            { name: "Motor Arrest", desc: "Inability to maintain active muscle movement or voluntary limb posture.", hubs: ["Negative Motor Area", "Pre-SMA"] },
+            { name: "Tremor Control", desc: "Acute therapeutic suppression of resting and action tremors.", hubs: ["STN", "VIM Thalamus"] }
           ]
         },
-        "Sensory & Perceptual": {
-          color: "#0284C7",
-          desc: "Somatosensory, visual, acoustic, and chemical sensory pathways evoking elementary sensations, hallucinations, or illusions.",
-          regions: ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Calcarine Sulcus (V1)", "Fusiform Face Area (FFA)", "Heschl's Gyrus (A1)", "Insular Cortex"],
+        "Cognitive": {
+          color: "#E598D8",
+          desc: "Higher-order associative networks including language processing, speech arrest, naming anomia, experiential memory retrieval, and Theory of Mind.",
+          regions: ["Middle Frontal Gyrus", "Pars Opercularis (Broca)", "Posterior STG (Wernicke)", "Entorhinal Cortex", "Hippocampus", "DLPFC", "TPJ"],
           subdomains: [
-            { name: "Somatosensory Paresthesias", desc: "Tingling, numbness, electrical vibration, or thermal warmth mapped somatotopically across the postcentral gyrus.", hubs: ["Postcentral Gyrus (S1)", "S2 Operculum"] },
-            { name: "Visual Perceptions", desc: "Elementary phosphenes, flashes, scintillating scotomas, and complex facial metamorphopsias.", hubs: ["Calcarine Cortex (V1)", "Lingual Gyrus", "FFA"] },
-            { name: "Auditory Perception", desc: "Pure acoustic tones, high-pitch ringing, buzzing sounds, and auditory illusions evoked from primary acoustic cortex.", hubs: ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus"] },
-            { name: "Pain & Thermal", desc: "Localized burning heat, cooling sensations, or sharp visceral/somatic pain induction.", hubs: ["Dorsal Posterior Insula", "Opercular Cortex"] },
-            { name: "Olfactory & Gustatory", desc: "Intense metallic, sweet, or foul unmotivated smells and tastes evoked from mesial temporal and insular sites.", hubs: ["Piriform Cortex", "Anterior Insular Operculum"] }
+            { name: "Speech Arrest", desc: "Complete interruption of vocalization or speech counting with preserved awareness.", hubs: ["Broca's Area", "vPMC"] },
+            { name: "Language", desc: "Phonemic paraphasias, comprehension breakdown, semantic paraphasia, and pure alexia.", hubs: ["Wernicke", "VWFA"] },
+            { name: "Déjà vu & Memory", desc: "Experiential illusion of familiarity, autobiographical playback, and dreamy states.", hubs: ["Hippocampus", "Entorhinal Cortex"] },
+            { name: "Mentalizing (ToM)", desc: "Social cognition, Theory of Mind, attributing mental states, and perspective-taking.", hubs: ["TPJ", "dmPFC"] },
+            { name: "Working Memory", desc: "Working memory manipulation disruption and attention interference.", hubs: ["DLPFC"] }
           ]
         },
         "Affective": {
-          color: "#E11D48",
+          color: "#FDB082",
           desc: "Limbic and paralimbic circuits generating subjective emotional states, fear, euphoria, determination, or acute relief of dysphoria.",
           regions: ["Basolateral Amygdala", "Anterior Cingulate (ACC)", "Anterior Midcingulate (aMCC)", "Subgenual Area 25", "Nucleus Accumbens"],
           subdomains: [
-            { name: "Anxiety & Acute Fear", desc: "Unmotivated dread, visceral panic, acute terror, and feeling of imminent catastrophe.", hubs: ["Basolateral Amygdala", "Anterior Insula"] },
-            { name: "Mirth & Laughter", desc: "Spontaneous, uncontrollable mirthful laughter with genuine subjective amusement and cheerfulness.", hubs: ["Anterior Cingulate Cortex (ACC)", "Supplementary Motor Cortex"] },
-            { name: "Will to Persevere", desc: "Courage, feeling of determination to overcome adversity, and physiological preparedness for challenge.", hubs: ["Anterior Midcingulate Cortex (aMCC)"] },
-            { name: "Depression / Dysphoria Lifting", desc: "Rapid alleviation of dysphoric mood, sudden lightness, and return of hedonic interest.", hubs: ["Subcallosal Cingulate (Area 25)", "Nucleus Accumbens"] },
-            { name: "Ecstatic Bliss", desc: "Intense feeling of hyper-reality, oceanic joy, time slowing, and transcendent well-being.", hubs: ["Anterior Insula", "Temporopolar Cortex"] }
+            { name: "Fear & Anxiety", desc: "Unmotivated dread, visceral panic, acute terror, and feeling of imminent catastrophe.", hubs: ["Basolateral Amygdala", "Anterior Insula"] },
+            { name: "Mirth & Laughter", desc: "Spontaneous mirthful laughter with genuine subjective amusement.", hubs: ["ACC", "Pre-SMA"] },
+            { name: "Perseverance", desc: "Courage, feeling of determination to overcome adversity, and physiological readiness.", hubs: ["aMCC"] },
+            { name: "Mood Lifting", desc: "Rapid alleviation of dysphoric mood, sudden lightness, and return of hedonic interest.", hubs: ["Area 25", "Nucleus Accumbens"] },
+            { name: "Ecstatic Bliss", desc: "Intense feeling of hyper-reality, oceanic joy, and transcendent well-being.", hubs: ["Anterior-Superior Insula"] }
           ]
         },
         "Autonomic": {
-          color: "#059669",
+          color: "#F6DE68",
           desc: "Central autonomic network regulating visceral interoception, cardiac rhythm, vasomotor tone, and neurovegetative reflexes.",
           regions: ["Anterior Insular Cortex", "Periaqueductal Gray (PAG)", "Hypothalamus", "Medial Prefrontal Cortex"],
           subdomains: [
-            { name: "Visceral / Epigastric Aura", desc: "Rising epigastric sensation from the stomach to the throat, nausea, and abdominal fluttering.", hubs: ["Anterior-Inferior Insula", "Mesial Temporal Lobe"] },
-            { name: "Cardiovascular Dynamics", desc: "Sinus tachycardia, acute bradycardia, palpitations, and arterial blood pressure shifts.", hubs: ["Posterior Insular Cortex", "Anterior Cingulate"] },
-            { name: "Thermal Vasomotor", desc: "Sudden facial flushing, skin sensation of extreme heat or sudden chill.", hubs: ["Hypothalamus", "Insular Operculum"] },
-            { name: "Piloerection (Goosebumps)", desc: "Bilateral or ipsilateral erection of hairs with subjective shivers down the spine.", hubs: ["Anterior Cingulate", "Periaqueductal Gray"] },
-            { name: "Pupillary & Secretory", desc: "Mydriasis, pupillary constriction, hypersalivation, and sweat response.", hubs: ["Hypothalamus", "Prefrontal Autonomic Areas"] }
+            { name: "Visceral / Aura", desc: "Rising epigastric sensation from stomach into chest and throat.", hubs: ["Anterior Insula"] },
+            { name: "Cardiac Dynamics", desc: "Sinus tachycardia, acute bradycardia, palpitations, and blood pressure shifts.", hubs: ["Posterior Insula"] },
+            { name: "Vasomotor Tone", desc: "Sudden facial flushing, skin sensation of extreme heat or sudden chill.", hubs: ["Hypothalamus"] },
+            { name: "Piloerection", desc: "Bilateral or ipsilateral goosebumps with subjective shivers down the spine.", hubs: ["PAG", "aMCC"] },
+            { name: "Pupillary Reflex", desc: "Mydriasis, pupillary constriction, hypersalivation, and sweat response.", hubs: ["Hypothalamic Nuclei"] }
+          ]
+        },
+        "Agency": {
+          color: "#82D1A1",
+          desc: "Parietal, insular, and premotor networks governing the sense of bodily ownership, self-location, motor intentionality, and agency of action.",
+          regions: ["Right Angular Gyrus", "TPJ", "Inferior Parietal Lobule (IPL)", "Premotor Cortex", "Pre-SMA"],
+          subdomains: [
+            { name: "Out-of-Body", desc: "Illusory sensation of floating above one's body or autoscopic displacement.", hubs: ["Right TPJ", "Angular Gyrus"] },
+            { name: "Motor Intention", desc: "Strong conscious desire or intention to move a specific limb without actual execution.", hubs: ["IPL", "Supramarginal Gyrus"] },
+            { name: "Illusory Move", desc: "Subjective belief and vivid feeling that a limb moved when no movement occurred.", hubs: ["Posterior Parietal Cortex"] },
+            { name: "Foreign Limb", desc: "Altered somatic ownership, sensation that an arm or leg belongs to someone else.", hubs: ["Temporoparietal Cortex"] },
+            { name: "Automatisms", desc: "Involuntary coordinated complex motor acts performed without conscious volition.", hubs: ["SMA"] }
+          ]
+        },
+        "Consciousness": {
+          color: "#4F75A8",
+          desc: "Frontoparietal, claustrum, intralaminar thalamic, and default mode networks supporting subjective awareness, contact, and global integration.",
+          regions: ["Claustrum / External Capsule", "Intralaminar Thalamic Nuclei", "Precuneus", "Posterior Cingulate Cortex"],
+          subdomains: [
+            { name: "Altered Awareness", desc: "Transient lapse in conscious awareness and unresponsiveness to cues.", hubs: ["Claustrum"] },
+            { name: "Conscious Pause", desc: "Complete reversible cessation of volitional behavior, blank stare, and amnesia.", hubs: ["Claustrum", "Thalamus"] },
+            { name: "Absence State", desc: "Sudden behavioral arrest with preservation of tone but total disconnection.", hubs: ["Centromedian Thalamus"] },
+            { name: "Derealization", desc: "Profound feeling of being detached from surrounding reality and existential alienation.", hubs: ["Precuneus", "PCC"] }
+          ]
+        },
+        "No Effect": {
+          color: "#94A3B8",
+          desc: "Asymptomatic stimulation contacts where electrical delivery within safety limits evoked no detectable behavioral, cognitive, sensorimotor, or autonomic response.",
+          regions: ["Silent Cortical Boundaries", "Non-Eloquent Association Cortex", "Subthreshold White Matter Tracts"],
+          subdomains: [
+            { name: "Asymptomatic", desc: "Stimulation applied up to safety limit with zero reported changes.", hubs: ["Non-Eloquent DLPFC", "MTG"] },
+            { name: "Subthreshold", desc: "No effect elicited at tested current amplitude or frequency parameters.", hubs: ["Parietal Operculum", "White Matter"] },
+            { name: "Negative Margin", desc: "Negative functional response confirming safety margin for surgical resection.", hubs: ["Anterior STG", "IFG"] }
           ]
         }
       };
 
-      const orderedCategories = ["Cognitive & Language", "Motor", "Sensory & Perceptual", "Affective", "Autonomic"];
-      let activeCategory = "Cognitive & Language";
+      const taxonomyData = (data && data.taxonomy && Object.keys(data.taxonomy).length > 0) 
+        ? data.taxonomy 
+        : defaultTaxonomy;
+
+      const orderedCategories = Object.keys(taxonomyData);
+      let activeCategory = orderedCategories[0] || "Sensory";
       let activeSubDomain = null;
-      let isOverlayOpen = false;
       let closeTimeout = null;
 
-      const spotlightOverlay = document.getElementById('categorySpotlight');
-      const closeBtn = document.getElementById('spotlightCloseBtn');
+      const spotlightCard = document.getElementById('categorySpotlight');
 
       function openSpotlight() {
         if (closeTimeout) {
           clearTimeout(closeTimeout);
           closeTimeout = null;
         }
-        spotlightOverlay.classList.add('is-visible');
-        isOverlayOpen = true;
+        spotlightCard.classList.add('is-visible');
       }
 
       function scheduleCloseSpotlight() {
         if (closeTimeout) clearTimeout(closeTimeout);
         closeTimeout = setTimeout(() => {
-          spotlightOverlay.classList.remove('is-visible');
-          isOverlayOpen = false;
-        }, 320); // Smooth delay so moving cursor to box doesn't close it
+          spotlightCard.classList.remove('is-visible');
+        }, 350); // Smooth buffer so user can move mouse into box
       }
 
-      function closeSpotlightImmediately() {
-        if (closeTimeout) clearTimeout(closeTimeout);
-        spotlightOverlay.classList.remove('is-visible');
-        isOverlayOpen = false;
-      }
-
-      // Close Button Handler
-      closeBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        closeSpotlightImmediately();
-      });
-
-      // Keep open when mouse enters spotlight box itself
-      spotlightOverlay.addEventListener('mouseenter', () => {
+      // Keep open when mouse enters spotlight card itself
+      spotlightCard.addEventListener('mouseenter', () => {
         if (closeTimeout) {
           clearTimeout(closeTimeout);
           closeTimeout = null;
         }
       });
-      spotlightOverlay.addEventListener('mouseleave', () => {
+      spotlightCard.addEventListener('mouseleave', () => {
         scheduleCloseSpotlight();
       });
 
       // Quick Pill Buttons
       const pillsContainer = document.getElementById('wheelPillsContainer');
+      pillsContainer.innerHTML = '';
       orderedCategories.forEach(cat => {
+        const meta = taxonomyData[cat];
         const btn = document.createElement('button');
         btn.type = 'button';
         btn.className = `cat-btn-pill ${cat === activeCategory ? 'active' : ''}`;
         btn.setAttribute('data-cat', cat);
-        btn.innerHTML = `<span class="category-dot" style="background-color: ${taxonomyData[cat].color};"></span>${cat}`;
+        btn.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span>${cat}`;
         
         btn.addEventListener('mouseenter', () => {
           selectCategory(cat, true);
@@ -596,15 +603,15 @@
         ].join(" ");
       }
 
-      // Draw Large Centerpiece Interactive Wheel (640x640)
+      // Draw Centerpiece Interactive Wheel (960x960)
       function drawWheel() {
         const svg = document.getElementById('phenomenaWheelSvg');
         svg.innerHTML = '';
 
-        const cx = 320, cy = 320;
-        const rCenter = 72;
-        const rInner1 = 82, rInner2 = 180;
-        const rOuter1 = 188, rOuter2 = 295;
+        const cx = 480, cy = 480;
+        const rCenter = 105;
+        const rInner1 = 120, rInner2 = 280;
+        const rOuter1 = 290, rOuter2 = 460;
 
         const numCats = orderedCategories.length;
         const catAngleSpan = (2 * Math.PI) / numCats;
@@ -614,8 +621,8 @@
         orderedCategories.forEach((cat, idx) => {
           const startAngle = angleOffset + idx * catAngleSpan;
           const meta = taxonomyData[cat];
-          const subdomains = meta.subdomains;
-          const numSubs = subdomains.length;
+          const subdomains = meta.subdomains || [];
+          const numSubs = subdomains.length || 1;
           const subAngleSpan = catAngleSpan / numSubs;
           const isActiveCat = (cat === activeCategory);
 
@@ -624,12 +631,12 @@
             const subEnd = subStart + subAngleSpan;
 
             const isCurrentSub = activeSubDomain && activeSubDomain.name === sub.name;
-            const outerR = isActiveCat ? (isCurrentSub ? rOuter2 + 10 : rOuter2) : rOuter1 + 35;
+            const outerR = isActiveCat ? (isCurrentSub ? rOuter2 + 10 : rOuter2) : rOuter1 + 52;
             const pathD = describeArc(cx, cy, rOuter1, outerR, subStart, subEnd);
 
             const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
             path.setAttribute("d", pathD);
-            path.setAttribute("fill", isActiveCat ? (isCurrentSub ? meta.color : adjustColor(meta.color, 0.45)) : "#E2E8F0");
+            path.setAttribute("fill", isActiveCat ? (isCurrentSub ? meta.color : adjustColor(meta.color, 0.35)) : "#E2E8F0");
             path.setAttribute("class", `wheel-arc-sub ${isCurrentSub ? 'active' : ''}`);
             path.setAttribute("data-cat", cat);
             path.setAttribute("data-sub-idx", sIdx);
@@ -642,10 +649,10 @@
               text.setAttribute("x", textPos.x);
               text.setAttribute("y", textPos.y + 4);
               text.setAttribute("class", "wheel-text-sub");
-              text.setAttribute("fill", isCurrentSub ? "#FFFFFF" : "#0F172A");
+              text.setAttribute("fill", "#0F172A");
               
               let shortName = sub.name;
-              if (shortName.length > 15) shortName = shortName.substring(0, 13) + '…';
+              if (shortName.length > 25) shortName = shortName.substring(0, 23) + '…';
               text.textContent = shortName;
 
               let deg = (midAngle * 180 / Math.PI);
@@ -658,7 +665,7 @@
               svg.appendChild(path);
             }
 
-            // Hover / Click on Sub-domain slice: Opens box
+            // Hover / Click on Sub-domain slice: Opens spotlight box
             path.addEventListener('mouseenter', () => {
               activeCategory = cat;
               activeSubDomain = sub;
@@ -679,7 +686,7 @@
           });
         });
 
-        // 2. Draw Inner 5 Core Domain Arcs
+        // 2. Draw Inner 8 Core Domain Arcs
         orderedCategories.forEach((cat, idx) => {
           const startAngle = angleOffset + idx * catAngleSpan;
           const endAngle = startAngle + catAngleSpan;
@@ -701,13 +708,9 @@
           const textPos = polarToCartesian(cx, cy, (innerR + outerR) / 2, midAngle);
           const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
           text.setAttribute("x", textPos.x);
-          text.setAttribute("y", textPos.y + 5);
+          text.setAttribute("y", textPos.y + 4);
           text.setAttribute("class", "wheel-text-domain");
-          
-          let domainLabel = cat.split(' ')[0];
-          if (cat === "Cognitive & Language") domainLabel = "Cognitive";
-          if (cat === "Sensory & Perceptual") domainLabel = "Sensory";
-          text.textContent = domainLabel;
+          text.textContent = cat;
 
           let deg = (midAngle * 180 / Math.PI);
           if (deg > 90 && deg < 270) deg += 180;
@@ -716,7 +719,7 @@
           svg.appendChild(path);
           svg.appendChild(text);
 
-          // Click / Hover Category Arc: Opens box
+          // Click / Hover Category Arc: Opens spotlight box
           path.addEventListener('mouseenter', () => {
             selectCategory(cat, true);
           });
@@ -741,17 +744,14 @@
         centerCircle.addEventListener('mouseleave', () => {
           scheduleCloseSpotlight();
         });
-        centerCircle.addEventListener('click', () => {
-          openSpotlight();
-        });
         svg.appendChild(centerCircle);
 
         // Center Title & Icon
-        const activeMeta = taxonomyData[activeCategory];
+        const activeMeta = taxonomyData[activeCategory] || { color: "#3B82F6" };
         const centerIcon = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         centerIcon.setAttribute("cx", cx);
-        centerIcon.setAttribute("cy", cy - 18);
-        centerIcon.setAttribute("r", 7.5);
+        centerIcon.setAttribute("cy", cy - 22);
+        centerIcon.setAttribute("r", 10);
         centerIcon.setAttribute("fill", activeMeta.color);
         centerIcon.style.pointerEvents = "none";
         svg.appendChild(centerIcon);
@@ -760,20 +760,20 @@
         centerText1.setAttribute("x", cx);
         centerText1.setAttribute("y", cy + 8);
         centerText1.setAttribute("text-anchor", "middle");
-        centerText1.setAttribute("font-size", "13px");
-        centerText1.setAttribute("font-weight", "800");
+        centerText1.setAttribute("font-size", "16px");
+        centerText1.setAttribute("font-weight", "500");
         centerText1.setAttribute("fill", "#0F172A");
         centerText1.style.pointerEvents = "none";
-        centerText1.textContent = activeCategory.split(' ')[0];
+        centerText1.textContent = activeCategory;
         svg.appendChild(centerText1);
 
         const catSitesCount = sites.filter(s => s.category === activeCategory).length;
         const centerText2 = document.createElementNS("http://www.w3.org/2000/svg", "text");
         centerText2.setAttribute("x", cx);
-        centerText2.setAttribute("y", cy + 28);
+        centerText2.setAttribute("y", cy + 32);
         centerText2.setAttribute("text-anchor", "middle");
-        centerText2.setAttribute("font-size", "11px");
-        centerText2.setAttribute("font-weight", "600");
+        centerText2.setAttribute("font-size", "13px");
+        centerText2.setAttribute("font-weight", "400");
         centerText2.setAttribute("fill", "#64748B");
         centerText2.style.pointerEvents = "none";
         centerText2.textContent = `${catSitesCount} Sites`;
@@ -797,24 +797,24 @@
       }
 
       function updateSpotlightUI() {
-        const meta = taxonomyData[activeCategory];
+        const meta = taxonomyData[activeCategory] || {};
         const catSites = sites.filter(s => s.category === activeCategory);
 
-        document.getElementById('spotlightDot').style.backgroundColor = meta.color;
+        document.getElementById('spotlightDot').style.backgroundColor = meta.color || '#3B82F6';
         document.getElementById('spotlightCategoryName').innerText = activeCategory;
         document.getElementById('spotlightCount').innerText = `${catSites.length} stimulation sites`;
 
         if (activeSubDomain) {
           document.getElementById('spotlightSubBadge').innerText = activeSubDomain.name;
-          document.getElementById('spotlightSubBadge').style.backgroundColor = meta.color;
-          document.getElementById('spotlightSubBadge').style.color = '#FFFFFF';
+          document.getElementById('spotlightSubBadge').style.backgroundColor = meta.color || '#0F172A';
+          document.getElementById('spotlightSubBadge').style.color = '#0F172A';
           document.getElementById('spotlightTitle').innerText = `${activeSubDomain.name} (Sub-Domain)`;
           document.getElementById('spotlightDescription').innerText = activeSubDomain.desc;
 
           // Anatomical Hubs for this specific sub-domain
           const regContainer = document.getElementById('spotlightRegions');
           regContainer.innerHTML = '';
-          activeSubDomain.hubs.forEach(h => {
+          (activeSubDomain.hubs || []).forEach(h => {
             const chip = document.createElement('span');
             chip.className = 'cat-badge me-1 mb-1';
             chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${h}</span>`;
@@ -825,12 +825,12 @@
           document.getElementById('spotlightSubBadge').style.backgroundColor = '#0F172A';
           document.getElementById('spotlightSubBadge').style.color = '#FFFFFF';
           document.getElementById('spotlightTitle').innerText = `${activeCategory} Responses`;
-          document.getElementById('spotlightDescription').innerText = meta.desc;
+          document.getElementById('spotlightDescription').innerText = meta.desc || '';
 
           // General Category Hubs
           const regContainer = document.getElementById('spotlightRegions');
           regContainer.innerHTML = '';
-          meta.regions.forEach(r => {
+          (meta.regions || []).forEach(r => {
             const chip = document.createElement('span');
             chip.className = 'cat-badge me-1 mb-1';
             chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${r}</span>`;
@@ -841,16 +841,19 @@
         // Sub-domain chips list
         const effectsContainer = document.getElementById('spotlightEffects');
         effectsContainer.innerHTML = '';
-        meta.subdomains.forEach(sub => {
+        (meta.subdomains || []).forEach(sub => {
           const chip = document.createElement('button');
           chip.type = 'button';
           chip.className = 'cat-badge me-1 mb-1 border-0';
           const isCurr = activeSubDomain && activeSubDomain.name === sub.name;
           chip.style.backgroundColor = isCurr ? meta.color : '#F1F5F9';
-          chip.style.color = isCurr ? '#FFFFFF' : '#0F172A';
-          chip.style.border = isCurr ? `1px solid ${meta.color}` : '1px solid #CBD5E1';
+          chip.style.color = '#0F172A';
+          chip.style.border = isCurr ? `1.5px solid #0F172A` : '1px solid #CBD5E1';
           chip.style.cursor = 'pointer';
-          chip.innerHTML = `<span class="category-dot" style="background-color: ${isCurr ? '#FFFFFF' : meta.color};"></span><span>${sub.name}</span>`;
+          chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${sub.name}</span>`;
+          chip.addEventListener('mouseenter', () => {
+            openSpotlight();
+          });
           chip.addEventListener('click', (e) => {
             e.stopPropagation();
             activeSubDomain = sub;
@@ -878,7 +881,10 @@
       // Color lightness adjuster helper
       function adjustColor(hex, lum) {
         hex = String(hex).replace(/[^0-9a-f]/gi, '');
-        if (hex.length < 6) hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        if (hex.length < 6) {
+          hex = hex[0]+hex[0]+hex[1]+hex[1]+hex[2]+hex[2];
+        }
+        lum = lum || 0;
         let rgb = "#", c, i;
         for (i = 0; i < 3; i++) {
           c = parseInt(hex.substr(i*2, 2), 16);
@@ -888,20 +894,8 @@
         return rgb;
       }
 
-      // Keyframes style for hint animation
-      const styleAnim = document.createElement('style');
-      styleAnim.innerHTML = `
-        @keyframes pulseDot {
-          0% { transform: scale(0.9); opacity: 0.7; }
-          50% { transform: scale(1.3); opacity: 1; }
-          100% { transform: scale(0.9); opacity: 0.7; }
-        }
-      `;
-      document.head.appendChild(styleAnim);
-
-      // Initialize
-      updateSpotlightUI();
-      drawWheel();
+      // Initial Setup: Render wheel with spotlight initially hidden until hover
+      selectCategory(activeCategory, false);
     });
   </script>
 

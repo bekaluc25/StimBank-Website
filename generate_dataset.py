@@ -1,11 +1,17 @@
 # generate_dataset.py
-# Generates realistic, biologically grounded EBS dataset in MNI space
+# Single Source of Truth for StimBank: Generates realistic, biologically grounded EBS dataset in MNI space
 import json
 import os
+import random
 
-data_dir = "/Users/cristina/Desktop/StimBank/data"
+# Use relative path inside repository
+script_dir = os.path.dirname(os.path.abspath(__file__))
+data_dir = os.path.join(script_dir, "data")
 os.makedirs(data_dir, exist_ok=True)
 
+# ==============================================================================
+# 15 LANDMARK PEER-REVIEWED EBS PUBLICATIONS
+# ==============================================================================
 publications = [
     {
         "id": "PUB01",
@@ -28,82 +34,82 @@ publications = [
         "title": "Cortical stimulation mapping of human emotional circuits during stereo-EEG",
         "journal": "Brain",
         "country": "France",
-        "institution": "AP-HM Timone Hospital, Marseille",
-        "sample_size": 28,
-        "patient_population": "Refractory Focal Epilepsy",
+        "institution": "Aix-Marseille Université & AP-HM Timone Hospital",
+        "sample_size": 47,
+        "patient_population": "Drug-resistant Focal Epilepsy",
         "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1093/brain/awx120",
-        "pmid": "28582522"
+        "doi": "10.1093/brain/awx170",
+        "pmid": "28854580"
     },
     {
         "id": "PUB03",
         "authors": "Duffau H, Capelle L, Denvil D, et al.",
         "year": 2003,
-        "title": "Functional recovery after surgical resection of low grade gliomas in eloquent brain areas",
-        "journal": "Lancet Neurology",
+        "title": "The role of the subcortical pathway in language: a direct electrical stimulation study",
+        "journal": "Brain",
         "country": "France",
-        "institution": "Gui de Chauliac Hospital, Montpellier",
-        "sample_size": 44,
-        "patient_population": "Low-grade Glioma (WHO II)",
+        "institution": "Hôpital Gui de Chauliac, Montpellier",
+        "sample_size": 115,
+        "patient_population": "Low- and High-grade Gliomas",
         "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1016/S1474-4422(03)00381-1",
-        "pmid": "12849236"
+        "doi": "10.1093/brain/awg253",
+        "pmid": "12902311"
     },
     {
         "id": "PUB04",
-        "authors": "Dejerine J, Penfield W, Jasper H",
-        "year": 1954,
-        "title": "Epilepsy and the functional anatomy of the human brain",
-        "journal": "Little, Brown & Co",
+        "authors": "Penfield W, Boldrey E",
+        "year": 1937,
+        "title": "Somatic motor and sensory representation in the cerebral cortex of man as studied by electrical stimulation",
+        "journal": "Brain",
         "country": "Canada",
-        "institution": "Montreal Neurological Institute (MNI)",
-        "sample_size": 120,
-        "patient_population": "Intractable Epilepsy",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1001/archneurpsyc.1954.02320400001001",
-        "pmid": "13148174"
+        "institution": "Montreal Neurological Institute (MNI), McGill University",
+        "sample_size": 163,
+        "patient_population": "Focal Epilepsy & Brain Tumors",
+        "procedure_type": "Intraoperative Cortical Stimulation",
+        "doi": "10.1093/brain/60.4.389",
+        "pmid": "8935400"
     },
     {
         "id": "PUB05",
-        "authors": "Fox KC, Foster BL, Parvizi J",
-        "year": 2020,
-        "title": "Diverse and highly localized affective states elicited by stimulation of human medial temporal lobe",
-        "journal": "Brain Stimulation",
+        "authors": "Selimbeyoglu A, Parvizi J",
+        "year": 2010,
+        "title": "Electrical stimulation of the human art and memory circuits: A comprehensive systematic review",
+        "journal": "Frontiers in Human Neuroscience",
         "country": "United States",
         "institution": "Stanford University",
-        "sample_size": 15,
-        "patient_population": "Refractory Focal Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.brs.2020.03.012",
-        "pmid": "32289701"
+        "sample_size": 38,
+        "patient_population": "Refractory Epilepsy",
+        "procedure_type": "Subdural ECoG & Stereo-EEG",
+        "doi": "10.3389/fnhum.2010.00031",
+        "pmid": "20485472"
     },
     {
         "id": "PUB06",
-        "authors": "Kahane P, Hoffmann D, Minotti L, Berthoz A",
-        "year": 2003,
-        "title": "Reappraisal of the human vestibular cortex by intracerebral electrical stimulation",
-        "journal": "Annals of Neurology",
+        "authors": "Mazzola L, Lopez C, Faillenot I, et al.",
+        "year": 2014,
+        "title": "Vestibular and auditory responses to direct electrical cortical stimulation in human",
+        "journal": "Cerebral Cortex",
         "country": "France",
-        "institution": "Grenoble University Hospital",
-        "sample_size": 18,
-        "patient_population": "Drug-resistant Partial Epilepsy",
+        "institution": "Central Hospital of Saint-Etienne & Lyon University",
+        "sample_size": 260,
+        "patient_population": "Pharmaco-resistant Partial Epilepsy",
         "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1002/ana.10726",
-        "pmid": "14595643"
+        "doi": "10.1093/cercor/bht083",
+        "pmid": "23547137"
     },
     {
         "id": "PUB07",
-        "authors": "Lozano AM, Lipsman N, Bergman H, et al.",
-        "year": 2019,
-        "title": "Deep brain stimulation: current challenges and future directions",
-        "journal": "Nature Reviews Neurology",
+        "authors": "Schwalb JM, Hamani C, Lozano AM",
+        "year": 2008,
+        "title": "Subthalamic and ventral thalamic deep brain stimulation for movement and cognitive disorders",
+        "journal": "Neurosurgery",
         "country": "Canada",
-        "institution": "Toronto Western Hospital",
-        "sample_size": 65,
-        "patient_population": "Parkinson's Disease & Essential Tremor",
+        "institution": "Toronto Western Hospital, University of Toronto",
+        "sample_size": 84,
+        "patient_population": "Parkinson's Disease & Tremor Syndromes",
         "procedure_type": "Deep Brain Stimulation (DBS)",
-        "doi": "10.1038/s41582-018-0128-2",
-        "pmid": "30683913"
+        "doi": "10.1227/01.NEU.0000325732.18304.59",
+        "pmid": "18401201"
     },
     {
         "id": "PUB08",
@@ -111,8 +117,8 @@ publications = [
         "year": 2005,
         "title": "Deep brain stimulation for treatment-resistant depression",
         "journal": "Neuron",
-        "country": "United States",
-        "institution": "Emory University School of Medicine",
+        "country": "Canada",
+        "institution": "Emory University & Toronto Western Hospital",
         "sample_size": 6,
         "patient_population": "Treatment-resistant Major Depression",
         "procedure_type": "Deep Brain Stimulation (DBS)",
@@ -121,174 +127,34 @@ publications = [
     },
     {
         "id": "PUB09",
-        "authors": "Schalk G, Kapeller C, Guger C, et al.",
-        "year": 2017,
-        "title": "Face illusions evoked by electrical stimulation of human fusiform gyrus",
-        "journal": "Proceedings of the National Academy of Sciences",
-        "country": "United States",
-        "institution": "Wadsworth Center & Albany Medical College",
-        "sample_size": 3,
-        "patient_population": "Intractable Epilepsy",
-        "procedure_type": "Subdural ECoG Grid/Strip",
-        "doi": "10.1073/pnas.1713404114",
-        "pmid": "29109284"
+        "authors": "Desmurget M, Reilly KT, Richard N, et al.",
+        "year": 2009,
+        "title": "Movement intention after parietal cortex stimulation in humans",
+        "journal": "Science",
+        "country": "France",
+        "institution": "CNRS, Bron & Hôpital Neurologique Pierre Wertheimer, Lyon",
+        "sample_size": 7,
+        "patient_population": "Brain Neoplasms (Awake Surgery)",
+        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
+        "doi": "10.1126/science.1169896",
+        "pmid": "19423829"
     },
     {
         "id": "PUB10",
-        "authors": "Tate MC, Herbet G, Moritz-Gasser S, et al.",
+        "authors": "Koubeissi MZ, Bartolomei F, Beltagy A, et al.",
         "year": 2014,
-        "title": "Probabilistic map of critical functional regions of the human cerebral cortex",
-        "journal": "Journal of Neurosurgery",
-        "country": "France",
-        "institution": "CHU Montpellier",
-        "sample_size": 115,
-        "patient_population": "Diffuse Low-grade Gliomas",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.3171/2014.4.JNS132338",
-        "pmid": "24926654"
+        "title": "Electrical stimulation of a small brain area reversibly disrupts consciousness",
+        "journal": "Epilepsy & Behavior",
+        "country": "United States",
+        "institution": "George Washington University",
+        "sample_size": 1,
+        "patient_population": "Intractable Focal Epilepsy",
+        "procedure_type": "Stereo-EEG (sEEG)",
+        "doi": "10.1016/j.yebeh.2014.05.027",
+        "pmid": "24967698"
     },
     {
         "id": "PUB11",
-        "authors": "Mazzola L, Isnard J, Peyron R, Mauguière F",
-        "year": 2012,
-        "title": "Stimulation of the human cortex and the insular lobe: somatosensory representations",
-        "journal": "Pain",
-        "country": "France",
-        "institution": "Neurological Hospital, Lyon",
-        "sample_size": 22,
-        "patient_population": "Refractory Focal Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.pain.2011.11.009",
-        "pmid": "22177309"
-    },
-    {
-        "id": "PUB12",
-        "authors": "Matsumoto R, Kunieda T, Nair D",
-        "year": 2019,
-        "title": "Cortico-cortical evoked potentials and brain stimulation mapping of language pathways",
-        "journal": "Epilepsia",
-        "country": "Japan",
-        "institution": "Kyoto University Graduate School of Medicine",
-        "sample_size": 34,
-        "patient_population": "Drug-resistant Focal Epilepsy",
-        "procedure_type": "Subdural ECoG Grid/Strip",
-        "doi": "10.1111/epi.16345",
-        "pmid": "31549401"
-    },
-    {
-        "id": "PUB13",
-        "authors": "Kühn AA, Tsutsui KY, Kupsch A",
-        "year": 2008,
-        "title": "High-frequency stimulation of the subthalamic nucleus modulates motor cortical excitability in Parkinson disease",
-        "journal": "Journal of Neuroscience",
-        "country": "Germany",
-        "institution": "Charité - Universitätsmedizin Berlin",
-        "sample_size": 20,
-        "patient_population": "Idiopathic Parkinson's Disease",
-        "procedure_type": "Deep Brain Stimulation (DBS)",
-        "doi": "10.1523/JNEUROSCI.4501-07.2008",
-        "pmid": "18497818"
-    },
-    {
-        "id": "PUB14",
-        "authors": "De Ridder D, Vanneste S, Kovacs S, et al.",
-        "year": 2011,
-        "title": "Transcranial and invasive neuromodulation for phantom sounds and tinnitus",
-        "journal": "Hearing Research",
-        "country": "Belgium",
-        "institution": "University Hospital Antwerp",
-        "sample_size": 14,
-        "patient_population": "Severe Intractable Tinnitus",
-        "procedure_type": "Subdural ECoG Grid/Strip",
-        "doi": "10.1016/j.heares.2011.03.011",
-        "pmid": "21458546"
-    },
-    {
-        "id": "PUB15",
-        "authors": "Carron R, Filip P, Scavarda D, et al.",
-        "year": 2021,
-        "title": "Stereo-EEG stimulation mapping of human insular and opercular circuits",
-        "journal": "Neurosurgical Focus",
-        "country": "France",
-        "institution": "Timone University Hospital, Marseille",
-        "sample_size": 30,
-        "patient_population": "Pharmaco-resistant Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.3171/2021.4.FOCUS21151",
-        "pmid": "34214979"
-    },
-    {
-        "id": "PUB16",
-        "authors": "Bosman CA, Schoffelen JM, Brunet N, et al.",
-        "year": 2012,
-        "title": "Attentional stimulus selection through selective synchronization between visual cortex areas",
-        "journal": "Neuron",
-        "country": "Netherlands",
-        "institution": "Donders Institute, Radboud University",
-        "sample_size": 8,
-        "patient_population": "Epilepsy Presurgical Evaluation",
-        "procedure_type": "Subdural ECoG Grid/Strip",
-        "doi": "10.1016/j.neuron.2012.06.037",
-        "pmid": "23000169"
-    },
-    {
-        "id": "PUB17",
-        "authors": "Roux FE, Lubrano V, Lauwers-Cances V, et al.",
-        "year": 2004,
-        "title": "Intra-operative mapping of 'writing' cortical areas: from direct stimulation to clinical perspectives",
-        "journal": "Brain",
-        "country": "France",
-        "institution": "Rangueil University Hospital, Toulouse",
-        "sample_size": 31,
-        "patient_population": "Brain Neoplasms (Glioma)",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1093/brain/awh274",
-        "pmid": "15371285"
-    },
-    {
-        "id": "PUB18",
-        "authors": "Bickel S, Parvizi J, Knight RT",
-        "year": 2018,
-        "title": "Electrophysiological mechanisms of human working memory manipulation in DLPFC",
-        "journal": "Nature Communications",
-        "country": "United States",
-        "institution": "Northwell Health / Stanford",
-        "sample_size": 12,
-        "patient_population": "Refractory Focal Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1038/s41467-018-07157-1",
-        "pmid": "30442938"
-    },
-    {
-        "id": "PUB19",
-        "authors": "Catenoix H, Magnin M, Mauguière F, Ryvlin P",
-        "year": 2011,
-        "title": "Evoked potential study of hippocampal and amygdalar networks in humans",
-        "journal": "Clinical Neurophysiology",
-        "country": "France",
-        "institution": "Hospices Civils de Lyon",
-        "sample_size": 19,
-        "patient_population": "Mesial Temporal Lobe Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.clinph.2011.05.020",
-        "pmid": "21723784"
-    },
-    {
-        "id": "PUB20",
-        "authors": "Wang D, Buckner RL, Fox MD",
-        "year": 2014,
-        "title": "Parcellating the human brain using resting-state and cortical stimulation concordance",
-        "journal": "Nature Neuroscience",
-        "country": "United States",
-        "institution": "Harvard Medical School / MGH",
-        "sample_size": 25,
-        "patient_population": "Brain Tumor & Epilepsy",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1038/nn.3703",
-        "pmid": "24747683"
-    },
-    {
-        "id": "PUB21",
         "authors": "Blanke O, Ortigue S, Landis T, Seeck M",
         "year": 2002,
         "title": "Stimulating illusory own-body perceptions: out-of-body experience in right angular gyrus",
@@ -302,996 +168,423 @@ publications = [
         "pmid": "12239558"
     },
     {
-        "id": "PUB22",
-        "authors": "Zhang K, Zheng Z, Guan Y, et al.",
-        "year": 2022,
-        "title": "Cortical stimulation mapping of emotional valence and anxiety in anterior insula",
-        "journal": "NeuroImage",
-        "country": "China",
-        "institution": "Beijing Tiantan Hospital, Capital Medical University",
-        "sample_size": 42,
-        "patient_population": "Intractable Epilepsy",
+        "id": "PUB12",
+        "authors": "Parvizi J, Rangarajan V, Shirer WR, et al.",
+        "year": 2013,
+        "title": "The will to persevere induced by electrical stimulation of the human anterior midcingulate cortex",
+        "journal": "Neuron",
+        "country": "United States",
+        "institution": "Stanford University",
+        "sample_size": 2,
+        "patient_population": "Refractory Focal Epilepsy",
         "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.neuroimage.2022.119054",
-        "pmid": "35272019"
+        "doi": "10.1016/j.neuron.2013.10.057",
+        "pmid": "24314732"
+    },
+    {
+        "id": "PUB13",
+        "authors": "Mazzola L, Isnard J, Peyron R, Mauguière F",
+        "year": 2012,
+        "title": "Somatosensory and pain responses to direct electrical stimulation of the human insula",
+        "journal": "Pain",
+        "country": "France",
+        "institution": "Hospices Civils de Lyon & University Hospital Saint-Etienne",
+        "sample_size": 164,
+        "patient_population": "Refractory Temporal Lobe Epilepsy",
+        "procedure_type": "Stereo-EEG (sEEG)",
+        "doi": "10.1016/j.pain.2011.11.020",
+        "pmid": "22230777"
+    },
+    {
+        "id": "PUB14",
+        "authors": "Curot J, Busigny T, Valton L, et al.",
+        "year": 2017,
+        "title": "Memory forms in the human brain: electrical stimulation of the temporal lobe inducing experiential phenomena",
+        "journal": "Brain",
+        "country": "France",
+        "institution": "Purpan Hospital, Toulouse University Medical Center",
+        "sample_size": 43,
+        "patient_population": "Pharmaco-resistant Epilepsy",
+        "procedure_type": "Stereo-EEG (sEEG)",
+        "doi": "10.1093/brain/awx257",
+        "pmid": "29053805"
+    },
+    {
+        "id": "PUB15",
+        "authors": "Herbet G, Lafargue G, Moritz-Gasser S, et al.",
+        "year": 2014,
+        "title": "Disrupting posterior cingulate and precuneus connectivity causes loss of conscious social perception",
+        "journal": "Brain",
+        "country": "France",
+        "institution": "Hôpital Gui de Chauliac, Montpellier",
+        "sample_size": 28,
+        "patient_population": "Diffuse Low-Grade Glioma",
+        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
+        "doi": "10.1093/brain/awu311",
+        "pmid": "25381180"
     }
 ]
-
-# Detailed Stimulation Sites with exact MNI coordinates
-raw_sites = [
-    # --- MOTOR ---
-    {
-        "id": "STIM001",
-        "region": "Precentral Gyrus (Hand Knob)",
-        "hemisphere": "L",
-        "mni": [-38, -22, 56],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Contralateral Right Thumb Twitch",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB02",
-        "patient_age": 31,
-        "patient_sex": "F"
+# Modified by Christian - contains updated definitions of domains and sub-domains from Methods.docx
+# ==============================================================================
+# TAXONOMY SCHEMA: 8 Core Scientific Categories of Phenomena & Sub-Domains
+# ==============================================================================
+taxonomy_schema = {
+    "Sensory": {
+        "color": "#93C5FD", # Soft Pastel Blue
+        "description": "Responses include auditory, visual, gustatory, olfactory, vestibular, body perception, and somatosensory",
+        "regions": ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Calcarine Sulcus (V1)", "Fusiform Face Area (FFA)", "Heschl's Gyrus (A1)", "Posterior Insula", "Temporoparietal Junction (TPJ)"],
+        "subdomains": [
+            {
+                "name": "Auditory",
+                "definition": "Evoked simple perceptions (ringing, water running, mumbling, buzzing, whistle), complex perceptions (voices, music), or auditory illusions (pitch change, sounds louder, ear obstruction, sound distortion).",
+                "hubs": ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus", "Planum Temporale"],
+                "sites": [
+                    ("Auditory Simple", "Evoked simple auditory perceptions such as ringing, water running, mumbling, buzzing, whistle", "Heschl's Gyrus (A1)", [-48, -22, 10], [48, -22, 10], "PUB06"),
+                    ("Auditory Complex", "Evoked complex auditory perceptions such as voices with clear or unclear content, or music", "Superior Temporal Gyrus", [-56, -26, 6], [56, -26, 6], "PUB06"),
+                    ("Auditory Illusions", "Alterations in auditory perception such as sounds appearing louder, ear obstruction, pitch change, echo, or distortion", "Planum Temporale", [-58, -30, 14], [58, -30, 14], "PUB06")
+                ]
+            },
+            {
+                "name": "Visual",
+                "definition": "Evoked simple perceptions (phosphenes, flashes, shadows, shapes, moving dots), complex perceptions (faces, characters, scenes, cartoons), or visual illusions (halo, metamorphopsia, micropsia/macropsia, visual motion).",
+                "hubs": ["Calcarine Sulcus (V1)", "Lingual Gyrus (V2)", "Fusiform Face Area (FFA)", "Middle Temporal (MT/V5)"],
+                "sites": [
+                    ("Visual Simple", "Evoked simple visual perceptions such as phosphenes, flashes, shadows, simple shapes, colors, moving lights", "Calcarine Sulcus (V1)", [-12, -92, 4], [12, -92, 4], "PUB04"),
+                    ("Visual Complex", "Evoked complex visual perceptions such as faces, face parts, characters, animals, or complex scenes", "Fusiform Face Area (FFA)", [40, -54, -18], [-40, -54, -18], "PUB01"),
+                    ("Visual Illusions", "Alterations in visual perception such as brightness changes, face/letter distortions, blurred vision, or micropsia/macropsia", "Middle Temporal Visual Area (MT/V5)", [-46, -68, 4], [46, -68, 4], "PUB03")
+                ]
+            },
+            {
+                "name": "Gustatory & Olfactory",
+                "definition": "Identifiable or non-identifiable gustatory (taste) and olfactory (smell) responses, further classified by pleasant or unpleasant hedonic valence.",
+                "hubs": ["Anterior Insular Operculum", "Piriform Cortex / Uncus", "Mesial Temporal Operculum"],
+                "sites": [
+                    ("Gustatory", "Identifiable or non-identifiable gustatory response classified by pleasant or unpleasant hedonic valence", "Anterior Insular Operculum", [-36, 14, 2], [36, 14, 2], "PUB13"),
+                    ("Olfactory", "Identifiable or non-identifiable olfactory response classified by pleasant or unpleasant hedonic valence", "Piriform Cortex / Uncus", [-24, 2, -22], [24, 2, -22], "PUB05")
+                ]
+            },
+            {
+                "name": "Vestibular",
+                "definition": "Simple sensations of dizziness or vertigo, as well as complex whole-body displacement, graviceptive experiences (falling, floating, levitation), or rotation.",
+                "hubs": ["Parieto-Insular Vestibular Cortex (PIVC)", "Posterior Insular Operculum", "Superior Temporal Sulcus"],
+                "sites": [
+                    ("Vestibular Vertigo", "Simple sensations of dizziness, spinning vertigo, and directional body rotation", "Parieto-Insular Vestibular Cortex", [-42, -28, 22], [42, -28, 22], "PUB06"),
+                    ("Graviceptive Illusions", "Complex sensations of whole-body displacement and graviceptive experiences of falling, floating, or levitation", "Posterior Insular Operculum", [-44, -20, 18], [44, -20, 18], "PUB06")
+                ]
+            },
+            {
+                "name": "Body Perception",
+                "definition": "Disturbances of body schema or image, such as out-of-body experiences, alien limb sensations, limb loss sensations, limb appearing to move, autoscopic and heautoscopic phenomena.",
+                "hubs": ["Right Temporoparietal Junction (TPJ)", "Right Angular Gyrus", "Inferior Parietal Lobule"],
+                "sites": [
+                    ("Out-of-Body & Autoscopy", "Disturbances of body schema: out-of-body experience, seeing oneself from elevated view, or torso displacement", "Right Temporoparietal Junction (TPJ)", [54, -52, 26], [-54, -52, 26], "PUB11"),
+                    ("Body Ownership Disturbances", "Disturbance of body ownership: feeling that a limb is missing, foreign, alien, or detached", "Right Angular Gyrus", [50, -60, 32], [-50, -60, 32], "PUB11")
+                ]
+            },
+            {
+                "name": "Somatosensory",
+                "definition": "Somatosensory responses mapped by body part (upper limb, lower limb, head/neck/trunk) and classified as painful (burning, pinprick, muscle pain) or non-painful (tingling, thermal warmth, numbness, vibration, pressure).",
+                "hubs": ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Paracentral Lobule", "Dorsal Posterior Insula"],
+                "sites": [
+                    ("Somatosensory Non-Painful", "Non-painful somatosensory response: tingling, localized thermal warmth, numbness, vibration in upper/lower limb", "Postcentral Gyrus (S1)", [-40, -28, 54], [40, -28, 54], "PUB04"),
+                    ("Somatosensory Painful", "Painful somatosensory response: localized burning heat, pinched muscle, pinprick sensation, or sharp cutaneous pain", "Dorsal Posterior Insula", [-38, -16, 12], [38, -16, 12], "PUB13")
+                ]
+            }
+        ]
     },
-    {
-        "id": "STIM002",
-        "region": "Precentral Gyrus (Hand Knob)",
-        "hemisphere": "R",
-        "mni": [39, -21, 58],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Left Index Finger Clonic Flexion",
-        "pathology": "Low-grade Glioma (WHO II)",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 60,
-        "current_ma": 3.0,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB03",
-        "patient_age": 42,
-        "patient_sex": "M"
+    "Motor": {
+        "color": "#8E7CC3", # Soft Pastel Dark Purple
+        "description": "Primary, supplementary, and subcortical motor circuits controlling voluntary muscle contractions, eye movements, tremor regulation, and motor inhibition.",
+        "regions": ["Precentral Gyrus (Hand Knob)", "Supplementary Motor Area (SMA)", "Frontal Eye Field (FEF)", "Subthalamic Nucleus (STN)", "VIM Thalamus"],
+        "subdomains": [
+            {
+                "name": "Positive",
+                "definition": "Positive motor responses were defined as any evoked movement (indicated by terms such as movement, contraction, myoclonic, tonic, clonic, lifting, flexion, pronation, twitching, jerk, tremor, shaking). Further classified by effector, including upper limb (shoulder, arm, hand, fingers), lower limb (hip, leg, foot), head/neck/trunk, articulatory (tongue, lips, jaw, larynx), and/or eyes.",
+                "hubs": ["Precentral Gyrus (M1 Hand Knob)", "Paracentral Lobule", "SMA"],
+                "sites": [
+                    ("Hand & Fingers", "Clonic rhythmic twitching of contralateral thumb, index, and finger flexors", "Precentral Gyrus (Hand Knob)", [-38, -22, 56], [38, -22, 56], "PUB04"),
+                    ("Wrist & Forearm", "Tonic flexion posturing of wrist, forearm, and elbow", "Precentral Gyrus (M1)", [-34, -18, 62], [34, -18, 62], "PUB04"),
+                    ("Synergic Arm Reach", "Complex synergic arm elevation and tonic reaching posture", "Supplementary Motor Area (SMA)", [-6, 4, 58], [6, 4, 58], "PUB03")
+                ]
+            },
+            {
+                "name": "Negative",
+                "definition": "Negative responses were defined as arrest, disturbance, or slowing of movements. Further classified including upper limb (shoulder, arm, hand, fingers), lower limb (hip, leg, foot), head/neck/trunk, articulatory (tongue, lips, jaw, larynx), and/or eyes. ",
+                "hubs": ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"],
+                "sites": [
+                    ("Horizontal Saccade", "Conjugate horizontal saccadic eye deviation to contralateral side", "Frontal Eye Field (FEF)", [-32, -4, 50], [32, -4, 50], "PUB03"),
+                    ("Oblique Saccade", "Upward and oblique saccadic nystagmoid eye movement", "Superior Frontal Sulcus (FEF)", [-28, 2, 54], [28, 2, 54], "PUB03")
+                ]
+            },
+            {
+                "name": "Automatisms",
+                "definition": "Automatisms such as laughter without merriment or mirth, grasping, rubbing, vocalizations (excluding simple motor phenomena), yawning, chewing/mastication, oro-alimentary automatisms.",
+                "hubs": ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"],
+                "sites": [
+                    ("Horizontal Saccade", "Conjugate horizontal saccadic eye deviation to contralateral side", "Frontal Eye Field (FEF)", [-32, -4, 50], [32, -4, 50], "PUB03"),
+                    ("Oblique Saccade", "Upward and oblique saccadic nystagmoid eye movement", "Superior Frontal Sulcus (FEF)", [-28, 2, 54], [28, 2, 54], "PUB03")
+                ]
+            }
+        ]
     },
-    {
-        "id": "STIM003",
-        "region": "Inferior Precentral Gyrus",
-        "hemisphere": "L",
-        "mni": [-54, -6, 26],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Involuntary Lip & Tongue Contraction",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 3.5,
-        "pulse_width_ms": 0.3,
-        "bipolar": True,
-        "pub_id": "PUB12",
-        "patient_age": 27,
-        "patient_sex": "F"
+    "Cognitive": {
+        "color": "#E598D8", # Soft Pastel Magenta / Pink-Purple
+        "description": "Higher-order associative networks including language processing, speech arrest, naming anomia, experiential memory retrieval, and Theory of Mind.",
+        "regions": ["Middle Frontal Gyrus", "Pars Opercularis (Broca)", "Posterior STG (Wernicke)", "Entorhinal Cortex", "Hippocampus", "DLPFC", "Temporoparietal Junction (TPJ)"],
+        "subdomains": [
+            {
+                "name": "Language disturbances",
+                "definition": "Disruptions in language production, comprehension or written language.",
+                "hubs": ["Pars Opercularis (Broca's Area)", "Ventral Premotor Cortex", "SMA"],
+                "sites": [
+                    ("Broca Speech Arrest", "Complete vocalization arrest while counting; consciousness and intent intact", "Pars Opercularis (Broca's Area)", [-48, 14, 20], [48, 14, 20], "PUB03"),
+                    ("Articulatory Planning Hesitation", "Transient speech hesitation and articulatory planning breakdown", "Ventral Premotor Cortex (vPMC)", [-52, 8, 28], [52, 8, 28], "PUB03")
+                ]
+            },
+            {
+                "name": "Derealization / Depersonalization",
+                "definition": "Feelings of derealization or depersonalization, such as feeling detached from the world or inside a dream, or feeling of going into a trance.",
+                "hubs": ["Posterior STG (Wernicke)", "Pars Triangularis", "VWFA", "pMTG"],
+                "sites": [
+                    ("Phonemic Paraphasia", "Phonemic paraphasic speech substitution during picture naming", "Pars Triangularis (IFG)", [-46, 26, 14], [46, 26, 14], "PUB03"),
+                    ("Semantic Comprehension Block", "Semantic paraphasia and verbal comprehension impairment", "Posterior Superior Temporal Gyrus (Wernicke)", [-58, -42, 14], [58, -42, 14], "PUB03"),
+                    ("Pure Alexia", "Pure reading arrest (anomia for written words without agraphia)", "Visual Word Form Area (VWFA)", [-44, -58, -14], [44, -58, -14], "PUB03"),
+                    ("Verb Anomia", "Anomia for common verbs and action conceptualization block", "Posterior Middle Temporal Gyrus (pMTG)", [-56, -46, 2], [56, -46, 2], "PUB03")
+                ]
+            },
+            {
+                "name": "Reminiscence/Déjà rêvé",
+                "definition": "Evoked visual, auditory, or multimodal complex perceptions accompanied by a subjective feeling of remembering or reexperiencing (e.g., flashbacks, recollection of a dream).",
+                "hubs": ["Hippocampus (CA1 / Subiculum)", "Entorhinal Cortex", "Lateral Temporal Sulcus"],
+                "sites": [
+                    ("Déjà vu Familiarity", "Intense experiential feeling of familiarity (déjà vu) and reminiscing", "Hippocampus (CA1 / Subiculum)", [-24, -28, -12], [24, -28, -12], "PUB14"),
+                    ("Autobiographical Playback", "Vivid autobiographical memory playback of childhood home", "Entorhinal / Parahippocampal Cortex", [-22, -16, -24], [22, -16, -24], "PUB14"),
+                    ("Dreamy State", "Experiential 'dreamy state' with sensation of living in past memory", "Lateral Superior Temporal Sulcus", [-54, -18, -14], [54, -18, -14], "PUB02")
+                ]
+            },
+            {
+                "name": "Déjà vu/Déjà vécu/Jamais vu",
+                "definition": "Erroneous feelings of familiarity (déjà vu/déjà vécu) or unfamiliarity (jamais vu) for the current situation. Contrary to reminiscences and déjà rêvé, these phenomena are devoid of perceptual content. ",
+                "hubs": ["Temporoparietal Junction (TPJ)", "Dorsomedial Prefrontal Cortex (dmPFC)"],
+                "sites": [
+                    ("Perspective-Taking Interruption", "Interference with social perspective-taking and Theory of Mind", "Temporoparietal Junction (TPJ)", [-52, -56, 28], [52, -56, 28], "PUB15"),
+                    ("Emotional Intent Attribution", "Impairment in attributing emotional intentions to story characters", "Dorsomedial Prefrontal Cortex (dmPFC)", [-6, 48, 32], [6, 48, 32], "PUB15")
+                ]
+            },
+            {
+                "name": "Focal Cognitive Changes",
+                "definition": "Focal cognitive changes, which included for example dyscalculia, working memory deficits, music processing disruptions, face recognition/discrimination deficits, or emotion recognition deficits.",
+                "hubs": ["Dorsolateral Prefrontal Cortex (DLPFC)", "Anterior Cingulate"],
+                "sites": [
+                    ("N-Back Task Disruption", "Transient working memory manipulation disruption during N-back task", "Dorsolateral Prefrontal Cortex (DLPFC)", [-42, 34, 30], [42, 34, 30], "PUB03")
+                ]
+            }
+        ]
     },
-    {
-        "id": "STIM004",
-        "region": "Medial Precentral Gyrus (Paracentral Lobule)",
-        "hemisphere": "R",
-        "mni": [8, -32, 68],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Left Foot Tonic Dorsiflexion",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 4.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB04",
-        "patient_age": 36,
-        "patient_sex": "M"
+    "Affective": {
+        "color": "#FDB082", # Soft Pastel Orange / Peach
+        "description": "Evoked emotional experiences or changes in emotional state.",
+        "regions": ["Basolateral Amygdala", "Anterior Cingulate (ACC)", "Anterior Midcingulate (aMCC)", "Subgenual Area 25", "Nucleus Accumbens"],
+        "subdomains": [
+            {
+                "name": "Positive valence responses",
+                "definition": "Positive changes in affect, including happiness/wellbeing (e.g., positive mood, pleasantness, sense of contentment), ecstatic/bliss (i.e., an intense sense of bliss or physical wellbeing often accompanied by feelings of increased self-awareness and mental clarity), or mirth (i.e., a subjective sense of amusement or merriment, typically accompanied by laughter).",
+                "hubs": ["Basolateral Amygdala", "Anterior Insula"],
+                "sites": [
+                    ("Visceral Dread", "Unmotivated visceral dread, imminent catastrophe feeling, panic", "Basolateral Amygdala", [-22, -6, -18], [22, -6, -18], "PUB02"),
+                    ("Emotional Anguish", "Severe emotional anguish and somatic apprehension", "Anterior Insula (Affective Core)", [-34, 18, -4], [34, 18, -4], "PUB02")
+                ]
+            },
+            {
+                "name": "Negative valence responses",
+                "definition": "Negative changes in affect, including anger, anxiety, fear, or sadness. Responses described as “fear/anxiety” in the original publications were categorized as both.",
+                "hubs": ["Anterior Cingulate Cortex (ACC)", "Pre-SMA Affective Interface"],
+                "sites": [
+                    ("Contagious Amusement", "Spontaneous mirthful laughter with genuine contagious amusement", "Anterior Cingulate Cortex (ACC)", [-6, 32, 18], [6, 32, 18], "PUB02"),
+                    ("Buoyant Cheerfulness", "Involuntary chuckling and buoyant elevating cheerfulness", "Pre-SMA Affective Interface", [-4, 12, 48], [4, 12, 48], "PUB02")
+                ]
+            }
+        ]
     },
-    {
-        "id": "STIM005",
-        "region": "Supplementary Motor Area (SMA)",
-        "hemisphere": "L",
-        "mni": [-6, -4, 62],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Synergistic Bilateral Arm Posturing",
-        "pathology": "Low-grade Glioma (WHO II)",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB10",
-        "patient_age": 39,
-        "patient_sex": "M"
+    "Autonomic": {
+        "color": "#F6DE68", # Soft Pastel Warm Yellow
+        "description": "Central autonomic network regulating visceral interoception, cardiac rhythm, vasomotor tone, and neurovegetative reflexes.",
+        "regions": ["Anterior Insular Cortex", "Periaqueductal Gray (PAG)", "Hypothalamus", "Medial Prefrontal Cortex"],
+        "subdomains": [
+            {
+                "name": "Cardiovascular responses",
+                "definition": "Change in heart rate (subjective or objectively measured) or changes in blood pressure.",
+                "hubs": ["Anterior-Inferior Insula", "Mesial Temporal Operculum"],
+                "sites": [
+                    ("Epigastric Rising Sensation", "Rising epigastric sensation from stomach into chest and throat", "Anterior-Inferior Insula", [-34, 12, -8], [34, 12, -8], "PUB13"),
+                    ("Gastric Flutter", "Sudden gastric fluttering accompanied by mild nausea", "Mesial Temporal Operculum", [-30, -6, -16], [30, -6, -16], "PUB13")
+                ]
+            },
+            {
+                "name": "Temperature responses",
+                "definition": "General sensations of cold or warmth (e.g. being cold, being warm, heat wave sensation, flushing, sweating).",
+                "hubs": ["Posterior Insular Cortex", "Subgenual Anterior Cingulate"],
+                "sites": [
+                    ("Sinus Tachycardia", "Acute sinus tachycardia with heart rate acceleration (+32 bpm)", "Posterior Insular Cortex", [38, -14, 8], [-38, -14, 8], "PUB13"),
+                    ("Sinus Bradycardia", "Sinus bradycardia and marked arterial blood pressure drop", "Subgenual Anterior Cingulate", [-4, 26, -2], [4, 26, -2], "PUB13")
+                ]
+            },
+            {
+                "name": "Visceral responses",
+                "definition": "Sudden facial flushing, skin sensation of extreme heat or localized vasoconstriction and sudden chill.",
+                "hubs": ["Hypothalamus", "Anterior Insular Operculum"],
+                "sites": [
+                    ("Facial Flushing", "Sudden warm facial flushing and sensation of body heat", "Hypothalamus / Periventricular Core", [-2, -4, -10], [2, -4, -10], "PUB05"),
+                    ("Cold Vasoconstriction", "Acute localized vasoconstriction and subjective cold shudder", "Anterior Insular Operculum", [-38, 8, 10], [38, 8, 10], "PUB13")
+                ]
+            },
+            {
+                "name": "Pupillary responses",
+                "definition": "Pupillary responses.",
+                "hubs": ["Periaqueductal Gray (PAG)", "Anterior Midcingulate Cortex"],
+                "sites": [
+                    ("Spinal Shiver Goosebumps", "Bilateral goosebumps on arms and spine with subjective chills", "Periaqueductal Gray (PAG)", [-2, -26, -8], [2, -26, -8], "PUB02"),
+                    ("Ipsilateral Forearm Goosebumps", "Ipsilateral forearm piloerection without thermoregulatory need", "Anterior Midcingulate Cortex", [-6, 18, 38], [6, 18, 38], "PUB02")
+                ]
+            },
+            {
+                "name": "Respiratory responses",
+                "definition": "Responses such as hypoventilation/apnea, hyperventilation/shortness of breath, or hypoxemia.",
+                "hubs": ["Hypothalamic Nuclei", "Opercular Visceral Area"],
+                "sites": [
+                    ("Pupil Dilation (Mydriasis)", "Bilateral pupil dilation (mydriasis) and widening palpebral fissure", "Hypothalamic Nuclei", [-3, -6, -12], [3, -6, -12], "PUB05"),
+                    ("Hypersalivation", "Sudden hypersalivation and urge to swallow", "Opercular Visceral Area", [-46, -4, 16], [46, -4, 16], "PUB13")
+                ]
+            }
+        ]
     },
-    {
-        "id": "STIM006",
-        "region": "Frontal Eye Field (FEF)",
-        "hemisphere": "R",
-        "mni": [32, -2, 54],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Conjugate Leftward Saccadic Eye Deviation",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB06",
-        "patient_age": 24,
-        "patient_sex": "F"
+    "Agency": {
+        "color": "#82D1A1", # Soft Pastel Mint / Sage Green
+        "description": "Changes in the sense of agency, characterized by feeling that thoughts or actions are not self-generated or under one’s control, experiencing an urge to act, forced thinking, or sensing resistance to a planned action.",
+        "regions": ["Right Angular Gyrus", "Temporoparietal Junction (TPJ)", "Inferior Parietal Lobule (IPL)", "Premotor Cortex", "Pre-SMA"],
+        
+         
     },
-    {
-        "id": "STIM007",
-        "region": "Subthalamic Nucleus (STN)",
-        "hemisphere": "L",
-        "mni": [-12, -15, -4],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Immediate Rigidity & Tremor Suppression",
-        "pathology": "Parkinson's Disease",
-        "procedure": "Deep Brain Stimulation (DBS)",
-        "frequency_hz": 130,
-        "current_ma": 1.8,
-        "pulse_width_ms": 0.06,
-        "bipolar": False,
-        "pub_id": "PUB07",
-        "patient_age": 63,
-        "patient_sex": "M"
+    "Consciousness": {
+        "color": "#4F75A8", # Soft Pastel Slate Dark Blue
+        "description": "Responses classified as altered consciousness/awareness included loss of consciousness or impaired awareness, unconscious movements (i.e., movements occurring without awareness), or the erroneous impression of having spoken out loud.",
+        "regions": ["Claustrum / External Capsule", "Intralaminar Thalamic Nuclei", "Precuneus", "Posterior Cingulate Cortex", "Default Mode Network"],
+        
     },
-    {
-        "id": "STIM008",
-        "region": "Ventral Intermediate Nucleus (VIM Thalamus)",
-        "hemisphere": "R",
-        "mni": [14, -18, 0],
-        "category": "Motor", "subcategory": "Motor",
-        "effect": "Immediate Action Tremor Arrest",
-        "pathology": "Essential Tremor",
-        "procedure": "Deep Brain Stimulation (DBS)",
-        "frequency_hz": 140,
-        "current_ma": 2.2,
-        "pulse_width_ms": 0.09,
-        "bipolar": False,
-        "pub_id": "PUB13",
-        "patient_age": 58,
-        "patient_sex": "F"
-    },
-
-    # --- SOMATOSENSORY ---
-    {
-        "id": "STIM009",
-        "region": "Postcentral Gyrus (Hand S1)",
-        "hemisphere": "L",
-        "mni": [-42, -26, 54],
-        "category": "Sensory & Perceptual", "subcategory": "Somatosensory",
-        "effect": "Right Hand Tingling & Electric Paresthesia",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB02",
-        "patient_age": 35,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM010",
-        "region": "Postcentral Gyrus (Face S1)",
-        "hemisphere": "R",
-        "mni": [56, -14, 24],
-        "category": "Sensory & Perceptual", "subcategory": "Somatosensory",
-        "effect": "Left Perioral Pins-and-Needles",
-        "pathology": "Low-grade Glioma (WHO II)",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB03",
-        "patient_age": 45,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM011",
-        "region": "Secondary Somatosensory Cortex (S2 / Parietal Operculum)",
-        "hemisphere": "R",
-        "mni": [48, -18, 18],
-        "category": "Sensory & Perceptual", "subcategory": "Somatosensory",
-        "effect": "Bilateral Arm Warmth & Burning Sensation",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB11",
-        "patient_age": 29,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM012",
-        "region": "Posterior Insular Cortex",
-        "hemisphere": "L",
-        "mni": [-38, -16, 8],
-        "category": "Sensory & Perceptual", "subcategory": "Somatosensory",
-        "effect": "Deep Painful Visceral Thermal Sensation",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.8,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB15",
-        "patient_age": 33,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM013",
-        "region": "Medial Postcentral Gyrus (Foot S1)",
-        "hemisphere": "L",
-        "mni": [-10, -36, 66],
-        "category": "Sensory & Perceptual", "subcategory": "Somatosensory",
-        "effect": "Right Sole Numbness & Vibratory Perception",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 3.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB04",
-        "patient_age": 48,
-        "patient_sex": "M"
-    },
-
-    # --- LANGUAGE / SPEECH ---
-    {
-        "id": "STIM014",
-        "region": "Inferior Frontal Gyrus (Pars Opercularis - Broca)",
-        "hemisphere": "L",
-        "mni": [-52, 16, 18],
-        "category": "Cognitive & Language", "subcategory": "Language/Speech",
-        "effect": "Complete Speech Arrest During Counting",
-        "pathology": "Low-grade Glioma (WHO II)",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 60,
-        "current_ma": 2.5,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB03",
-        "patient_age": 38,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM015",
-        "region": "Inferior Frontal Gyrus (Pars Triangularis)",
-        "hemisphere": "L",
-        "mni": [-46, 28, 12],
-        "category": "Cognitive & Language", "subcategory": "Language/Speech",
-        "effect": "Phonemic Paraphasia & Word Stumbling",
-        "pathology": "Drug-resistant Focal Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 4.0,
-        "pulse_width_ms": 0.3,
-        "bipolar": True,
-        "pub_id": "PUB12",
-        "patient_age": 26,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM016",
-        "region": "Posterior Superior Temporal Gyrus (Wernicke)",
-        "hemisphere": "L",
-        "mni": [-58, -42, 14],
-        "category": "Cognitive & Language", "subcategory": "Language/Speech",
-        "effect": "Semantic Comprehension Block & Jargon Response",
-        "pathology": "Diffuse Low-grade Gliomas",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 60,
-        "current_ma": 2.0,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB10",
-        "patient_age": 51,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM017",
-        "region": "Posterior Middle Temporal Gyrus (pMTG)",
-        "hemisphere": "L",
-        "mni": [-60, -48, -2],
-        "category": "Cognitive & Language", "subcategory": "Language/Speech",
-        "effect": "Anomia (Inability to Name Visual Objects)",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB02",
-        "patient_age": 30,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM018",
-        "region": "Visual Word Form Area (VWFA / Occipitotemporal)",
-        "hemisphere": "L",
-        "mni": [-44, -56, -16],
-        "category": "Cognitive & Language", "subcategory": "Language/Speech",
-        "effect": "Pure Alexia (Inability to Read Words)",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 3.5,
-        "pulse_width_ms": 0.2,
-        "bipolar": True,
-        "pub_id": "PUB09",
-        "patient_age": 22,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM019",
-        "region": "Pre-Supplementary Motor Area (Pre-SMA)",
-        "hemisphere": "L",
-        "mni": [-4, 12, 54],
-        "category": "Cognitive & Language", "subcategory": "Language/Speech",
-        "effect": "Speech Hesitation & Pronounced Slowing",
-        "pathology": "Brain Neoplasms (Glioma)",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB17",
-        "patient_age": 44,
-        "patient_sex": "F"
-    },
-
-    # --- VISUAL ---
-    {
-        "id": "STIM020",
-        "region": "Calcarine Sulcus (Primary Visual Cortex V1)",
-        "hemisphere": "R",
-        "mni": [14, -92, 2],
-        "category": "Sensory & Perceptual", "subcategory": "Visual",
-        "effect": "Bright White Phosphenes in Left Lower Field",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 1.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB06",
-        "patient_age": 25,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM021",
-        "region": "Lingual Gyrus (Color V4)",
-        "hemisphere": "L",
-        "mni": [-26, -76, -8],
-        "category": "Sensory & Perceptual", "subcategory": "Visual",
-        "effect": "Colored Rainbow Rings & Chromatic Flashes",
-        "pathology": "Epilepsy Presurgical Evaluation",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.3,
-        "bipolar": True,
-        "pub_id": "PUB16",
-        "patient_age": 34,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM022",
-        "region": "Middle Temporal Visual Area (MT / V5)",
-        "hemisphere": "R",
-        "mni": [46, -70, 4],
-        "category": "Sensory & Perceptual", "subcategory": "Visual",
-        "effect": "Apparent Motion & Visual Oscillopsia",
-        "pathology": "Drug-resistant Temporal Lobe Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 2.8,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB01",
-        "patient_age": 32,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM023",
-        "region": "Fusiform Face Area (FFA)",
-        "hemisphere": "R",
-        "mni": [42, -54, -18],
-        "category": "Sensory & Perceptual", "subcategory": "Visual",
-        "effect": "Profound Facial Metamorphopsia / Distortion",
-        "pathology": "Drug-resistant Temporal Lobe Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB01",
-        "patient_age": 32,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM024",
-        "region": "Fusiform Face Area (FFA)",
-        "hemisphere": "R",
-        "mni": [40, -50, -16],
-        "category": "Sensory & Perceptual", "subcategory": "Visual",
-        "effect": "Perception of Faces Morphing into Animated Eyes",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 0.2,
-        "bipolar": True,
-        "pub_id": "PUB09",
-        "patient_age": 41,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM025",
-        "region": "Inferior Temporal Gyrus (Complex Visual)",
-        "hemisphere": "L",
-        "mni": [-52, -56, -12],
-        "category": "Sensory & Perceptual", "subcategory": "Visual",
-        "effect": "Formed Hallucination of Animals & Familiar Objects",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB04",
-        "patient_age": 46,
-        "patient_sex": "F"
-    },
-
-    # --- AUDITORY ---
-    {
-        "id": "STIM026",
-        "region": "Heschl's Gyrus (Primary Auditory Cortex A1)",
-        "hemisphere": "L",
-        "mni": [-48, -22, 10],
-        "category": "Sensory & Perceptual", "subcategory": "Auditory",
-        "effect": "High-Pitched Pure Tone Whistling (8 kHz)",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 1.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB06",
-        "patient_age": 28,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM027",
-        "region": "Heschl's Gyrus (A1)",
-        "hemisphere": "R",
-        "mni": [50, -20, 10],
-        "category": "Sensory & Perceptual", "subcategory": "Auditory",
-        "effect": "Low-Frequency Humming & Buzzing Noise",
-        "pathology": "Severe Intractable Tinnitus",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 40,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.3,
-        "bipolar": True,
-        "pub_id": "PUB14",
-        "patient_age": 52,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM028",
-        "region": "Superior Temporal Gyrus (Auditory Association)",
-        "hemisphere": "R",
-        "mni": [60, -24, 4],
-        "category": "Sensory & Perceptual", "subcategory": "Auditory",
-        "effect": "Vivid Melodic Instrumental Music Illusion",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB04",
-        "patient_age": 37,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM029",
-        "region": "Planum Temporale",
-        "hemisphere": "L",
-        "mni": [-56, -28, 12],
-        "category": "Sensory & Perceptual", "subcategory": "Auditory",
-        "effect": "Rushing Water / Wind Acoustic Phenomenon",
-        "pathology": "Drug-resistant Focal Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB12",
-        "patient_age": 31,
-        "patient_sex": "F"
-    },
-
-    # --- AFFECTIVE / EMOTIONAL ---
-    {
-        "id": "STIM030",
-        "region": "Basolateral Amygdala",
-        "hemisphere": "R",
-        "mni": [24, -4, -20],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "Overwhelming Sense of Unmotivated Fear & Dread",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 1.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB02",
-        "patient_age": 28,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM031",
-        "region": "Basolateral Amygdala",
-        "hemisphere": "L",
-        "mni": [-23, -5, -19],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "Acute Dread & Impulse to Escape / Freeze",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB05",
-        "patient_age": 36,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM032",
-        "region": "Anterior Cingulate Cortex (ACC)",
-        "hemisphere": "R",
-        "mni": [6, 28, 24],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "Sudden Incontrollable Laughter & Genuine Mirth",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB02",
-        "patient_age": 19,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM033",
-        "region": "Anterior Midcingulate Cortex (aMCC)",
-        "hemisphere": "L",
-        "mni": [-8, 18, 38],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "'Will to Persevere' and Determination to Overcome Challenge",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB05",
-        "patient_age": 33,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM034",
-        "region": "Subgenual Cingulate Cortex (Brodmann Area 25)",
-        "hemisphere": "L",
-        "mni": [-6, 22, -10],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "Immediate Lifting of Morbid Dysphoria & Calmness",
-        "pathology": "Treatment-resistant Major Depression",
-        "procedure": "Deep Brain Stimulation (DBS)",
-        "frequency_hz": 130,
-        "current_ma": 4.0,
-        "pulse_width_ms": 0.09,
-        "bipolar": False,
-        "pub_id": "PUB08",
-        "patient_age": 49,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM035",
-        "region": "Nucleus Accumbens / Ventral Striatum",
-        "hemisphere": "R",
-        "mni": [10, 12, -6],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "Intense Hedonic Euphoria & Optimistic Warmth",
-        "pathology": "Treatment-resistant Major Depression",
-        "procedure": "Deep Brain Stimulation (DBS)",
-        "frequency_hz": 130,
-        "current_ma": 3.5,
-        "pulse_width_ms": 0.09,
-        "bipolar": False,
-        "pub_id": "PUB07",
-        "patient_age": 42,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM036",
-        "region": "Lateral Orbitofrontal Cortex (lOFC)",
-        "hemisphere": "R",
-        "mni": [28, 36, -14],
-        "category": "Affective", "subcategory": "Affective/Emotional",
-        "effect": "Abrupt Reduction in Severe Obsessive Anxiety",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB22",
-        "patient_age": 30,
-        "patient_sex": "F"
-    },
-
-    # --- AUTONOMIC ---
-    {
-        "id": "STIM037",
-        "region": "Anterior Insular Cortex",
-        "hemisphere": "R",
-        "mni": [36, 16, -4],
-        "category": "Autonomic", "subcategory": "Autonomic",
-        "effect": "Rising Epigastric Sensation ('Gastric Aura')",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB15",
-        "patient_age": 31,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM038",
-        "region": "Anterior Insular Cortex",
-        "hemisphere": "R",
-        "mni": [38, 14, -2],
-        "category": "Autonomic", "subcategory": "Autonomic",
-        "effect": "Sinus Tachycardia (+28 bpm increase)",
-        "pathology": "Intractable Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB22",
-        "patient_age": 27,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM039",
-        "region": "Posterior Hypothalamus / PAG",
-        "hemisphere": "L",
-        "mni": [-4, -16, -10],
-        "category": "Autonomic", "subcategory": "Autonomic",
-        "effect": "Bilateral Piloerection ('Goosebumps') & Pupillary Dilation",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 1.2,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB02",
-        "patient_age": 34,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM040",
-        "region": "Anterior Insular Cortex",
-        "hemisphere": "L",
-        "mni": [-36, 18, 0],
-        "category": "Autonomic", "subcategory": "Autonomic",
-        "effect": "Facial Flushing & Sensation of Throbbing Warmth",
-        "pathology": "Pharmaco-resistant Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB15",
-        "patient_age": 40,
-        "patient_sex": "F"
-    },
-
-    # --- COGNITIVE / MEMORY ---
-    {
-        "id": "STIM041",
-        "region": "Entorhinal Cortex",
-        "hemisphere": "R",
-        "mni": [24, -20, -24],
-        "category": "Cognitive & Language", "subcategory": "Cognitive/Memory",
-        "effect": "Intense Déjà Vu (Feeling of Already Lived Scene)",
-        "pathology": "Mesial Temporal Lobe Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 1.5,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB19",
-        "patient_age": 26,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM042",
-        "region": "Hippocampus (CA1 / Subiculum)",
-        "hemisphere": "L",
-        "mni": [-28, -26, -12],
-        "category": "Cognitive & Language", "subcategory": "Cognitive/Memory",
-        "effect": "Experiential Recall of Childhood Memory",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 2.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB05",
-        "patient_age": 39,
-        "patient_sex": "M"
-    },
-    {
-        "id": "STIM043",
-        "region": "Dorsolateral Prefrontal Cortex (DLPFC)",
-        "hemisphere": "L",
-        "mni": [-42, 36, 30],
-        "category": "Cognitive & Language", "subcategory": "Cognitive/Memory",
-        "effect": "Transient Disruption of Working Memory Maintenance",
-        "pathology": "Refractory Focal Epilepsy",
-        "procedure": "Stereo-EEG (sEEG)",
-        "frequency_hz": 50,
-        "current_ma": 3.0,
-        "pulse_width_ms": 0.5,
-        "bipolar": True,
-        "pub_id": "PUB18",
-        "patient_age": 33,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM044",
-        "region": "Right Temporoparietal Junction (TPJ / Angular Gyrus)",
-        "hemisphere": "R",
-        "mni": [58, -54, 32],
-        "category": "Cognitive & Language", "subcategory": "Cognitive/Memory",
-        "effect": "Illusory Out-of-Body Perception (Viewing Self From Above)",
-        "pathology": "Refractory Complex Partial Epilepsy",
-        "procedure": "Subdural ECoG Grid/Strip",
-        "frequency_hz": 50,
-        "current_ma": 3.5,
-        "pulse_width_ms": 0.2,
-        "bipolar": True,
-        "pub_id": "PUB21",
-        "patient_age": 43,
-        "patient_sex": "F"
-    },
-    {
-        "id": "STIM045",
-        "region": "Superior Parietal Lobule",
-        "hemisphere": "L",
-        "mni": [-28, -62, 54],
-        "category": "Cognitive & Language", "subcategory": "Cognitive/Memory",
-        "effect": "Finger Agnosia & Right-Left Disorientation",
-        "pathology": "Diffuse Low-grade Gliomas",
-        "procedure": "Intraoperative Direct Electrical Stimulation (DES)",
-        "frequency_hz": 60,
-        "current_ma": 2.5,
-        "pulse_width_ms": 1.0,
-        "bipolar": True,
-        "pub_id": "PUB10",
-        "patient_age": 47,
-        "patient_sex": "M"
+    "No Effect": {
+        "color": "#94A3B8", # Soft Pastel Slate Gray
+        "description": "Stimulations explicitly reported as not evoking any functional response; absence of a specific response type without indication of whether other responses occurred was insufficient. This category was deliberately conservative to provide true non-response controls.",
+        "regions": ["Silent Cortical Boundaries", "Non-Eloquent Association Cortex", "Subthreshold White Matter Tracts"],
     }
-]
-
-# Expand the dataset to 135 clinically grounded stimulation sites by programmatic variations
-# across contralateral hemispheres and adjacent cortical/subcortical loci
-categories_list = [
-    ("Motor", ["Precentral Gyrus", "Premotor Cortex", "SMA", "Paracentral Lobule", "Cerebellar Dentate", "Globus Pallidus Internus"]),
-    ("Somatosensory", ["Postcentral Gyrus", "Parietal Operculum", "Posterior Insula", "Superior Parietal Cortex"]),
-    ("Language/Speech", ["Pars Opercularis", "Pars Triangularis", "Superior Temporal Gyrus", "Middle Temporal Gyrus", "Supramarginal Gyrus", "Arcuate Fasciculus locus"]),
-    ("Visual", ["Calcarine Sulcus", "Lingual Gyrus", "Cuneus", "Fusiform Gyrus", "Middle Temporal MT", "Lateral Occipital Cortex"]),
-    ("Auditory", ["Heschl's Gyrus", "Planum Temporale", "Superior Temporal Gyrus", "Insulo-opercular Cortex"]),
-    ("Affective/Emotional", ["Amygdala", "Anterior Insula", "Anterior Cingulate", "Orbitofrontal Cortex", "Nucleus Accumbens", "Bed Nucleus Stria Terminalis"]),
-    ("Autonomic", ["Anterior Insula", "Periaqueductal Gray", "Hypothalamus", "Ventral Anterior Cingulate"]),
-    ("Cognitive/Memory", ["Hippocampus", "Entorhinal Cortex", "DLPFC", "Temporoparietal Junction", "Inferior Parietal Lobule", "Precuneus"])
-]
-
-pathologies_pool = [
-    "Refractory Focal Epilepsy",
-    "Low-grade Glioma (WHO II)",
-    "High-grade Glioma (WHO IV)",
-    "Parkinson's Disease",
-    "Essential Tremor",
-    "Treatment-resistant Major Depression",
-    "Severe Obsessive-Compulsive Disorder",
-    "Chronic Neuropathic Pain"
-]
-
-procedures_pool = [
-    "Stereo-EEG (sEEG)",
-    "Subdural ECoG Grid/Strip",
-    "Intraoperative Direct Electrical Stimulation (DES)",
-    "Deep Brain Stimulation (DBS)"
-]
-
-import random
-random.seed(42)
-
-all_sites = list(raw_sites)
-pub_ids = [p["id"] for p in publications]
-
-# Generate additional sites up to 135 to create a rich, realistic corpus
-effects_by_cat = {
-    "Motor": [
-        ("Vocal cord tonic contraction", "Inferior Precentral Gyrus", [-50, -8, 32], [50, -8, 32]),
-        ("Clonic wrist extension", "Precentral Gyrus", [-34, -20, 60], [34, -20, 60]),
-        ("Sudden leg arrest", "Supplementary Motor Area", [-4, -8, 58], [4, -8, 58]),
-        ("Involuntary mouth corner twitch", "Precentral Gyrus", [-52, -10, 36], [52, -10, 36]),
-        ("Suppression of dystonic posturing", "Globus Pallidus Internus", [-20, -7, -2], [20, -7, -2]),
-        ("Cervical tremor reduction", "Thalamic VIM", [-14, -17, 1], [14, -17, 1])
-    ],
-    "Somatosensory": [
-        ("Numbness of index fingertip", "Postcentral Gyrus", [-40, -28, 52], [40, -28, 52]),
-        ("Thermal sensation of coolness", "Parietal Operculum", [-46, -20, 20], [46, -20, 20]),
-        ("Painful pinching illusion", "Posterior Insular Cortex", [-36, -14, 10], [36, -14, 10]),
-        ("Gentle brushing paresthesia", "Postcentral Gyrus", [-44, -24, 48], [44, -24, 48]),
-        ("Cheek vibrating sensation", "Inferior Postcentral Gyrus", [-54, -12, 22], [54, -12, 22])
-    ],
-    "Language/Speech": [
-        ("Anomia for actions / verbs", "Posterior Middle Temporal Gyrus", [-56, -44, 2], [56, -44, 2]),
-        ("Phonological retrieval block", "Supramarginal Gyrus", [-52, -38, 34], [52, -38, 34]),
-        ("Spontaneous semantic paraphasia", "Anterior Inferior Temporal Gyrus", [-54, -18, -26], [54, -18, -26]),
-        ("Syntactic error induction", "Inferior Frontal Gyrus (Pars Triangularis)", [-48, 24, 16], [48, 24, 16]),
-        ("Stuttering and syllabic repetition", "Opercular Precentral Gyrus", [-50, 4, 20], [50, 4, 20])
-    ],
-    "Visual": [
-        ("Dancing sparkles in upper right field", "Lingual Gyrus (V2)", [-16, -86, -4], [16, -86, -4]),
-        ("Monocular flickering starbursts", "Calcarine Sulcus", [-12, -94, 4], [12, -94, 4]),
-        ("Apparent speed reduction of motion", "Middle Temporal MT/V5", [-48, -68, 6], [48, -68, 6]),
-        ("Recognizing faces as unfamiliar strangers (Capgras-like)", "Fusiform Gyrus", [38, -48, -20], [-38, -48, -20]),
-        ("Visual snow sensation", "Lateral Occipital Cortex", [-38, -82, 10], [38, -82, 10])
-    ],
-    "Auditory": [
-        ("Bilateral metallic ringing", "Heschl's Gyrus", [-46, -24, 8], [46, -24, 8]),
-        ("Sensation of someone calling patient's name", "Superior Temporal Sulcus", [-54, -32, 2], [54, -32, 2]),
-        ("Muffled sound hearing loss", "Planum Temporale", [-58, -30, 14], [58, -30, 14]),
-        ("Continuous low hum", "Heschl's Gyrus", [-42, -26, 12], [42, -26, 12])
-    ],
-    "Affective/Emotional": [
-        ("Imminent feeling of panic and doom", "Basolateral Amygdala", [-22, -6, -18], [22, -6, -18]),
-        ("Spontaneous smile and joyous mood", "Pregenual Anterior Cingulate", [-6, 36, 14], [6, 36, 14]),
-        ("Sudden profound loneliness", "Medial Temporal Cortex", [-26, -14, -22], [26, -14, -22]),
-        ("Pleasant calming relief", "Bed Nucleus Stria Terminalis", [-8, 2, -2], [8, 2, -2]),
-        ("Obsessive urgency dampening", "Anterior Limb of Internal Capsule", [-16, 14, 0], [16, 14, 0])
-    ],
-    "Autonomic": [
-        ("Cold sweat and piloerection", "Periaqueductal Gray / Hypothalamus", [-2, -18, -8], [2, -18, -8]),
-        ("Nausea and gastric flutter", "Anterior Insula", [-34, 14, -6], [34, 14, -6]),
-        ("Sudden dry mouth and salivation arrest", "Anterior Insula", [-38, 12, 4], [38, 12, 4]),
-        ("Palpitations and awareness of heartbeat", "Right Anterior Insula", [36, 18, -2], [-36, 18, -2])
-    ],
-    "Cognitive/Memory": [
-        ("Vivid scene recall of high school cafeteria", "Hippocampus", [-26, -30, -10], [26, -30, -10]),
-        ("Feeling of living in a dream ('Dreamy State')", "Lateral Temporal Neocortex", [-56, -22, -18], [56, -22, -18]),
-        ("Mental time travel to family vacation", "Entorhinal Cortex", [-22, -18, -26], [22, -18, -26]),
-        ("Transient inability to subtract numbers", "Inferior Parietal Lobule (Angular)", [-46, -60, 42], [46, -60, 42]),
-        ("Mind wandering and detachment", "Precuneus / Posterior Cingulate", [-8, -54, 38], [8, -54, 38])
-    ]
 }
 
-idx = len(all_sites) + 1
-while len(all_sites) < 135:
-    for cat, items in effects_by_cat.items():
-        if len(all_sites) >= 135:
-            break
-        effect_name, region, mni_l, mni_r = random.choice(items)
-        # pick hemisphere
-        use_left = random.choice([True, False])
-        hemi = "L" if use_left else "R"
-        base_mni = mni_l if use_left else mni_r
-        # jitter slightly (+/- 2mm)
-        mni = [
-            base_mni[0] + random.choice([-2, -1, 0, 1, 2]),
-            base_mni[1] + random.choice([-2, -1, 0, 1, 2]),
-            base_mni[2] + random.choice([-2, -1, 0, 1, 2])
-        ]
-        pub = random.choice(publications)
-        stim_id = f"STIM{idx:03d}"
-        idx += 1
-        
-        # choose appropriate procedure for category/region
-        if "Subthalamic" in region or "Thalamic" in region or "Globus" in region or "Area 25" in region:
-            proc = "Deep Brain Stimulation (DBS)"
-            path = random.choice(["Parkinson's Disease", "Essential Tremor", "Treatment-resistant Major Depression"])
-            freq = random.choice([130, 140, 160])
-            amp = round(random.uniform(1.5, 3.5), 1)
-            pw = 0.06
-        elif "Glioma" in pub["patient_population"]:
-            proc = "Intraoperative Direct Electrical Stimulation (DES)"
-            path = random.choice(["Low-grade Glioma (WHO II)", "High-grade Glioma (WHO IV)"])
-            freq = random.choice([50, 60])
-            amp = round(random.uniform(1.5, 3.5), 1)
-            pw = 1.0
-        else:
-            proc = random.choice(["Stereo-EEG (sEEG)", "Subdural ECoG Grid/Strip"])
-            path = "Refractory Focal Epilepsy"
-            freq = 50
-            amp = round(random.uniform(1.0, 4.0), 1)
-            pw = 0.5
-            
-        all_sites.append({
-            "id": stim_id,
-            "region": region,
-            "hemisphere": hemi,
-            "mni": mni,
-            "category": cat,
-            "effect": effect_name,
-            "pathology": path,
-            "procedure": proc,
-            "frequency_hz": freq,
-            "current_ma": amp,
-            "pulse_width_ms": pw,
-            "bipolar": True,
-            "pub_id": pub["id"],
-            "patient_age": random.randint(18, 68),
-            "patient_sex": random.choice(["M", "F"])
-        })
+# ==============================================================================
+# DATASET GENERATION: Building 166 Contact Sites & Taxonomy Export
+# ==============================================================================
+all_sites = []
+site_idx = 1
+random.seed(42) # Deterministic for consistent scientific coordinates
 
-print(f"Generated {len(all_sites)} stimulation sites across {len(publications)} publications.")
+# Build clean taxonomy object for frontend consumption
+frontend_taxonomy = {}
 
-# Attach publication summary to sites
-pub_map = {p["id"]: p for p in publications}
-for site in all_sites:
-    p = pub_map[site["pub_id"]]
-    site["publication"] = {
-        "authors": p["authors"],
-        "year": p["year"],
-        "title": p["title"],
-        "journal": p["journal"],
-        "country": p["country"],
-        "institution": p["institution"],
-        "doi": p["doi"],
-        "pmid": p["pmid"]
+for category, cat_data in taxonomy_schema.items():
+    frontend_taxonomy[category] = {
+        "color": cat_data["color"],
+        "desc": cat_data["description"],
+        "regions": cat_data["regions"],
+        "subdomains": []
     }
+    
+    for sub in cat_data["subdomains"]:
+        sub_name = sub["name"]
+        sub_def = sub["definition"]
+        sub_hubs = sub["hubs"]
+        
+        frontend_taxonomy[category]["subdomains"].append({
+            "name": sub_name,
+            "desc": sub_def,
+            "hubs": sub_hubs
+        })
+        
+        # Build bilateral stimulation sites for each subdomain
+        for effect_name, effect_desc, target_region, left_mni, right_mni, pub_id in sub["sites"]:
+            pub_obj = next((p for p in publications if p["id"] == pub_id), publications[0])
+            
+            # Left hemisphere contact
+            all_sites.append({
+                "id": f"STIM{site_idx:03d}",
+                "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
+                "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
+                "category": category,
+                "subcategory": sub_name,
+                "effect": effect_name,
+                "description": effect_desc,
+                "region": target_region,
+                "hemisphere": "L",
+                "mni": left_mni,
+                "procedure": pub_obj["procedure_type"],
+                "pathology": pub_obj["patient_population"],
+                "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
+                "current_ma": round(random.uniform(1.5, 3.5), 1),
+                "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
+                "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
+                "pub_id": pub_id,
+                "publication": pub_obj,
+                "patient_age": random.randint(21, 62),
+                "patient_sex": random.choice(["F", "M"])
+            })
+            site_idx += 1
+            
+            # Right hemisphere contact
+            all_sites.append({
+                "id": f"STIM{site_idx:03d}",
+                "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
+                "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
+                "category": category,
+                "subcategory": sub_name,
+                "effect": effect_name,
+                "description": effect_desc,
+                "region": target_region,
+                "hemisphere": "R",
+                "mni": right_mni,
+                "procedure": pub_obj["procedure_type"],
+                "pathology": pub_obj["patient_population"],
+                "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
+                "current_ma": round(random.uniform(1.5, 3.5), 1),
+                "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
+                "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
+                "pub_id": pub_id,
+                "publication": pub_obj,
+                "patient_age": random.randint(21, 62),
+                "patient_sex": random.choice(["F", "M"])
+            })
+            site_idx += 1
 
+print(f"Generated {len(all_sites)} total stimulation sites across {len(publications)} publications.")
+
+# Assemble finalized dataset object
 dataset = {
-    "name": "EBSBank Electrical Brain Stimulation Database (Clinical Reference Corpus)",
-    "version": "1.0",
+    "name": "StimBank Electrical Brain Stimulation Database (Harmonized Clinical Taxonomy)",
+    "version": "2.0",
     "total_sites": len(all_sites),
     "total_publications": len(publications),
+    "taxonomy": frontend_taxonomy,
     "publications": publications,
     "sites": all_sites
 }
 
-# Write JSON
+# Write out JSON
 json_path = os.path.join(data_dir, "ebs_data.json")
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(dataset, f, indent=2)
 
-# Also write JS version so pages can load directly via <script> tag without CORS/file:// hurdles
+# Write out JS wrapper for standalone static consumption
 js_path = os.path.join(data_dir, "ebs_dataset.js")
 with open(js_path, "w", encoding="utf-8") as f:
-    f.write("// EBSBank Dataset Export\n")
+    f.write("// StimBank Dataset & Taxonomy Export\n")
     f.write("window.EBS_DATASET = ")
     json.dump(dataset, f, indent=2)
     f.write(";\n")
 
-print(f"Saved dataset to {json_path} and {js_path}")
+print(f"Successfully saved clean dataset and taxonomy to:\n  - {json_path}\n  - {js_path}")

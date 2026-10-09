@@ -78,12 +78,7 @@
         <div class="col-md-3 col-sm-6">
           <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">1. Domain</label>
           <select id="filterCat" class="form-select form-select-sm">
-            <option value="">All Domains (5)</option>
-            <option value="Cognitive & Language">Cognitive &amp; Language</option>
-            <option value="Motor">Motor</option>
-            <option value="Sensory & Perceptual">Sensory &amp; Perceptual</option>
-            <option value="Affective">Affective</option>
-            <option value="Autonomic">Autonomic</option>
+            <option value="">All Domains (8)</option>
           </select>
         </div>
 
@@ -118,27 +113,26 @@
       </div>
     </div>
 
+    <!-- Category Definition Card (Shows when a Domain is selected) -->
+    <div id="categoryDefCard" class="stimbank-card p-3 mb-3 d-none" style="border-left: 4px solid #000000; background-color: var(--surface-card);">
+      <div class="d-flex align-items-center justify-content-between mb-1">
+        <div class="d-flex align-items-center gap-2">
+          <span class="category-dot" id="catDefDot" style="width: 12px; height: 12px;"></span>
+          <h5 class="fw-bold mb-0" id="catDefTitle" style="font-size: 1.05rem;">Category Definition</h5>
+          <span class="badge bg-light text-dark border" id="catDefCount">0 sites</span>
+        </div>
+      </div>
+      <p class="small text-secondary mb-2" id="catDefDesc" style="line-height: 1.6;">Category description</p>
+      <div class="d-flex flex-wrap align-items-center gap-2">
+        <span class="small fw-semibold text-dark me-1" style="font-size: 0.76rem; text-transform: uppercase;">Key Hubs:</span>
+        <div id="catDefRegions" class="d-flex flex-wrap gap-1"></div>
+      </div>
+    </div>
+
     <!-- Quick Category Pill Filter Bar -->
     <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="categoryPills">
       <span class="fw-bold text-uppercase me-1" style="font-size: 0.85rem; letter-spacing: 0.05em; color: #000000;">Filter Domain:</span>
-      <button type="button" class="category-pill active" data-cat="">
-        <span class="category-dot" style="background-color: #000000;"></span>All (<span id="pillCountAll">173</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Cognitive & Language">
-        <span class="category-dot" style="background-color: #8B5CF6;"></span>Cognitive &amp; Language (<span id="pillCountCog">146</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Motor">
-        <span class="category-dot" style="background-color: #2563EB;"></span>Motor (<span id="pillCountMot">15</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Sensory & Perceptual">
-        <span class="category-dot" style="background-color: #0284C7;"></span>Sensory &amp; Perceptual (<span id="pillCountSens">12</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Affective">
-        <span class="category-dot" style="background-color: #E11D48;"></span>Affective (0)
-      </button>
-      <button type="button" class="category-pill" data-cat="Autonomic">
-        <span class="category-dot" style="background-color: #059669;"></span>Autonomic (0)
-      </button>
+      <!-- Pills populated dynamically by JavaScript -->
     </div>
 
     <!-- Data Table Container -->
@@ -282,19 +276,56 @@
       const sites = data.sites;
 
       // Color mapping
+      const taxonomy = data.taxonomy || {};
+
+      // Fallback colors if not in taxonomy
       const categoryColors = {
-        "Sensory & Perceptual": "#0284C7",
-        "Affective": "#E11D48",
-        "Autonomic": "#059669",
-        "Cognitive & Language": "#8B5CF6",
-        "Motor": "#2563EB"
+        "Sensory": "#93C5FD",
+        "Motor": "#8E7CC3",
+        "Cognitive": "#E598D8",
+        "Affective": "#FDB082",
+        "Autonomic": "#F6DE68",
+        "Agency": "#82D1A1",
+        "Consciousness": "#4F75A8",
+        "No Effect": "#94A3B8"
       };
 
-      // Update pill counts
-      document.getElementById('pillCountAll').innerText = sites.length;
-      document.getElementById('pillCountCog').innerText = sites.filter(s => s.category === 'Cognitive & Language').length;
-      document.getElementById('pillCountMot').innerText = sites.filter(s => s.category === 'Motor').length;
-      document.getElementById('pillCountSens').innerText = sites.filter(s => s.category === 'Sensory & Perceptual').length;
+      // Populate Domain filter options and Category Pills
+      const catSelect = document.getElementById('filterCat');
+      const pillsContainer = document.getElementById('categoryPills');
+      pillsContainer.innerHTML = '<span class="fw-bold text-uppercase me-1" style="font-size: 0.85rem; letter-spacing: 0.05em; color: #000000;">Filter Domain:</span>';
+
+      // 'All' Pill
+      const allPill = document.createElement('button');
+      allPill.type = 'button';
+      allPill.className = 'category-pill active';
+      allPill.setAttribute('data-cat', '');
+      allPill.innerHTML = `<span class="category-dot" style="background-color: #000000;"></span>All (${sites.length})`;
+      pillsContainer.appendChild(allPill);
+
+      const categoryNames = Object.keys(taxonomy).length > 0 
+        ? Object.keys(taxonomy) 
+        : [...new Set(sites.map(s => s.category).filter(Boolean))];
+
+      categoryNames.forEach(catName => {
+        const catMeta = taxonomy[catName] || {};
+        const catColor = catMeta.color || categoryColors[catName] || "#94A3B8";
+        const catCount = sites.filter(s => s.category === catName).length;
+
+        // Add to dropdown
+        const opt = document.createElement('option');
+        opt.value = catName;
+        opt.innerText = `${catName} (${catCount})`;
+        catSelect.appendChild(opt);
+
+        // Add to pill bar
+        const pill = document.createElement('button');
+        pill.type = 'button';
+        pill.className = 'category-pill';
+        pill.setAttribute('data-cat', catName);
+        pill.innerHTML = `<span class="category-dot" style="background-color: ${catColor};"></span>${catName} (${catCount})`;
+        pillsContainer.appendChild(pill);
+      });
 
       // Populate EBS Procedure filter options
       const procSelect = document.getElementById('filterProc');
@@ -315,6 +346,38 @@
         opt.innerText = r;
         regionSelect.appendChild(opt);
       });
+
+      // Update Category Definition Card
+      function updateCategoryDefCard(catName) {
+        const defCard = document.getElementById('categoryDefCard');
+        if (!catName || !taxonomy[catName]) {
+          defCard.classList.add('d-none');
+          return;
+        }
+
+        const meta = taxonomy[catName];
+        const catColor = meta.color || categoryColors[catName] || "#0F172A";
+        const catSites = sites.filter(s => s.category === catName);
+
+        defCard.classList.remove('d-none');
+        defCard.style.borderLeftColor = catColor;
+        document.getElementById('catDefDot').style.backgroundColor = catColor;
+        document.getElementById('catDefTitle').innerText = `${catName} Domain`;
+        document.getElementById('catDefCount').innerText = `${catSites.length} stimulation sites`;
+        document.getElementById('catDefDesc').innerText = meta.desc || "Standardized neurofunctional domain in StimBank.";
+
+        const hubsContainer = document.getElementById('catDefRegions');
+        hubsContainer.innerHTML = '';
+        if (meta.regions && meta.regions.length > 0) {
+          meta.regions.forEach(hub => {
+            const span = document.createElement('span');
+            span.className = 'badge bg-light text-dark border';
+            span.style.fontSize = '0.78rem';
+            span.innerText = hub;
+            hubsContainer.appendChild(span);
+          });
+        }
+      }
 
       // Dynamic Sub-Domain population based on selected Domain
       function updateSubCatDropdown(selectedDomain) {
@@ -343,6 +406,7 @@
       if (urlCat) {
         document.getElementById('filterCat').value = urlCat;
         updateSubCatDropdown(urlCat);
+        updateCategoryDefCard(urlCat);
       }
 
       // Populate Table Body
@@ -350,7 +414,7 @@
       tbody.innerHTML = '';
 
       sites.forEach(site => {
-        const colHex = categoryColors[site.category] || "#0284C7";
+        const colHex = (taxonomy[site.category] && taxonomy[site.category].color) || categoryColors[site.category] || "#94A3B8";
         const pubAuthors = site.publication ? site.publication.authors.split(',')[0] : "Study";
         const pubYear = site.publication ? site.publication.year : "";
         const patientLabel = site.patient_display || site.patient_id || "-";
@@ -375,7 +439,7 @@
             <span class="font-monospace text-dark small" style="font-size: 0.82rem;">[${site.mni.join(', ')}]</span>
           </td>
           <td>
-            <span class="cat-badge py-1 px-2">
+            <span class="cat-badge py-1 px-2" style="background-color: ${colHex}25; border: 1px solid ${colHex};">
               <span class="category-dot" style="background-color: ${colHex};"></span>
               <span style="font-weight: 600; color: #111827; font-size: 0.82rem;">${site.category}</span>
             </span>
@@ -441,10 +505,11 @@
         document.getElementById('filterStatusBadge').innerText = `Showing ${info.recordsDisplay} of ${sites.length} stimulation sites`;
       }
 
-      // Domain change updates dynamic sub-domains
+      // Domain change updates dynamic sub-domains and Category Definition card
       document.getElementById('filterCat').addEventListener('change', (e) => {
         const domain = e.target.value;
         updateSubCatDropdown(domain);
+        updateCategoryDefCard(domain);
         document.querySelectorAll('#categoryPills .category-pill').forEach(b => {
           b.classList.toggle('active', b.getAttribute('data-cat') === domain);
         });
@@ -456,15 +521,16 @@
       document.getElementById('filterRegion').addEventListener('change', updateTableFilters);
 
       // Category Pills Handler
-      document.querySelectorAll('#categoryPills .category-pill').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('#categoryPills .category-pill').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const cat = btn.getAttribute('data-cat');
-          document.getElementById('filterCat').value = cat;
-          updateSubCatDropdown(cat);
-          updateTableFilters();
-        });
+      pillsContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.category-pill');
+        if (!btn) return;
+        document.querySelectorAll('#categoryPills .category-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.getAttribute('data-cat');
+        document.getElementById('filterCat').value = cat;
+        updateSubCatDropdown(cat);
+        updateCategoryDefCard(cat);
+        updateTableFilters();
       });
 
       document.getElementById('btnResetFilters').addEventListener('click', () => {
