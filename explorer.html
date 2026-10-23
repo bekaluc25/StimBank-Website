@@ -25,7 +25,7 @@
   <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
     <div class="container-fluid px-4 px-xl-5" style="max-width: 1800px;">
       <a class="navbar-brand" href="index.html">
-        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo" >
+        <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo" >
         <span>Stim<b>Bank</b></span>
       </a>
 
@@ -47,6 +47,12 @@
           <li class="nav-item">
             <a class="nav-link" href="team.html">Team</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contribute.html">Contribute</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -57,9 +63,6 @@
     <!-- Header -->
     <div class="d-flex flex-wrap justify-content-between align-items-end mb-3">
       <div>
-        <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.76rem;">
-          Data Archive
-        </div>
         <h2 class="fw-bold mb-0">Search Stimulation Sites</h2>
         <p class="text-secondary small mb-0 mt-1">
           Filter and inspect human intracranial stimulation sites across anatomical regions, evoked responses, clinical pathologies, and procedures.
@@ -98,11 +101,11 @@
           </select>
         </div>
 
-        <!-- 4. Location / Anatomical Region Filter -->
+        <!-- 4. Brain Region Filter -->
         <div class="col-md-2 col-sm-6">
-          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">4. Location / Region</label>
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">4. Brain Region</label>
           <select id="filterRegion" class="form-select form-select-sm">
-            <option value="">All Locations</option>
+            <option value="">All Brain Regions</option>
           </select>
         </div>
 
@@ -139,7 +142,7 @@
     <div class="stimbank-card p-3 mb-4">
       <div class="d-flex justify-content-between align-items-center mb-3">
         <span class="small text-secondary fw-medium" id="filterStatusBadge">Loading sites...</span>
-        <a href="team.html#contribute" class="small text-secondary" style="font-size: 0.8rem;">Contribute &amp; Upload Data &rarr;</a>
+        <a href="contribute.html" class="small text-secondary" style="font-size: 0.8rem;">Contribute &amp; Upload Data &rarr;</a>
       </div>
 
       <div class="table-responsive">
@@ -192,16 +195,14 @@
           <div class="row g-3 mb-4">
             <div class="col-md-6">
               <div class="p-3 rounded border" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-                <span class="text-secondary small text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">Stereotaxic Coordinates</span>
+                <span class="text-secondary small text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">EBS Coordinates in MNI Space</span>
                 <div class="fs-5 fw-bold text-dark font-monospace" id="modalMni">X: -38, Y: -22, Z: 56 mm</div>
-                <small class="text-secondary">Standard MNI152 Space</small>
               </div>
             </div>
             <div class="col-md-6">
               <div class="p-3 rounded border" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
                 <span class="text-secondary small text-uppercase d-block mb-1" style="font-size: 0.72rem; letter-spacing: 0.05em;">Stimulation Parameters</span>
-                <div class="fw-bold text-dark" id="modalStimParams">50 Hz, 2.5 mA, 0.5 ms (Bipolar)</div>
-                <small class="text-secondary">Constant-current electrical pulses</small>
+                <div class="fw-bold text-dark" id="modalStimParams">50 Hz, 2.5 mA, 0.5 ms</div>
               </div>
             </div>
           </div>
@@ -243,11 +244,8 @@
       <div class="row gy-4 align-items-center">
         <div class="col-md-7">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
           </div>
-          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
-            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
-          </p>
         </div>
         <div class="col-md-5 text-md-end">
           <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
@@ -263,8 +261,8 @@
     </div>
   </footer>
 
-  <!-- Load Dataset Script -->
-  <script src="data/ebs_dataset.js"></script>
+  <!-- Load Dataset Script with cache buster -->
+  <script src="data/ebs_dataset.js?v=2.3"></script>
 
   <script>
     let dataTable = null;
@@ -430,10 +428,10 @@
             <span class="small font-monospace text-secondary fw-medium">${patientLabel}</span>
           </td>
           <td>
-            <strong style="font-size: 0.92rem; color: #111827;">${site.region}</strong>
+            <span style="font-size: 0.92rem; color: #111827;">${site.region}</span>
           </td>
           <td>
-            <span class="fw-bold small text-dark">${site.hemisphere}</span>
+            <span class="small text-dark">${site.hemisphere}</span>
           </td>
           <td>
             <span class="font-monospace text-dark small" style="font-size: 0.82rem;">[${site.mni.join(', ')}]</span>
@@ -571,7 +569,7 @@
 
         document.getElementById('modalPathology').innerText = site.pathology;
         document.getElementById('modalProcedure').innerText = site.procedure;
-        document.getElementById('modalStimParams').innerText = `${site.frequency_hz} Hz, ${site.current_ma} mA, ${site.pulse_width_ms} ms (${site.bipolar ? 'Bipolar' : 'Monopolar'})`;
+        document.getElementById('modalStimParams').innerText = `${site.frequency_hz} Hz, ${site.current_ma} mA, ${site.pulse_width_ms} ms`;
 
         if (site.publication) {
           document.getElementById('modalPaperTitle').innerText = site.publication.title;

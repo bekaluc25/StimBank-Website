@@ -97,7 +97,7 @@ window.MNIBrainMeshBuilder = {
     // 1. Thalamus (Left & Right)
     const thalGeom = new THREE.SphereGeometry(7.5, 20, 16);
     thalGeom.scale(1.0, 1.4, 1.2);
-    
+
     const thalLeft = new THREE.Mesh(thalGeom, subMatThalamus);
     const thalPosL = this.mniToThree(-11, -16, 6);
     thalLeft.position.copy(thalPosL);

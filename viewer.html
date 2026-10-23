@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>3D MNI Brain Viewer — StimBank</title>
-  <meta name="description" content="Explore human brain stimulation sites and reported effects in 3D MNI152 stereotaxic space using Three.js WebGL rendering.">
+  <meta name="description" content="Explore human brain stimulation sites and reported effects in the StimBank 3D viewer.">
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -127,7 +127,7 @@
   <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
     <div class="container-fluid px-4 px-xl-5" style="max-width: 1800px;">
       <a class="navbar-brand" href="index.html">
-        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo">
+        <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo">
         <span>Stim<b>Bank</b></span>
       </a>
 
@@ -149,6 +149,12 @@
           <li class="nav-item">
             <a class="nav-link" href="team.html">Team</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contribute.html">Contribute</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -160,13 +166,7 @@
     <!-- Header -->
     <div class="d-flex flex-wrap justify-content-between align-items-end mb-3">
       <div>
-        <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.76rem;">
-          High-Definition 3D WebGL Engine &bull; MNI152 Stereotaxic Space
-        </div>
-        <h2 class="fw-bold mb-0">3D MNI Brain Stimulation Viewer</h2>
-        <p class="text-secondary small mb-0 mt-1">
-          FreeSurfer MNI152 Pial Cortical Atlas &bull; Left Click + Drag to rotate 3D volume &bull; Right Click / Two-finger drag to pan &bull; Scroll to zoom &bull; Click any contact to inspect
-        </p>
+        <h2 class="fw-bold mb-0">3D Brain Stimulation Viewer</h2>
       </div>
       <div class="d-flex gap-2 mt-2 mt-md-0">
         <button id="btnResetView" class="btn-stimbank-secondary btn-stimbank-sm">Reset View</button>
@@ -177,24 +177,7 @@
     <!-- Quick Category Pill Filter Bar -->
     <div class="d-flex flex-wrap align-items-center gap-2 mb-3" id="viewerCategoryPills">
       <span class="fw-bold text-uppercase me-1" style="font-size: 0.85rem; letter-spacing: 0.05em; color: #000000;">Filter Domain:</span>
-      <button type="button" class="category-pill active" data-cat="">
-        <span class="category-dot" style="background-color: #000000;"></span>All (<span id="pillCountAll">173</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Cognitive & Language">
-        <span class="category-dot" style="background-color: #8B5CF6;"></span>Cognitive &amp; Language (<span id="pillCountCog">146</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Motor">
-        <span class="category-dot" style="background-color: #2563EB;"></span>Motor (<span id="pillCountMot">15</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Sensory & Perceptual">
-        <span class="category-dot" style="background-color: #0284C7;"></span>Sensory &amp; Perceptual (<span id="pillCountSens">12</span>)
-      </button>
-      <button type="button" class="category-pill" data-cat="Affective">
-        <span class="category-dot" style="background-color: #E11D48;"></span>Affective (0)
-      </button>
-      <button type="button" class="category-pill" data-cat="Autonomic">
-        <span class="category-dot" style="background-color: #059669;"></span>Autonomic (0)
-      </button>
+      <!-- Rendered dynamically by JavaScript -->
     </div>
 
     <!-- Filter Control & MNI Coordinate Search Bar -->
@@ -204,12 +187,7 @@
         <div class="col-lg-2 col-md-4 col-sm-6">
           <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">1. Domain</label>
           <select id="filterCategory" class="form-select form-select-sm">
-            <option value="">All Domains (5)</option>
-            <option value="Cognitive & Language">Cognitive &amp; Language</option>
-            <option value="Motor">Motor</option>
-            <option value="Sensory & Perceptual">Sensory &amp; Perceptual</option>
-            <option value="Affective">Affective</option>
-            <option value="Autonomic">Autonomic</option>
+            <option value="">All Domains</option>
           </select>
         </div>
 
@@ -229,11 +207,11 @@
           </select>
         </div>
 
-        <!-- 4. Location / Region -->
+        <!-- 4. Brain Region -->
         <div class="col-lg-2 col-md-4 col-sm-6">
-          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">4. Location</label>
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.74rem; text-transform: uppercase; letter-spacing: 0.04em;">4. Brain Region</label>
           <select id="filterRegion" class="form-select form-select-sm">
-            <option value="">All Locations</option>
+            <option value="">All Brain Regions</option>
           </select>
         </div>
 
@@ -252,6 +230,15 @@
         <div class="col-lg-1 col-md-2 col-sm-12">
           <button id="btnResetAllFilters" class="btn btn-outline-secondary btn-sm w-100">Reset</button>
         </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-wrap align-items-center justify-content-between gap-2 mb-2 small text-secondary">
+      <div class="d-flex flex-wrap align-items-center gap-3">
+        <span><strong>Rotate:</strong> drag</span>
+        <span><strong>Pan:</strong> right drag</span>
+        <span><strong>Zoom:</strong> scroll</span>
+        <span><strong>Inspect:</strong> click a site</span>
       </div>
     </div>
 
@@ -328,25 +315,41 @@
 
     </div>
 
-    <!-- Quick Jump to Site -->
     <div class="stimbank-card p-3 mt-3">
-      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3">
-        <div class="d-flex align-items-center gap-2">
-          <span class="small fw-semibold text-secondary">Jump to Specific Site:</span>
-          <select id="selectSiteJump" class="form-select form-select-sm" style="max-width: 320px;">
-            <option value="">Select a stimulation site to focus...</option>
-          </select>
+      <div class="d-flex flex-wrap align-items-center justify-content-between gap-3 mb-3">
+        <div>
+          <div class="small fw-semibold text-secondary text-uppercase" style="letter-spacing: 0.05em;">Filtered Database View</div>
+          <div class="small text-secondary" id="viewerFilterSummary">Showing 0 stimulation sites</div>
         </div>
-        <div class="d-flex align-items-center gap-3">
-          <div class="small text-secondary">
-            <strong>Active Legend:</strong>
-            <span class="ms-2"><span class="category-dot" style="background-color: #8B5CF6;"></span>Cognitive</span>
-            <span class="ms-2"><span class="category-dot" style="background-color: #2563EB;"></span>Motor</span>
-            <span class="ms-2"><span class="category-dot" style="background-color: #0284C7;"></span>Sensory</span>
-            <span class="ms-2"><span class="category-dot" style="background-color: #E11D48;"></span>Affective</span>
-            <span class="ms-2"><span class="category-dot" style="background-color: #059669;"></span>Autonomic</span>
-          </div>
+        <div class="small text-secondary">
+          <strong>Active Legend:</strong>
+          <span class="ms-2"><span class="category-dot" style="background-color: #93C5FD;"></span>Sensory</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #8E7CC3;"></span>Motor</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #E598D8;"></span>Cognitive</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #FDB082;"></span>Affective</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #F6DE68;"></span>Autonomic</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #82D1A1;"></span>Agency</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #4F75A8;"></span>Consciousness</span>
+          <span class="ms-2"><span class="category-dot" style="background-color: #94A3B8;"></span>No Effect</span>
         </div>
+      </div>
+
+      <div class="table-responsive">
+        <table class="table table-sm table-hover align-middle mb-0">
+          <thead>
+            <tr>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">ID</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Brain Region</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Domain</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Sub-domain</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Procedure</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Pathology</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Publication</th>
+              <th class="small text-uppercase text-secondary" style="font-size: 0.72rem; letter-spacing: 0.05em;">Details</th>
+            </tr>
+          </thead>
+          <tbody id="viewerFilteredTableBody"></tbody>
+        </table>
       </div>
     </div>
 
@@ -423,11 +426,8 @@
       <div class="row gy-4 align-items-center">
         <div class="col-md-7">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
           </div>
-          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
-            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
-          </p>
         </div>
         <div class="col-md-5 text-md-end">
           <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
@@ -443,10 +443,10 @@
     </div>
   </footer>
 
-  <!-- Load Dataset & Anatomical Brain Mesh -->
-  <script src="data/ebs_dataset.js"></script>
+  <!-- Load Dataset with cache buster & Anatomical Brain Mesh -->
+  <script src="data/ebs_dataset.js?v=2.3"></script>
   <script src="static/models/fsaverage5_pial.js"></script>
-  <script src="static/js/mni_brain_mesh.js"></script>
+  <script src="static/js/mni_brain_mesh.js?v=20261015-3"></script>
 
   <!-- 3D Brain Viewer Engine Script -->
   <script>
@@ -460,11 +460,14 @@
         this.siteRadius = 1.5; // Sleek, small pinpoint contact default
 
         this.categoryColors = {
-          "Sensory & Perceptual": 0x0284C7,
-          "Affective": 0xE11D48,
-          "Autonomic": 0x059669,
-          "Cognitive & Language": 0x8B5CF6,
-          "Motor": 0x2563EB
+          "Sensory": 0x93C5FD,
+          "Motor": 0x8E7CC3,
+          "Cognitive": 0xE598D8,
+          "Affective": 0xFDB082,
+          "Autonomic": 0xF6DE68,
+          "Agency": 0x82D1A1,
+          "Consciousness": 0x4F75A8,
+          "No Effect": 0x94A3B8
         };
 
         this.initThree();
@@ -720,11 +723,14 @@
       document.getElementById('modalRawDescription').innerText = site.raw_description || site.effect;
       
       const colMap = {
-        "Sensory & Perceptual": "#0284C7",
-        "Affective": "#E11D48",
-        "Autonomic": "#059669",
-        "Cognitive & Language": "#8B5CF6",
-        "Motor": "#2563EB"
+        "Sensory": "#93C5FD",
+        "Motor": "#8E7CC3",
+        "Cognitive": "#E598D8",
+        "Affective": "#FDB082",
+        "Autonomic": "#F6DE68",
+        "Agency": "#82D1A1",
+        "Consciousness": "#4F75A8",
+        "No Effect": "#94A3B8"
       };
       const catBadge = document.getElementById('modalCategoryBadge');
       catBadge.innerHTML = `<span class="category-dot" style="background-color: ${colMap[site.category] || '#0284C7'};"></span>${site.category}`;
@@ -755,23 +761,99 @@
       viewer = new StimBank3DViewer('brainCanvas');
       viewer.setSites(allSites);
 
-      // Populate Jump Select
-      const jumpSelect = document.getElementById('selectSiteJump');
-      allSites.forEach(s => {
-        const opt = document.createElement('option');
-        opt.value = s.id;
-        opt.innerText = `${s.id} — ${s.region} (${s.subcategory || s.effect})`;
-        jumpSelect.appendChild(opt);
-      });
-      jumpSelect.addEventListener('change', (e) => {
-        if (e.target.value) {
-          viewer.focusSite(e.target.value);
-          const found = allSites.find(s => s.id === e.target.value);
-          if (found) openDetailModal(found);
+      function renderFilteredTable() {
+        const cat = document.getElementById('filterCategory').value;
+        const sub = document.getElementById('filterSubCategory').value;
+        const proc = document.getElementById('filterProcedure').value;
+        const reg = document.getElementById('filterRegion').value;
+
+        const matches = allSites.filter(s => {
+          if (cat && s.category !== cat) return false;
+          if (sub && (s.subcategory || s.effect) !== sub) return false;
+          if (proc && s.procedure !== proc) return false;
+          if (reg && s.region !== reg) return false;
+          return true;
+        });
+
+        const tbody = document.getElementById('viewerFilteredTableBody');
+        const summary = document.getElementById('viewerFilterSummary');
+        if (!tbody || !summary) return;
+
+        summary.innerText = `Showing ${matches.length} stimulation site${matches.length === 1 ? '' : 's'}`;
+        tbody.innerHTML = '';
+
+        if (!matches.length) {
+          tbody.innerHTML = '<tr><td colspan="7" class="text-center text-secondary py-4">No stimulation sites match the current filters.</td></tr>';
+          return;
         }
+
+        matches.slice(0, 100).forEach(site => {
+          const row = document.createElement('tr');
+          const pub = site.publication || {};
+          const domainColor = (data && data.taxonomy && data.taxonomy[site.category] && data.taxonomy[site.category].color) || '#3B82F6';
+
+          row.innerHTML = `
+            <td><span class="fw-semibold text-dark">${site.id}</span></td>
+            <td><span class="fw-medium text-dark">${site.region}</span></td>
+            <td>
+              <span class="cat-badge py-1 px-2" style="background-color: ${domainColor}20; border: 1px solid ${domainColor};">
+                <span class="category-dot" style="background-color: ${domainColor};"></span>
+                <span style="font-weight: 600; color: #111827; font-size: 0.75rem;">${site.category}</span>
+              </span>
+            </td>
+            <td><span class="small text-dark">${site.subcategory || site.effect || '—'}</span></td>
+            <td><span class="small text-secondary">${site.procedure || '—'}</span></td>
+            <td><span class="small text-secondary">${site.pathology || '—'}</span></td>
+            <td><span class="small text-dark" title="${pub.authors || ''}">${pub.authors ? `${pub.authors.slice(0, 80)}${pub.authors.length > 80 ? '…' : ''}` : '—'}</span></td>
+            <td>
+              <button type="button" class="btn btn-sm btn-outline-dark btn-open-site" data-site-id="${site.id}" style="padding: 0.2rem 0.5rem; font-size: 0.72rem;">Open</button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+
+        tbody.querySelectorAll('.btn-open-site').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const site = allSites.find(s => s.id === btn.getAttribute('data-site-id'));
+            if (site) openDetailModal(site);
+          });
+        });
+      }
+
+      // Populate Category Pills & Category Dropdown from Taxonomy
+      const pillsContainer = document.getElementById('viewerCategoryPills');
+      const catSelect = document.getElementById('filterCategory');
+      
+      const allPill = document.createElement('button');
+      allPill.type = 'button';
+      allPill.className = 'category-pill active';
+      allPill.setAttribute('data-cat', '');
+      allPill.innerHTML = `<span class="category-dot" style="background-color: #000000;"></span>All (${allSites.length})`;
+      pillsContainer.appendChild(allPill);
+
+      const taxonomy = (data && data.taxonomy) ? data.taxonomy : {};
+      const categoriesList = Object.keys(taxonomy).length > 0 ? Object.keys(taxonomy) : [...new Set(allSites.map(s => s.category).filter(Boolean))];
+
+      categoriesList.forEach(cat => {
+        const catSites = allSites.filter(s => s.category === cat);
+        const color = (taxonomy[cat] && taxonomy[cat].color) ? taxonomy[cat].color : '#3B82F6';
+
+        // Pill
+        const pill = document.createElement('button');
+        pill.type = 'button';
+        pill.className = 'category-pill';
+        pill.setAttribute('data-cat', cat);
+        pill.innerHTML = `<span class="category-dot" style="background-color: ${color};"></span>${cat} (${catSites.length})`;
+        pillsContainer.appendChild(pill);
+
+        // Select Option
+        const opt = document.createElement('option');
+        opt.value = cat;
+        opt.innerText = `${cat} (${catSites.length})`;
+        catSelect.appendChild(opt);
       });
 
-      // Populate Filters
+      // Populate Other Filters
       const procSelect = document.getElementById('filterProcedure');
       [...new Set(allSites.map(s => s.procedure).filter(Boolean))].sort().forEach(p => {
         const opt = document.createElement('option');
@@ -797,6 +879,7 @@
         });
       }
       updateSubCats('');
+      renderFilteredTable();
 
       function applyFilters() {
         const cat = document.getElementById('filterCategory').value;
@@ -811,6 +894,7 @@
           if (reg && s.region !== reg) return false;
           return true;
         });
+        renderFilteredTable();
       }
 
       document.getElementById('filterCategory').addEventListener('change', (e) => {
@@ -824,16 +908,16 @@
       document.getElementById('filterProcedure').addEventListener('change', applyFilters);
       document.getElementById('filterRegion').addEventListener('change', applyFilters);
 
-      // Pill filters
-      document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(btn => {
-        btn.addEventListener('click', () => {
-          document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(b => b.classList.remove('active'));
-          btn.classList.add('active');
-          const cat = btn.getAttribute('data-cat');
-          document.getElementById('filterCategory').value = cat;
-          updateSubCats(cat);
-          applyFilters();
-        });
+      // Pill filters click handler delegation
+      pillsContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('.category-pill');
+        if (!btn) return;
+        document.querySelectorAll('#viewerCategoryPills .category-pill').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        const cat = btn.getAttribute('data-cat');
+        document.getElementById('filterCategory').value = cat;
+        updateSubCats(cat);
+        applyFilters();
       });
 
       // Reset All
@@ -850,6 +934,7 @@
           b.classList.toggle('active', b.getAttribute('data-cat') === '');
         });
         viewer.setSites(allSites);
+        renderFilteredTable();
       });
 
       // MNI Nearest Search

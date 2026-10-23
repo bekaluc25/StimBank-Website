@@ -5,7 +5,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>StimBank — Human Brain Stimulation Research Archive</title>
-  <meta name="description" content="StimBank is an open scientific research database of human electrical brain stimulation sites, evoked behavioral responses, and neurosurgical literature in MNI152 stereotaxic space.">
+  <meta name="description" content="StimBank is a resource for exploring human brain stimulation and mapping its effects on brain circuits, developed in the MEND Lab at Brigham and Women’s Hospital.">
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -27,14 +27,45 @@
     }
 
     .hero-logo-img {
-      max-height: 150px;
+      max-height: 320px;
+      max-width: min(100%, 620px);
       width: auto;
       object-fit: contain;
-      margin-bottom: 1rem;
+      display: block;
+      margin: 0 auto 1rem;
       transition: transform 0.2s ease;
     }
     .hero-logo-img:hover {
       transform: scale(1.02);
+    }
+
+    @media (min-width: 992px) {
+      .hero-row {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+      }
+
+      .hero-logo-col {
+        flex: 0 0 420px;
+        max-width: 420px;
+      }
+
+      .hero-copy {
+        flex: 1 1 auto;
+        min-width: 0;
+        padding-left: 0.5rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: left;
+      }
+
+      .hero-logo-img {
+        max-height: 390px;
+        max-width: 100%;
+        margin: 0 auto;
+      }
     }
 
     .scroll-cue {
@@ -225,7 +256,7 @@
   <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
     <div class="container px-4">
       <a class="navbar-brand" href="index.html">
-        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo">
+        <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo">
         <span>Stim<b>Bank</b></span>
       </a>
 
@@ -247,6 +278,12 @@
           <li class="nav-item">
             <a class="nav-link" href="team.html">Team</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contribute.html">Contribute</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -254,34 +291,67 @@
 
   <!-- Big Logo Hero Section -->
   <section class="hero-big-section">
-    <div class="container" style="max-width: 860px;">
-      <!-- Prominent Big Logo -->
-      <a href="index.html" class="d-inline-block">
-        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo" class="hero-logo-img">
-      </a>
+    <div class="container" style="max-width: 1160px;">
+      <div class="row align-items-center g-4 g-lg-5 hero-row">
+        <div class="col-lg-5 text-center text-lg-center hero-logo-col">
+          <a href="index.html" class="d-inline-block">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo" class="hero-logo-img">
+          </a>
+        </div>
 
-      <div class="text-uppercase small mb-2" style="letter-spacing: 0.1em; color: var(--text-muted); font-size: 0.8rem; font-weight: 600;">
-        Open Scientific Data Archive &bull; MNI152 Stereotaxic Space
+        <div class="col-lg-7 text-center text-lg-start hero-copy">
+          <h1 class="display-6 fw-bold mb-3" style="letter-spacing: -0.02em; line-height: 1.25;">
+            Human Brain Stimulation Sites &amp; Reported Effects
+          </h1>
+
+          <p class="lead text-secondary mb-4 mx-auto mx-lg-0" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
+            StimBank is a resource for exploring human brain stimulation and mapping its effects on brain circuits, developed in the MEND Lab at Brigham and Women’s Hospital.
+          </p>
+
+          <div class="d-flex justify-content-center justify-content-lg-start flex-wrap gap-2 mb-2">
+            <a href="viewer.html" class="btn-stimbank-primary px-4 py-2">Explore 3D Brain</a>
+            <a href="explorer.html" class="btn-stimbank-secondary px-4 py-2">Search Database</a>
+          </div>
+
+          <div class="d-flex justify-content-center justify-content-lg-start">
+            <a href="#phenomena" class="scroll-cue">
+              <span>Explore Phenomenological Domains</span>
+              <span>&darr;</span>
+            </a>
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
 
-      <h1 class="display-6 fw-bold mb-3" style="letter-spacing: -0.02em; line-height: 1.25;">
-        Human Brain Stimulation Sites &amp; Reported Effects
-      </h1>
-
-      <p class="lead text-secondary mb-4 mx-auto" style="max-width: 680px; font-size: 1.05rem; line-height: 1.6;">
-        StimBank is an open scientific database cataloging intracranial electrical brain stimulation (EBS) sites, evoked behavioral and sensorimotor responses, and peer-reviewed literature across clinical cohorts.
-      </p>
-
-      <div class="d-flex justify-content-center flex-wrap gap-2 mb-2">
-        <a href="viewer.html" class="btn-stimbank-primary px-4 py-2">Explore 3D Brain</a>
-        <a href="explorer.html" class="btn-stimbank-secondary px-4 py-2">Search Database</a>
-      </div>
-
-      <div>
-        <a href="#phenomena" class="scroll-cue">
-          <span>Explore Phenomenological Domains</span>
-          <span>&darr;</span>
-        </a>
+  <!-- Quick Stats Strip -->
+  <section class="py-3">
+    <div class="container px-4">
+      <div class="row g-3 justify-content-center">
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="stat-box h-100">
+            <div class="stat-number">16,687</div>
+            <div class="stat-label">Stimulations</div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="stat-box h-100">
+            <div class="stat-number">269</div>
+            <div class="stat-label">Studies</div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="stat-box h-100">
+            <div class="stat-number">3,815</div>
+            <div class="stat-label">Patients</div>
+          </div>
+        </div>
+        <div class="col-12 col-sm-6 col-xl-3">
+          <div class="stat-box h-100">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Response Categories</div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -341,7 +411,7 @@
           <!-- Main Titles & Description -->
           <h4 class="mb-1" id="spotlightTitle" style="font-size: 1.15rem; font-weight: 600; color: #0F172A;">Sensory Responses</h4>
           <p class="text-secondary mb-2" id="spotlightDescription" style="line-height: 1.45; font-size: 0.84rem;">
-            Somatosensory, visual, auditory, gustatory, olfactory, vestibular, and body perception pathways evoking elementary or complex sensations, illusions, and altered body schema.
+            Responses include auditory, visual, gustatory, olfactory, vestibular, body perception, and somatosensory
           </p>
 
           <!-- Key Anatomical Hubs -->
@@ -358,23 +428,13 @@
 
           <!-- Footer Meta & Actions -->
           <div class="pt-2 border-top mt-2" style="border-color: var(--border-subtle) !important;">
-            <div class="row align-items-center g-2">
-              <div class="col-12 mb-1">
-                <div class="px-2 py-1 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-                  <span class="text-secondary text-uppercase d-block fw-semibold" style="font-size: 0.64rem; letter-spacing: 0.04em;">Stereotaxic Bounds (MNI)</span>
-                  <div class="fw-medium text-dark small font-monospace mt-0" id="spotlightBounds" style="font-size: 0.76rem;">Loading bounds...</div>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="d-flex gap-2">
-                  <a href="viewer.html?category=Sensory" class="btn-stimbank-primary btn-stimbank-sm flex-fill text-center py-1" id="spotlightViewerBtn" style="font-size: 0.8rem;">
-                    3D Brain
-                  </a>
-                  <a href="explorer.html?category=Sensory" class="btn-stimbank-secondary btn-stimbank-sm flex-fill text-center py-1" id="spotlightTableBtn" style="font-size: 0.8rem;">
-                    Search Table
-                  </a>
-                </div>
-              </div>
+            <div class="d-flex gap-2">
+              <a href="viewer.html?category=Sensory" class="btn-stimbank-primary btn-stimbank-sm flex-fill text-center py-1" id="spotlightViewerBtn" style="font-size: 0.8rem;">
+                3D Brain
+              </a>
+              <a href="explorer.html?category=Sensory" class="btn-stimbank-secondary btn-stimbank-sm flex-fill text-center py-1" id="spotlightTableBtn" style="font-size: 0.8rem;">
+                Search Table
+              </a>
             </div>
           </div>
 
@@ -391,11 +451,8 @@
       <div class="row gy-4 align-items-center">
         <div class="col-md-7">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
           </div>
-          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
-            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
-          </p>
         </div>
         <div class="col-md-5 text-md-end">
           <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
@@ -411,8 +468,8 @@
     </div>
   </footer>
 
-  <!-- Load Dataset -->
-  <script src="data/ebs_dataset.js"></script>
+  <!-- Load Dataset with cache buster -->
+  <script src="data/ebs_dataset.js?v=2.3"></script>
 
   <!-- Interactive Wheel & Spotlight Logic -->
   <script>
@@ -420,19 +477,19 @@
       const data = window.EBS_DATASET;
       const sites = data ? data.sites : [];
 
-      // Fallback taxonomy if dataset not ready
+      // Fallback taxonomy synced with generate_dataset.py
       const defaultTaxonomy = {
         "Sensory": {
           color: "#93C5FD",
-          desc: "Somatosensory, visual, auditory, gustatory, olfactory, vestibular, and body perception pathways evoking elementary or complex sensations, illusions, and altered body schema.",
+          desc: "Responses include auditory, visual, gustatory, olfactory, vestibular, body perception, and somatosensory",
           regions: ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Calcarine Sulcus (V1)", "Fusiform Face Area (FFA)", "Heschl's Gyrus (A1)", "Posterior Insula", "Temporoparietal Junction (TPJ)"],
           subdomains: [
-            { name: "Auditory", desc: "Evoked simple or complex auditory perceptions and illusions.", hubs: ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus"] },
-            { name: "Visual", desc: "Evoked simple or complex visual perceptions and illusions.", hubs: ["Calcarine Sulcus (V1)", "FFA", "MT/V5"] },
-            { name: "Gustatory & Olfactory", desc: "Taste and smell sensations with hedonic valence.", hubs: ["Anterior Insula", "Piriform Cortex"] },
-            { name: "Vestibular", desc: "Dizziness, vertigo, and graviceptive illusions.", hubs: ["PIVC", "Insular Operculum"] },
-            { name: "Body Perception", desc: "Out-of-body experiences, limb illusions, and body schema alterations.", hubs: ["Right TPJ", "Angular Gyrus"] },
-            { name: "Somatosensory", desc: "Painful or non-painful somatosensory mapped responses.", hubs: ["Postcentral Gyrus (S1)", "S2 Operculum"] }
+            { name: "Auditory", desc: "Evoked simple perceptions (ringing, water running, mumbling, buzzing, whistle), complex perceptions (voices, music), or auditory illusions (pitch change, sounds louder, ear obstruction, sound distortion).", hubs: ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus", "Planum Temporale"] },
+            { name: "Visual", desc: "Evoked simple perceptions (phosphenes, flashes, shadows, shapes, moving dots), complex perceptions (faces, characters, scenes, cartoons), or visual illusions (halo, metamorphopsia, micropsia/macropsia, visual motion).", hubs: ["Calcarine Sulcus (V1)", "Lingual Gyrus (V2)", "Fusiform Face Area (FFA)", "Middle Temporal (MT/V5)"] },
+            { name: "Gustatory & Olfactory", desc: "Identifiable or non-identifiable gustatory (taste) and olfactory (smell) responses, further classified by pleasant or unpleasant hedonic valence.", hubs: ["Anterior Insular Operculum", "Piriform Cortex / Uncus", "Mesial Temporal Operculum"] },
+            { name: "Vestibular", desc: "Simple sensations of dizziness or vertigo, as well as complex whole-body displacement, graviceptive experiences (falling, floating, levitation), or rotation.", hubs: ["Parieto-Insular Vestibular Cortex (PIVC)", "Posterior Insular Operculum", "Superior Temporal Sulcus"] },
+            { name: "Body Perception", desc: "Disturbances of body schema or image, such as out-of-body experiences, alien limb sensations, limb loss sensations, limb appearing to move, autoscopic and heautoscopic phenomena.", hubs: ["Right Temporoparietal Junction (TPJ)", "Right Angular Gyrus", "Inferior Parietal Lobule"] },
+            { name: "Somatosensory", desc: "Somatosensory responses mapped by body part (upper limb, lower limb, head/neck/trunk) and classified as painful or non-painful.", hubs: ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Paracentral Lobule", "Dorsal Posterior Insula"] }
           ]
         },
         "Motor": {
@@ -440,35 +497,30 @@
           desc: "Primary, supplementary, and subcortical motor circuits controlling voluntary muscle contractions, eye movements, tremor regulation, and motor inhibition.",
           regions: ["Precentral Gyrus (Hand Knob)", "Supplementary Motor Area (SMA)", "Frontal Eye Field (FEF)", "Subthalamic Nucleus (STN)", "VIM Thalamus"],
           subdomains: [
-            { name: "Upper Limb & Hand", desc: "Tonic contraction, clonic twitching of thumb, fingers, wrist, or forearm.", hubs: ["M1 Hand Knob", "SMA"] },
-            { name: "Saccadic Eye", desc: "Conjugate horizontal, oblique, or vertical saccadic eye deviations.", hubs: ["Frontal Eye Field (FEF)"] },
-            { name: "Face & Vocal", desc: "Involuntary clonic or tonic contraction of lips, oral angle, tongue, and vocal folds.", hubs: ["M1 Face Area", "SMA"] },
-            { name: "Motor Arrest", desc: "Inability to maintain active muscle movement or voluntary limb posture.", hubs: ["Negative Motor Area", "Pre-SMA"] },
-            { name: "Tremor Control", desc: "Acute therapeutic suppression of resting and action tremors.", hubs: ["STN", "VIM Thalamus"] }
+            { name: "Positive", desc: "Positive motor responses defined as any evoked movement (twitching, jerk, tonic/clonic contractions).", hubs: ["Precentral Gyrus (M1 Hand Knob)", "Paracentral Lobule", "SMA"] },
+            { name: "Negative", desc: "Negative responses defined as arrest, disturbance, or slowing of movements.", hubs: ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"] },
+            { name: "Automatisms", desc: "Automatisms such as laughter without merriment, grasping, rubbing, yawning, chewing/mastication.", hubs: ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"] }
           ]
         },
         "Cognitive": {
           color: "#E598D8",
           desc: "Higher-order associative networks including language processing, speech arrest, naming anomia, experiential memory retrieval, and Theory of Mind.",
-          regions: ["Middle Frontal Gyrus", "Pars Opercularis (Broca)", "Posterior STG (Wernicke)", "Entorhinal Cortex", "Hippocampus", "DLPFC", "TPJ"],
+          regions: ["Middle Frontal Gyrus", "Pars Opercularis (Broca)", "Posterior STG (Wernicke)", "Entorhinal Cortex", "Hippocampus", "DLPFC", "Temporoparietal Junction (TPJ)"],
           subdomains: [
-            { name: "Speech Arrest", desc: "Complete interruption of vocalization or speech counting with preserved awareness.", hubs: ["Broca's Area", "vPMC"] },
-            { name: "Language", desc: "Phonemic paraphasias, comprehension breakdown, semantic paraphasia, and pure alexia.", hubs: ["Wernicke", "VWFA"] },
-            { name: "Déjà vu & Memory", desc: "Experiential illusion of familiarity, autobiographical playback, and dreamy states.", hubs: ["Hippocampus", "Entorhinal Cortex"] },
-            { name: "Mentalizing (ToM)", desc: "Social cognition, Theory of Mind, attributing mental states, and perspective-taking.", hubs: ["TPJ", "dmPFC"] },
-            { name: "Working Memory", desc: "Working memory manipulation disruption and attention interference.", hubs: ["DLPFC"] }
+            { name: "Language disturbances", desc: "Disruptions in language production, comprehension or written language.", hubs: ["Pars Opercularis (Broca's Area)", "Ventral Premotor Cortex", "SMA"] },
+            { name: "Derealization / Depersonalization", desc: "Feelings of derealization or depersonalization, such as feeling detached from the world or inside a dream.", hubs: ["Posterior STG (Wernicke)", "Pars Triangularis", "VWFA", "pMTG"] },
+            { name: "Reminiscence/Déjà rêvé", desc: "Evoked visual, auditory, or multimodal complex perceptions accompanied by a subjective feeling of remembering.", hubs: ["Hippocampus (CA1 / Subiculum)", "Entorhinal Cortex", "Lateral Temporal Sulcus"] },
+            { name: "Déjà vu/Déjà vécu/Jamais vu", desc: "Erroneous feelings of familiarity (déjà vu/déjà vécu) or unfamiliarity (jamais vu) for the current situation.", hubs: ["Temporoparietal Junction (TPJ)", "Dorsomedial Prefrontal Cortex (dmPFC)"] },
+            { name: "Focal Cognitive Changes", desc: "Focal cognitive changes, such as dyscalculia, working memory deficits, music or face recognition deficits.", hubs: ["Dorsolateral Prefrontal Cortex (DLPFC)", "Anterior Cingulate"] }
           ]
         },
         "Affective": {
           color: "#FDB082",
-          desc: "Limbic and paralimbic circuits generating subjective emotional states, fear, euphoria, determination, or acute relief of dysphoria.",
+          desc: "Evoked emotional experiences or changes in emotional state.",
           regions: ["Basolateral Amygdala", "Anterior Cingulate (ACC)", "Anterior Midcingulate (aMCC)", "Subgenual Area 25", "Nucleus Accumbens"],
           subdomains: [
-            { name: "Fear & Anxiety", desc: "Unmotivated dread, visceral panic, acute terror, and feeling of imminent catastrophe.", hubs: ["Basolateral Amygdala", "Anterior Insula"] },
-            { name: "Mirth & Laughter", desc: "Spontaneous mirthful laughter with genuine subjective amusement.", hubs: ["ACC", "Pre-SMA"] },
-            { name: "Perseverance", desc: "Courage, feeling of determination to overcome adversity, and physiological readiness.", hubs: ["aMCC"] },
-            { name: "Mood Lifting", desc: "Rapid alleviation of dysphoric mood, sudden lightness, and return of hedonic interest.", hubs: ["Area 25", "Nucleus Accumbens"] },
-            { name: "Ecstatic Bliss", desc: "Intense feeling of hyper-reality, oceanic joy, and transcendent well-being.", hubs: ["Anterior-Superior Insula"] }
+            { name: "Positive valence responses", desc: "Positive changes in affect, including happiness, wellbeing, ecstatic bliss, or mirth.", hubs: ["Basolateral Amygdala", "Anterior Insula"] },
+            { name: "Negative valence responses", desc: "Negative changes in affect, including anger, anxiety, fear, or sadness.", hubs: ["Anterior Cingulate Cortex (ACC)", "Pre-SMA Affective Interface"] }
           ]
         },
         "Autonomic": {
@@ -476,45 +528,30 @@
           desc: "Central autonomic network regulating visceral interoception, cardiac rhythm, vasomotor tone, and neurovegetative reflexes.",
           regions: ["Anterior Insular Cortex", "Periaqueductal Gray (PAG)", "Hypothalamus", "Medial Prefrontal Cortex"],
           subdomains: [
-            { name: "Visceral / Aura", desc: "Rising epigastric sensation from stomach into chest and throat.", hubs: ["Anterior Insula"] },
-            { name: "Cardiac Dynamics", desc: "Sinus tachycardia, acute bradycardia, palpitations, and blood pressure shifts.", hubs: ["Posterior Insula"] },
-            { name: "Vasomotor Tone", desc: "Sudden facial flushing, skin sensation of extreme heat or sudden chill.", hubs: ["Hypothalamus"] },
-            { name: "Piloerection", desc: "Bilateral or ipsilateral goosebumps with subjective shivers down the spine.", hubs: ["PAG", "aMCC"] },
-            { name: "Pupillary Reflex", desc: "Mydriasis, pupillary constriction, hypersalivation, and sweat response.", hubs: ["Hypothalamic Nuclei"] }
+            { name: "Cardiovascular responses", desc: "Change in heart rate (tachycardia/bradycardia) or changes in blood pressure.", hubs: ["Anterior-Inferior Insula", "Mesial Temporal Operculum"] },
+            { name: "Temperature responses", desc: "General sensations of cold or warmth (heat wave, flushing, sweating).", hubs: ["Posterior Insular Cortex", "Subgenual Anterior Cingulate"] },
+            { name: "Visceral responses", desc: "Sudden facial flushing, extreme heat sensations, or localized vasoconstriction.", hubs: ["Hypothalamus", "Anterior Insular Operculum"] },
+            { name: "Pupillary responses", desc: "Pupillary responses, piloerection, and spinal shivering.", hubs: ["Periaqueductal Gray (PAG)", "Anterior Midcingulate Cortex"] },
+            { name: "Respiratory responses", desc: "Responses such as hypoventilation/apnea, hyperventilation/shortness of breath, or hypoxemia.", hubs: ["Hypothalamic Nuclei", "Opercular Visceral Area"] }
           ]
         },
         "Agency": {
           color: "#82D1A1",
-          desc: "Parietal, insular, and premotor networks governing the sense of bodily ownership, self-location, motor intentionality, and agency of action.",
-          regions: ["Right Angular Gyrus", "TPJ", "Inferior Parietal Lobule (IPL)", "Premotor Cortex", "Pre-SMA"],
-          subdomains: [
-            { name: "Out-of-Body", desc: "Illusory sensation of floating above one's body or autoscopic displacement.", hubs: ["Right TPJ", "Angular Gyrus"] },
-            { name: "Motor Intention", desc: "Strong conscious desire or intention to move a specific limb without actual execution.", hubs: ["IPL", "Supramarginal Gyrus"] },
-            { name: "Illusory Move", desc: "Subjective belief and vivid feeling that a limb moved when no movement occurred.", hubs: ["Posterior Parietal Cortex"] },
-            { name: "Foreign Limb", desc: "Altered somatic ownership, sensation that an arm or leg belongs to someone else.", hubs: ["Temporoparietal Cortex"] },
-            { name: "Automatisms", desc: "Involuntary coordinated complex motor acts performed without conscious volition.", hubs: ["SMA"] }
-          ]
+          desc: "Changes in the sense of agency, characterized by feeling that thoughts or actions are not self-generated or under one’s control, experiencing an urge to act, forced thinking, or sensing resistance to a planned action.",
+          regions: ["Right Angular Gyrus", "Temporoparietal Junction (TPJ)", "Inferior Parietal Lobule (IPL)", "Premotor Cortex", "Pre-SMA"],
+          subdomains: []
         },
         "Consciousness": {
           color: "#4F75A8",
-          desc: "Frontoparietal, claustrum, intralaminar thalamic, and default mode networks supporting subjective awareness, contact, and global integration.",
-          regions: ["Claustrum / External Capsule", "Intralaminar Thalamic Nuclei", "Precuneus", "Posterior Cingulate Cortex"],
-          subdomains: [
-            { name: "Altered Awareness", desc: "Transient lapse in conscious awareness and unresponsiveness to cues.", hubs: ["Claustrum"] },
-            { name: "Conscious Pause", desc: "Complete reversible cessation of volitional behavior, blank stare, and amnesia.", hubs: ["Claustrum", "Thalamus"] },
-            { name: "Absence State", desc: "Sudden behavioral arrest with preservation of tone but total disconnection.", hubs: ["Centromedian Thalamus"] },
-            { name: "Derealization", desc: "Profound feeling of being detached from surrounding reality and existential alienation.", hubs: ["Precuneus", "PCC"] }
-          ]
+          desc: "Responses classified as altered consciousness/awareness included loss of consciousness or impaired awareness, unconscious movements (i.e., movements occurring without awareness), or the erroneous impression of having spoken out loud.",
+          regions: ["Claustrum / External Capsule", "Intralaminar Thalamic Nuclei", "Precuneus", "Posterior Cingulate Cortex", "Default Mode Network"],
+          subdomains: []
         },
         "No Effect": {
           color: "#94A3B8",
-          desc: "Asymptomatic stimulation contacts where electrical delivery within safety limits evoked no detectable behavioral, cognitive, sensorimotor, or autonomic response.",
+          desc: "Stimulations explicitly reported as not evoking any functional response; absence of a specific response type without indication of whether other responses occurred was insufficient. This category was deliberately conservative to provide true non-response controls.",
           regions: ["Silent Cortical Boundaries", "Non-Eloquent Association Cortex", "Subthreshold White Matter Tracts"],
-          subdomains: [
-            { name: "Asymptomatic", desc: "Stimulation applied up to safety limit with zero reported changes.", hubs: ["Non-Eloquent DLPFC", "MTG"] },
-            { name: "Subthreshold", desc: "No effect elicited at tested current amplitude or frequency parameters.", hubs: ["Parietal Operculum", "White Matter"] },
-            { name: "Negative Margin", desc: "Negative functional response confirming safety margin for surgical resection.", hubs: ["Anterior STG", "IFG"] }
-          ]
+          subdomains: []
         }
       };
 
@@ -817,11 +854,15 @@
           (activeSubDomain.hubs || []).forEach(h => {
             const chip = document.createElement('span');
             chip.className = 'cat-badge me-1 mb-1';
-            chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${h}</span>`;
+            chip.style.backgroundColor = '#F8FAFC';
+            chip.style.borderColor = '#CBD5E1';
+            chip.style.color = '#0F172A';
+            chip.innerHTML = `<span class="category-dot" style="background-color: #94A3B8;"></span><span>${h}</span>`;
             regContainer.appendChild(chip);
           });
         } else {
-          document.getElementById('spotlightSubBadge').innerText = 'All Sub-Domains';
+          const hasSubdomains = (meta.subdomains && meta.subdomains.length > 0);
+          document.getElementById('spotlightSubBadge').innerText = hasSubdomains ? 'All Sub-Domains' : 'Core Domain';
           document.getElementById('spotlightSubBadge').style.backgroundColor = '#0F172A';
           document.getElementById('spotlightSubBadge').style.color = '#FFFFFF';
           document.getElementById('spotlightTitle').innerText = `${activeCategory} Responses`;
@@ -833,7 +874,10 @@
           (meta.regions || []).forEach(r => {
             const chip = document.createElement('span');
             chip.className = 'cat-badge me-1 mb-1';
-            chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${r}</span>`;
+            chip.style.backgroundColor = '#F8FAFC';
+            chip.style.borderColor = '#CBD5E1';
+            chip.style.color = '#0F172A';
+            chip.innerHTML = `<span class="category-dot" style="background-color: #94A3B8;"></span><span>${r}</span>`;
             regContainer.appendChild(chip);
           });
         }
@@ -841,37 +885,33 @@
         // Sub-domain chips list
         const effectsContainer = document.getElementById('spotlightEffects');
         effectsContainer.innerHTML = '';
-        (meta.subdomains || []).forEach(sub => {
-          const chip = document.createElement('button');
-          chip.type = 'button';
-          chip.className = 'cat-badge me-1 mb-1 border-0';
-          const isCurr = activeSubDomain && activeSubDomain.name === sub.name;
-          chip.style.backgroundColor = isCurr ? meta.color : '#F1F5F9';
-          chip.style.color = '#0F172A';
-          chip.style.border = isCurr ? `1.5px solid #0F172A` : '1px solid #CBD5E1';
-          chip.style.cursor = 'pointer';
-          chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${sub.name}</span>`;
-          chip.addEventListener('mouseenter', () => {
-            openSpotlight();
+        const subsList = meta.subdomains || [];
+        if (subsList.length > 0) {
+          subsList.forEach(sub => {
+            const chip = document.createElement('button');
+            chip.type = 'button';
+            chip.className = 'cat-badge me-1 mb-1 border-0';
+            const isCurr = activeSubDomain && activeSubDomain.name === sub.name;
+            chip.style.backgroundColor = isCurr ? meta.color : '#F1F5F9';
+            chip.style.color = '#0F172A';
+            chip.style.border = isCurr ? `1.5px solid #0F172A` : '1px solid #CBD5E1';
+            chip.style.cursor = 'pointer';
+            chip.innerHTML = `<span class="category-dot" style="background-color: ${meta.color};"></span><span>${sub.name}</span>`;
+            chip.addEventListener('mouseenter', () => {
+              openSpotlight();
+            });
+            chip.addEventListener('click', (e) => {
+              e.stopPropagation();
+              activeSubDomain = sub;
+              updateSpotlightUI();
+              drawWheel();
+              openSpotlight();
+            });
+            effectsContainer.appendChild(chip);
           });
-          chip.addEventListener('click', (e) => {
-            e.stopPropagation();
-            activeSubDomain = sub;
-            updateSpotlightUI();
-            drawWheel();
-            openSpotlight();
-          });
-          effectsContainer.appendChild(chip);
-        });
-
-        // Stereotaxic Bounds
-        const xs = catSites.map(s => s.mni[0]);
-        const ys = catSites.map(s => s.mni[1]);
-        const zs = catSites.map(s => s.mni[2]);
-        const minX = catSites.length > 0 ? Math.min(...xs) : 0, maxX = catSites.length > 0 ? Math.max(...xs) : 0;
-        const minY = catSites.length > 0 ? Math.min(...ys) : 0, maxY = catSites.length > 0 ? Math.max(...ys) : 0;
-        const minZ = catSites.length > 0 ? Math.min(...zs) : 0, maxZ = catSites.length > 0 ? Math.max(...zs) : 0;
-        document.getElementById('spotlightBounds').innerText = catSites.length > 0 ? `X: [${minX}, ${maxX}], Y: [${minY}, ${maxY}], Z: [${minZ}, ${maxZ}] mm` : "No sites in current sample";
+        } else {
+          effectsContainer.innerHTML = '<span class="text-secondary small fst-italic" style="font-size: 0.78rem;">No sub-domains in this category</span>';
+        }
 
         // Action links
         document.getElementById('spotlightViewerBtn').href = `viewer.html?category=${encodeURIComponent(activeCategory)}`;

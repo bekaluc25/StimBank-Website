@@ -462,19 +462,34 @@ taxonomy_schema = {
         "color": "#82D1A1", # Soft Pastel Mint / Sage Green
         "description": "Changes in the sense of agency, characterized by feeling that thoughts or actions are not self-generated or under one’s control, experiencing an urge to act, forced thinking, or sensing resistance to a planned action.",
         "regions": ["Right Angular Gyrus", "Temporoparietal Junction (TPJ)", "Inferior Parietal Lobule (IPL)", "Premotor Cortex", "Pre-SMA"],
-        
-         
+        "subdomains": [],
+        "sites": [
+            ("Autoscopic Displacement", "Torso levitation and elevated observation of own physical body", "Right TPJ", [54, -52, 26], [-54, -52, 26], "PUB11"),
+            ("Will to Move Hand", "Conscious intention and strong desire to clench contralateral fist", "Inferior Parietal Lobule (IPL)", [-42, -44, 46], [42, -44, 46], "PUB09"),
+            ("Illusory Hand Flexion", "Patient firmly believes they moved wrist/fingers though arm remained motionless", "Angular Gyrus", [-46, -62, 40], [46, -62, 40], "PUB09"),
+            ("Alien Limb Feeling", "Feeling that contralateral arm belongs to someone else sitting nearby", "Temporoparietal Cortex", [-56, -42, 24], [56, -42, 24], "PUB11")
+        ]
     },
     "Consciousness": {
         "color": "#4F75A8", # Soft Pastel Slate Dark Blue
         "description": "Responses classified as altered consciousness/awareness included loss of consciousness or impaired awareness, unconscious movements (i.e., movements occurring without awareness), or the erroneous impression of having spoken out loud.",
         "regions": ["Claustrum / External Capsule", "Intralaminar Thalamic Nuclei", "Precuneus", "Posterior Cingulate Cortex", "Default Mode Network"],
-        
+        "subdomains": [],
+        "sites": [
+            ("Claustrum Awareness Arrest", "Immediate loss of consciousness, unresponsiveness to auditory/visual commands", "Claustrum / External Capsule", [-32, -18, 4], [32, -18, 4], "PUB10"),
+            ("Reversible Conscious Pause", "Blank staring pause, complete unresponsiveness, immediate return to baseline", "Intralaminar Thalamus", [-10, -16, 8], [10, -16, 8], "PUB10"),
+            ("Existential Alienation", "Profound detachment from surroundings, feeling external world is artificial", "Precuneus / PCC", [-6, -54, 38], [6, -54, 38], "PUB15")
+        ]
     },
     "No Effect": {
         "color": "#94A3B8", # Soft Pastel Slate Gray
         "description": "Stimulations explicitly reported as not evoking any functional response; absence of a specific response type without indication of whether other responses occurred was insufficient. This category was deliberately conservative to provide true non-response controls.",
         "regions": ["Silent Cortical Boundaries", "Non-Eloquent Association Cortex", "Subthreshold White Matter Tracts"],
+        "subdomains": [],
+        "sites": [
+            ("Asymptomatic DLPFC", "No behavioral, subjective, or motor response elicited up to 8 mA safety limit", "Dorsolateral Prefrontal Cortex", [-46, 42, 18], [46, 42, 18], "PUB03"),
+            ("Negative Association Margin", "Negative functional response confirming safe surgical resection margin", "Middle Temporal Gyrus", [-58, -38, -6], [58, -38, -6], "PUB03")
+        ]
     }
 }
 
@@ -496,7 +511,7 @@ for category, cat_data in taxonomy_schema.items():
         "subdomains": []
     }
     
-    for sub in cat_data["subdomains"]:
+    for sub in cat_data.get("subdomains", []):
         sub_name = sub["name"]
         sub_def = sub["definition"]
         sub_hubs = sub["hubs"]
@@ -543,6 +558,61 @@ for category, cat_data in taxonomy_schema.items():
                 "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
                 "category": category,
                 "subcategory": sub_name,
+                "effect": effect_name,
+                "description": effect_desc,
+                "region": target_region,
+                "hemisphere": "R",
+                "mni": right_mni,
+                "procedure": pub_obj["procedure_type"],
+                "pathology": pub_obj["patient_population"],
+                "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
+                "current_ma": round(random.uniform(1.5, 3.5), 1),
+                "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
+                "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
+                "pub_id": pub_id,
+                "publication": pub_obj,
+                "patient_age": random.randint(21, 62),
+                "patient_sex": random.choice(["F", "M"])
+            })
+            site_idx += 1
+
+    # Also build sites for categories without subdomains
+    for effect_name, effect_desc, target_region, left_mni, right_mni, pub_id in cat_data.get("sites", []):
+        pub_obj = next((p for p in publications if p["id"] == pub_id), publications[0])
+        
+        # Left hemisphere contact
+        all_sites.append({
+            "id": f"STIM{site_idx:03d}",
+            "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
+            "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
+            "category": category,
+            "subcategory": category,
+            "effect": effect_name,
+            "description": effect_desc,
+            "region": target_region,
+            "hemisphere": "L",
+            "mni": left_mni,
+            "procedure": pub_obj["procedure_type"],
+            "pathology": pub_obj["patient_population"],
+            "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
+            "current_ma": round(random.uniform(1.5, 3.5), 1),
+            "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
+            "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
+            "pub_id": pub_id,
+            "publication": pub_obj,
+            "patient_age": random.randint(21, 62),
+            "patient_sex": random.choice(["F", "M"])
+        })
+        site_idx += 1
+        
+        # Right hemisphere contact
+        if right_mni:
+            all_sites.append({
+                "id": f"STIM{site_idx:03d}",
+                "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
+                "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
+                "category": category,
+                "subcategory": category,
                 "effect": effect_name,
                 "description": effect_desc,
                 "region": target_region,

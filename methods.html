@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StimBank - Scientific Methodology &amp; Clinical Protocols</title>
+  <title>StimBank - Methods</title>
 
   <!-- Bootstrap 5 CSS -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -17,7 +17,7 @@
   <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
     <div class="container px-4">
       <a class="navbar-brand" href="index.html">
-        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo">
+        <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo">
         <span>Stim<b>Bank</b></span>
       </a>
 
@@ -39,6 +39,12 @@
           <li class="nav-item">
             <a class="nav-link" href="team.html">Team</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contribute.html">Contribute</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -47,94 +53,52 @@
   <!-- Header & Content: Wider Container with narrower side margins -->
   <div class="container px-4 py-4" style="max-width: 1200px;">
     <div class="mb-4">
-      <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.78rem;">
-        Scientific Rigor
-      </div>
-      <h1 class="fw-bold mb-2">Methodology &amp; Clinical Framework</h1>
+      <h1 class="fw-bold mb-2">Data extraction and curation methods</h1>
       <p class="lead text-secondary mb-0" style="font-size: 1.05rem; max-width: 900px;">
-        StimBank standardizes human intracranial electrical brain stimulation (EBS) data across neurosurgical modalities, anatomical references, and behavioral observations.
+        StimBank is an open database of human intracranial stimulation responses. Each entry in the database represents a unique stimulation event with its corresponding stimulation site coordinates and evoked response. These data were extracted and curated through systematic review of the literature. The full methodological details will be reported in a scientific publication, but a summary is presented below.
       </p>
     </div>
 
-    <!-- Section 1: Stereotaxic Normalization -->
     <div class="stimbank-card p-4 mb-4">
-      <h3 class="fw-bold mb-2">Stereotaxic Coordinate Normalization</h3>
-      <p class="small text-secondary mb-3">
-        Every stimulation contact site archived in StimBank is mapped to standard stereotaxic coordinate space (Montreal Neurological Institute, <strong>MNI152 nonlinear 6th-generation asymmetric template</strong>). 
-      </p>
-      <div class="row g-3">
-        <div class="col-md-4">
-          <div class="p-3 border rounded text-center h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="fw-bold fs-5 text-dark font-monospace mb-1">X-Axis</div>
-            <div class="small text-secondary">Left (&minus;) to Right (+)</div>
-            <div class="small text-muted mt-1">&minus;78 mm to +78 mm</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3 border rounded text-center h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="fw-bold fs-5 text-dark font-monospace mb-1">Y-Axis</div>
-            <div class="small text-secondary">Posterior (&minus;) to Anterior (+)</div>
-            <div class="small text-muted mt-1">&minus;112 mm to +72 mm</div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="p-3 border rounded text-center h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="fw-bold fs-5 text-dark font-monospace mb-1">Z-Axis</div>
-            <div class="small text-secondary">Inferior (&minus;) to Superior (+)</div>
-            <div class="small text-muted mt-1">&minus;50 mm to +84 mm</div>
-          </div>
-        </div>
-      </div>
-      <p class="small text-secondary mt-3 mb-0">
-        Coordinates published in Talairach stereotaxic space are converted using the Lancaster transformation (<a href="https://doi.org/10.1002/hbm.20345" target="_blank" class="text-decoration-underline">Lancaster et al., 2007</a>) to ensure rigorous spatial congruence.
+      <h3 class="fw-bold mb-3">Systematic Review</h3>
+      <p class="text-secondary mb-0" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        The full methodological details will be reported in a scientific publication, but a summary is presented below. In brief, we conducted a systematic review according to the PRISMA guidelines to identify studies that reported functional responses to acute intracranial stimulation in humans and included information on the corresponding stimulation site locations. This typically included functional responses occurring during or immediately after brief stimulation epochs lasting seconds to minutes. Because a large proportion of studies involved patients with epilepsy undergoing seizure monitoring or stimulation mapping, stimulations that triggered seizures or were explicitly described as performed within the seizure onset zone were excluded. Articles lacking stereotactic coordinates, precise images, or detailed schematics allowing localization of the stimulation sites were excluded. We considered all articles published until September 11th 2025. 7,924 articles were screened (see our Pubmed search here), and a total of 269 were deemed eligible for inclusion in the final database.
       </p>
     </div>
 
-    <!-- Section 2: Stimulation Modalities -->
     <div class="stimbank-card p-4 mb-4">
-      <h3 class="fw-bold mb-3">Intracranial Electrical Stimulation Modalities</h3>
-      <div class="row g-3">
-        <div class="col-md-6 col-lg-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Stereo-EEG (sEEG)</h5>
-            <p class="small text-secondary mb-0">
-              Multicontact intracerebral depth electrodes (0.8 mm diameter with 5–18 platinum contacts) implanted stereotaxically. Bipolar stimulation is applied between adjacent contact pairs (50 Hz, 0.5 ms, 0.5–4.0 mA) to map functional eloquence.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Subdural ECoG</h5>
-            <p class="small text-secondary mb-0">
-              Silastic grids and strips placed directly on the cortical pial surface after craniotomy. Electrodes (2.3 mm exposed surface, 10 mm spacing) provide high spatial resolution extraoperative functional mapping over lateral cortex.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Intraoperative DES</h5>
-            <p class="small text-secondary mb-0">
-              Direct electrical stimulation during awake craniotomy for brain tumor (e.g. glioma) resection. A bipolar probe (5 mm spacing) delivers biphasic square pulses (60 Hz, 1 ms, 1.5–5.0 mA) to map safe functional boundaries.
-            </p>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <h5 class="fw-bold mb-1" style="font-size: 0.95rem;">Deep Brain Stimulation</h5>
-            <p class="small text-secondary mb-0">
-              Chronic high-frequency electrical pulses (130–180 Hz, 60–90 &mu;s, 1.5–4.5 mA) delivered through permanently implanted leads targeted at subcortical nuclei (STN, VIM, GPi, Area 25).
-            </p>
-          </div>
-        </div>
-      </div>
+      <h3 class="fw-bold mb-3">Data Extraction</h3>
+      <p class="text-secondary mb-2" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        The following data were extracted for each publication and stimulation event:
+      </p>
+      <ul class="text-secondary mb-3 ps-4" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        <li>Study characteristics: first author, year of publication, country, overall cohort sample size, and number of patients reported.</li>
+        <li>Patient characteristics: handedness, sex, age, underlying disease, and type of EBS procedure.</li>
+        <li>Stimulation parameters: frequency, amplitude or voltage, pulse width, and duration.</li>
+        <li>Stimulation location: hemisphere, brain region, and MNI coordinates.</li>
+        <li>Reported functional response.</li>
+      </ul>
+      <p class="text-secondary mb-2" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        MNI coordinates of all stimulation sites were obtained as follows:
+      </p>
+      <ul class="text-secondary mb-3 ps-4" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        <li>MNI coordinates were directly extracted, if available.</li>
+        <li>Talairach coordinates were converted to MNI space using <a href="https://www.brainmap.org/ale/" target="_blank" rel="noopener noreferrer">Ginger ALE</a> (version 3.0.2).</li>
+        <li>AC-PC coordinates were converted to MNI space using the dedicated tool in the Lead-DBS software.</li>
+        <li>For studies where coordinates were not provided, stimulation sites were manually mapped to the MNI template (MNI152 non-linear asymmetric 2009b) using <a href="https://www.slicer.org/" target="_blank" rel="noopener noreferrer">3D Slicer</a> based on the available figures. This included MRI slices, 3-D surface reconstructions, craniotomy pictures, and/or precise schematics.</li>
+        <li>To ensure reliability, all mappings were performed by one reviewer (G.M.M., Z.D.) and independently verified by the other.</li>
+      </ul>
+      <p class="text-secondary mb-0" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        All stimulation coordinates were cross-checked against the anatomical labels reported by the original authors by a third reviewer (A.E.) to ensure consistency. Given these variable data sources, the precision of localization may vary across entries. Despite this limitation, we believe that StimBank provides a valuable resource for investigating brain function, especially when aggregating stimulation sites across studies. Our procedure for manual mapping of stimulation sites is analogous to manual tracing of lesions from figures, which is widely used in the lesion network mapping literature and has been shown to produce network mapping results consistent with those derived from lesions directly segmented on patient imaging (see Cohen et al., 2019; Ferguson et al., 2019). Nevertheless, users should still consider potential localization uncertainty when interpreting the data or conducting analyses that depend on precise anatomical localization.
+      </p>
     </div>
 
-    <!-- Section 3: 8 Core Categories of Phenomena Taxonomy -->
     <div class="stimbank-card p-4 mb-4">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <h3 class="fw-bold mb-0">The 8 Consensus Categories of Phenomena</h3>
-        <span class="badge bg-light text-dark border">Consensus Taxonomy</span>
-      </div>
+      <h3 class="fw-bold mb-3">Classification of stimulation-evoked functional responses</h3>
+      <p class="text-secondary mb-3" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        To the best of our knowledge, there is currently no established classification scheme for EBS responses. We developed a hierarchical classification scheme adapted from the <a href="https://onlinelibrary.wiley.com/doi/full/10.1111/epi.18338?msockid=07654cd4cf5064212c8c5a08ced5659c" target="_blank" rel="noopener noreferrer">ILAE seizure semiological feature classification</a>, with refinements to better capture the diversity of functional responses evoked by intracranial stimulation. Of note, domains and sub-domains are not mutually exclusive, and a single response could be classified under multiple domains or sub-domains. Rather than claiming to provide a definitive ontology of functional responses to stimulation, we focused on providing clear definitions of categories and promoting reliability and consistency in classification through independent review, with disagreements being resolved by consensus between the two reviewers. We also retained the response descriptions reported in the original publications, allowing users to reclassify responses according to their own research questions or alternative classification schemes.
+      </p>
+
       <p class="small text-secondary mb-3">
         Evoked behavioral, sensory, cognitive, and subjective responses are organized into 8 standardized neurofunctional domains, each identified by a consistent color throughout the StimBank platform:
       </p>
@@ -143,188 +107,219 @@
         <table class="table-stimbank small">
           <thead>
             <tr>
-              <th style="min-width: 140px;">Category</th>
-              <th style="min-width: 260px;">Definition &amp; Scope</th>
-              <th style="min-width: 220px;">Key Anatomical Hubs</th>
-              <th style="min-width: 200px;">Included Sub-Domains</th>
+              <th style="min-width: 140px;">Domain</th>
+              <th style="min-width: 210px;">Sub-domain</th>
+              <th style="min-width: 260px;">Finer response types</th>
+              <th style="min-width: 220px;">Key anatomical hubs</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>
+              <td rowspan="6">
                 <span class="cat-badge" style="background-color: #93C5FD; color: #1E3A8A; font-weight: 600;">
                   <span class="category-dot" style="background-color: #3B82F6;"></span>Sensory
                 </span>
               </td>
-              <td>Somatosensory, visual, auditory, gustatory, olfactory, vestibular, and body perception pathways evoking elementary or complex sensations, illusions, and altered body schema.</td>
-              <td>Postcentral Gyrus (S1), Operculum (S2), Calcarine Sulcus (V1), FFA, Heschl's Gyrus (A1), Posterior Insula, TPJ</td>
-              <td>Auditory, Visual, Gustatory &amp; Olfactory, Vestibular, Body Perception, Somatosensory</td>
+              <td style="background-color: rgba(147, 197, 253, 0.12); border-left: 4px solid #3B82F6;">Auditory</td>
+              <td>Simple perceptions, complex perceptions, auditory illusions</td>
+              <td>Heschl's Gyrus (A1), Superior Temporal Gyrus, Planum Temporale</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(147, 197, 253, 0.12); border-left: 4px solid #3B82F6;">Visual</td>
+              <td>Phosphenes, flashes, shapes, scenes, visual illusions</td>
+              <td>Calcarine Sulcus (V1), Lingual Gyrus (V2), Fusiform Face Area (FFA), Middle Temporal (MT/V5)</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(147, 197, 253, 0.12); border-left: 4px solid #3B82F6;">Gustatory &amp; Olfactory</td>
+              <td>Taste or smell perceptions, pleasant or unpleasant hedonic valence</td>
+              <td>Anterior Insular Operculum, Piriform Cortex / Uncus, Mesial Temporal Operculum</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(147, 197, 253, 0.12); border-left: 4px solid #3B82F6;">Vestibular</td>
+              <td>Dizziness, vertigo, falling, floating, levitation, rotation</td>
+              <td>Parieto-Insular Vestibular Cortex (PIVC), Posterior Insular Operculum, Superior Temporal Sulcus</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(147, 197, 253, 0.12); border-left: 4px solid #3B82F6;">Body Perception</td>
+              <td>Out-of-body experiences, alien limb sensations, limb loss, autoscopic or heautoscopic phenomena</td>
+              <td>Right Temporoparietal Junction (TPJ), Right Angular Gyrus, Inferior Parietal Lobule</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(147, 197, 253, 0.12); border-left: 4px solid #3B82F6;">Somatosensory</td>
+              <td>Body-part-specific sensations, painful or non-painful responses</td>
+              <td>Postcentral Gyrus (S1), Parietal Operculum (S2), Paracentral Lobule, Dorsal Posterior Insula</td>
+            </tr>
+            <tr>
+              <td rowspan="3">
                 <span class="cat-badge" style="background-color: #8E7CC3; color: #FFFFFF; font-weight: 600;">
                   <span class="category-dot" style="background-color: #FFFFFF;"></span>Motor
                 </span>
               </td>
-              <td>Primary, supplementary, and subcortical motor circuits controlling voluntary muscle contractions, eye movements, tremor regulation, and motor inhibition.</td>
-              <td>Precentral Gyrus (Hand Knob), SMA, Frontal Eye Field (FEF), Subthalamic Nucleus (STN), VIM Thalamus</td>
-              <td>Upper Limb &amp; Hand, Saccadic Eye, Face &amp; Vocal, Motor Arrest, Tremor Control</td>
+              <td style="background-color: rgba(142, 124, 195, 0.12); border-left: 4px solid #8E7CC3;">Positive</td>
+              <td>Twitching, jerk, tonic/clonic contractions</td>
+              <td>Precentral Gyrus (M1 Hand Knob), Paracentral Lobule, Supplementary Motor Area (SMA)</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(142, 124, 195, 0.12); border-left: 4px solid #8E7CC3;">Negative</td>
+              <td>Arrest, disturbance, or slowing of movements</td>
+              <td>Frontal Eye Field (FEF), Superior Frontal Sulcus</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(142, 124, 195, 0.12); border-left: 4px solid #8E7CC3;">Automatisms</td>
+              <td>Laughter without merriment, grasping, rubbing, yawning, chewing</td>
+              <td>Frontal Eye Field (FEF), Superior Frontal Sulcus</td>
+            </tr>
+            <tr>
+              <td rowspan="5">
                 <span class="cat-badge" style="background-color: #E598D8; color: #581C87; font-weight: 600;">
                   <span class="category-dot" style="background-color: #A21CAF;"></span>Cognitive
                 </span>
               </td>
-              <td>Higher-order associative networks including language processing, speech arrest, naming anomia, experiential memory retrieval, and Theory of Mind.</td>
-              <td>Pars Opercularis (Broca), Posterior STG (Wernicke), Hippocampus (CA1), Entorhinal Cortex, DLPFC, TPJ</td>
-              <td>Speech Arrest, Language, Déjà vu &amp; Memory, Mentalizing (ToM), Working Memory</td>
+              <td style="background-color: rgba(229, 152, 216, 0.12); border-left: 4px solid #A21CAF;">Language disturbances</td>
+              <td>Speech arrest, naming anomia, language production/comprehension deficits</td>
+              <td>Pars Opercularis (Broca's Area), Ventral Premotor Cortex, Supplementary Motor Area (SMA)</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(229, 152, 216, 0.12); border-left: 4px solid #A21CAF;">Derealization / Depersonalization</td>
+              <td>Feeling detached from the world or from oneself</td>
+              <td>Posterior STG (Wernicke), Pars Triangularis, VWFA, pMTG</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(229, 152, 216, 0.12); border-left: 4px solid #A21CAF;">Reminiscence / Déjà rêvé</td>
+              <td>Vivid recollection-like experiences combined with multimodal complex perceptions</td>
+              <td>Hippocampus (CA1 / Subiculum), Entorhinal Cortex, Lateral Temporal Sulcus</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(229, 152, 216, 0.12); border-left: 4px solid #A21CAF;">Déjà vu / Déjà vécu / Jamais vu</td>
+              <td>Familiarity or unfamiliarity distortions for the present situation</td>
+              <td>Temporoparietal Junction (TPJ), Dorsomedial Prefrontal Cortex (dmPFC)</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(229, 152, 216, 0.12); border-left: 4px solid #A21CAF;">Focal Cognitive Changes</td>
+              <td>Dyscalculia, working memory problems, music or face recognition deficits</td>
+              <td>Dorsolateral Prefrontal Cortex (DLPFC), Anterior Cingulate</td>
+            </tr>
+            <tr>
+              <td rowspan="2">
                 <span class="cat-badge" style="background-color: #FDB082; color: #7C2D12; font-weight: 600;">
                   <span class="category-dot" style="background-color: #EA580C;"></span>Affective
                 </span>
               </td>
-              <td>Limbic and paralimbic circuits generating subjective emotional states, fear, euphoria, determination, or acute relief of dysphoria.</td>
-              <td>Basolateral Amygdala, Anterior Cingulate (ACC), aMCC, Subgenual Area 25, Nucleus Accumbens</td>
-              <td>Fear &amp; Anxiety, Mirth &amp; Laughter, Perseverance, Mood Lifting, Ecstatic Bliss</td>
+              <td style="background-color: rgba(253, 176, 130, 0.12); border-left: 4px solid #EA580C;">Positive valence</td>
+              <td>Happiness, well-being, ecstatic bliss, mirth</td>
+              <td>Basolateral Amygdala, Anterior Insula</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(253, 176, 130, 0.12); border-left: 4px solid #EA580C;">Negative valence</td>
+              <td>Fear, anxiety, sadness, anger, dysphoria</td>
+              <td>Anterior Cingulate Cortex (ACC), Pre-SMA Affective Interface</td>
+            </tr>
+            <tr>
+              <td rowspan="5">
                 <span class="cat-badge" style="background-color: #F6DE68; color: #713F12; font-weight: 600;">
                   <span class="category-dot" style="background-color: #CA8A04;"></span>Autonomic
                 </span>
               </td>
-              <td>Central autonomic network regulating visceral interoception, cardiac rhythm, vasomotor tone, and neurovegetative reflexes.</td>
-              <td>Anterior Insular Cortex, Periaqueductal Gray (PAG), Hypothalamus, Opercular Visceral Area</td>
-              <td>Visceral / Aura, Cardiac Dynamics, Vasomotor Tone, Piloerection, Pupillary Reflex</td>
+              <td style="background-color: rgba(246, 222, 104, 0.14); border-left: 4px solid #CA8A04;">Cardiovascular</td>
+              <td>Tachycardia, bradycardia, blood pressure changes</td>
+              <td>Anterior-Inferior Insula, Mesial Temporal Operculum</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(246, 222, 104, 0.14); border-left: 4px solid #CA8A04;">Temperature</td>
+              <td>Cold or warmth sensations, flushing, sweating</td>
+              <td>Posterior Insular Cortex, Subgenual Anterior Cingulate</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(246, 222, 104, 0.14); border-left: 4px solid #CA8A04;">Visceral</td>
+              <td>Sudden facial flushing, extreme heat, localized vasoconstriction</td>
+              <td>Hypothalamus, Anterior Insular Operculum</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(246, 222, 104, 0.14); border-left: 4px solid #CA8A04;">Pupillary</td>
+              <td>Pupillary responses, piloerection, shivering</td>
+              <td>Periaqueductal Gray (PAG), Anterior Midcingulate Cortex</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(246, 222, 104, 0.14); border-left: 4px solid #CA8A04;">Respiratory</td>
+              <td>Hypoventilation, apnea, hyperventilation, shortness of breath</td>
+              <td>Hypothalamic Nuclei, Opercular Visceral Area</td>
+            </tr>
+            <tr>
+              <td rowspan="4">
                 <span class="cat-badge" style="background-color: #82D1A1; color: #064E3B; font-weight: 600;">
                   <span class="category-dot" style="background-color: #059669;"></span>Agency
                 </span>
               </td>
-              <td>Parietal, insular, and premotor networks governing the sense of bodily ownership, self-location, motor intentionality, and agency of action.</td>
-              <td>Right Angular Gyrus, Right TPJ, Inferior Parietal Lobule (IPL), Premotor Cortex, Pre-SMA</td>
-              <td>Out-of-Body, Motor Intention, Illusory Move, Foreign Limb, Automatisms</td>
+              <td style="background-color: rgba(130, 209, 161, 0.12); border-left: 4px solid #059669;">Sense of agency</td>
+              <td>Feeling thoughts or actions are not self-generated</td>
+              <td>Right Angular Gyrus, Temporoparietal Junction (TPJ), Inferior Parietal Lobule (IPL)</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(130, 209, 161, 0.12); border-left: 4px solid #059669;">Urge to act</td>
+              <td>Compelled action or strong urge to move</td>
+              <td>Premotor Cortex, Pre-SMA</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(130, 209, 161, 0.12); border-left: 4px solid #059669;">Forced thinking</td>
+              <td>Thoughts feel imposed or compelled</td>
+              <td>Temporoparietal Junction (TPJ), Pre-SMA</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(130, 209, 161, 0.12); border-left: 4px solid #059669;">Resistance to action</td>
+              <td>Sensing resistance to a planned action</td>
+              <td>Premotor Cortex, Inferior Parietal Lobule (IPL)</td>
+            </tr>
+            <tr>
+              <td rowspan="3">
                 <span class="cat-badge" style="background-color: #4F75A8; color: #FFFFFF; font-weight: 600;">
                   <span class="category-dot" style="background-color: #FFFFFF;"></span>Consciousness
                 </span>
               </td>
-              <td>Frontoparietal, claustrum, intralaminar thalamic, and default mode networks supporting subjective awareness, contact, and global integration.</td>
-              <td>Claustrum / External Capsule, Intralaminar Thalamic Nuclei, Precuneus, Centromedian Thalamus</td>
-              <td>Altered Awareness, Conscious Pause, Absence State, Derealization</td>
+              <td style="background-color: rgba(79, 117, 168, 0.12); border-left: 4px solid #4F75A8;">Altered awareness</td>
+              <td>Loss of consciousness, impaired awareness</td>
+              <td>Claustrum / External Capsule, Intralaminar Thalamic Nuclei, Precuneus</td>
             </tr>
             <tr>
-              <td>
+              <td style="background-color: rgba(79, 117, 168, 0.12); border-left: 4px solid #4F75A8;">Unconscious movements</td>
+              <td>Movements occurring without awareness</td>
+              <td>Posterior Cingulate Cortex, Default Mode Network</td>
+            </tr>
+            <tr>
+              <td style="background-color: rgba(79, 117, 168, 0.12); border-left: 4px solid #4F75A8;">Altered speech awareness</td>
+              <td>Erroneous impression of having spoken out loud</td>
+              <td>Default Mode Network, Posterior Cingulate Cortex</td>
+            </tr>
+            <tr>
+              <td rowspan="1">
                 <span class="cat-badge" style="background-color: #94A3B8; color: #0F172A; font-weight: 600;">
                   <span class="category-dot" style="background-color: #475569;"></span>No Effect
                 </span>
               </td>
-              <td>Asymptomatic stimulation contacts where electrical delivery within safety limits evoked no detectable behavioral, cognitive, sensorimotor, or autonomic response.</td>
-              <td>Silent Association Neocortex, Non-Eloquent DLPFC, Subthreshold Frontal White Matter</td>
-              <td>Asymptomatic, Subthreshold, Negative Margin</td>
+              <td style="background-color: rgba(148, 163, 184, 0.12); border-left: 4px solid #475569;">Explicit non-response</td>
+              <td>No detectable behavioral, sensory, cognitive, or autonomic response</td>
+              <td>Silent Cortical Boundaries, Non-Eloquent Association Cortex, Subthreshold White Matter Tracts</td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
 
-    <!-- Section 4: Research Distribution & Literature Diversity -->
     <div class="stimbank-card p-4 mb-4">
-      <div class="d-flex align-items-center gap-2 mb-2">
-        <h3 class="fw-bold mb-0">Global Research Distribution &amp; Literature Diversity</h3>
-        <span class="badge bg-light text-dark border">Cross-Cohort Synthesis</span>
-      </div>
-      <p class="small text-secondary mb-3">
-        StimBank standardizes and synthesizes intracranial human electrical stimulation findings published across leading international neurosurgical centers, epilepsy monitoring units, and academic research institutions worldwide.
+      <h3 class="fw-bold mb-3">AI Statement</h3>
+      <p class="text-secondary mb-0" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        Data extraction and curation was exclusively performed by human researchers, without reliance on AI technologies. To promote data accuracy and consistency, the most critical steps (i.e., response classification and stimulation site mappings) were verified by a second reviewer, and any disagreement or uncertainties was resolved through discussion.
       </p>
+    </div>
 
-      <!-- Diversity Highlights Grid -->
-      <div class="row g-3 mb-4">
-        <div class="col-md-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Geographic Scope</div>
-            <div class="fs-5 fw-bold text-dark mb-1">International</div>
-            <div class="small text-secondary">Cohorts from North America (USA, Canada) &amp; Europe (France, Italy, Switzerland)</div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Clinical Populations</div>
-            <div class="fs-5 fw-bold text-dark mb-1">Diverse Etiologies</div>
-            <div class="small text-secondary">Drug-resistant focal epilepsy, low/high-grade gliomas, vascular malformations</div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Mapping Protocols</div>
-            <div class="fs-5 fw-bold text-dark mb-1">Multi-Modal EBS</div>
-            <div class="small text-secondary">Stereo-EEG depth leads, intraoperative DES probes, subdural cortical grids &amp; DBS</div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-            <div class="text-uppercase text-secondary fw-bold small mb-1" style="font-size: 0.74rem; letter-spacing: 0.05em;">Standardization</div>
-            <div class="fs-5 fw-bold text-dark mb-1">100% MNI152</div>
-            <div class="small text-secondary">Harmonized stereotaxic alignment eliminating cross-institutional coordinate divergence</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Cohort & Institutional Distribution Breakdown -->
-      <div class="row g-3">
-        <div class="col-lg-6">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-card); border-color: var(--border-subtle) !important;">
-            <h5 class="fw-bold mb-2" style="font-size: 0.95rem;">Geographic &amp; Institutional Representation</h5>
-            <p class="small text-secondary mb-3">
-              Literature in StimBank spans landmark historical foundational series alongside contemporary stereo-EEG and intraoperative awake mapping publications:
-            </p>
-            <ul class="list-unstyled small mb-0 d-flex flex-column gap-2">
-              <li class="d-flex align-items-start gap-2">
-                <span class="badge bg-dark text-white mt-1" style="font-size: 0.7rem;">North America</span>
-                <div>
-                  <strong>United States &amp; Canada:</strong> Stanford University Medical Center, Montreal Neurological Institute (MNI), Hospital of the University of Pennsylvania.
-                </div>
-              </li>
-              <li class="d-flex align-items-start gap-2">
-                <span class="badge bg-secondary text-white mt-1" style="font-size: 0.7rem;">Europe</span>
-                <div>
-                  <strong>France, Italy &amp; Switzerland:</strong> AP-HM Timone Hospital (Marseille), Gui de Chauliac Hospital (Montpellier), Niguarda Hospital "Claudio Munari" Epilepsy Center (Milan), Geneva University Hospitals.
-                </div>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="col-lg-6">
-          <div class="p-3 border rounded h-100" style="background-color: var(--surface-card); border-color: var(--border-subtle) !important;">
-            <h5 class="fw-bold mb-2" style="font-size: 0.95rem;">Pathology &amp; Surgical Context Coverage</h5>
-            <p class="small text-secondary mb-3">
-              Combining data across surgical contexts provides comprehensive causal mapping of both cortical surfaces and deep subcortical structures:
-            </p>
-            <div class="d-flex flex-column gap-2 small">
-              <div class="p-2 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-                <strong>Refractory Epilepsy Monitoring (sEEG &amp; ECoG):</strong> Deep insular, amygdalar, hippocampal, and cingulate stereotaxic mapping during pre-surgical evaluation.
-              </div>
-              <div class="p-2 border rounded" style="background-color: var(--surface-muted); border-color: var(--border-subtle) !important;">
-                <strong>Awake Brain Tumor Resection (Intraoperative DES):</strong> Eloquent subcortical white matter pathway mapping and functional cortical boundaries across motor, speech, and associative networks.
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div class="mt-3 text-end">
-        <a href="team.html#contribute" class="small fw-semibold text-decoration-underline" style="color: var(--cat-sensory);">
-          Have data from another center or cohort? Submit a dataset contribution &rarr;
-        </a>
-      </div>
+    <div class="stimbank-card p-4 mb-4">
+      <h3 class="fw-bold mb-3">Data characteristics overview</h3>
+      <ul class="text-secondary mb-0 ps-4" style="font-size: 1.0rem; line-height: 1.7; max-width: 900px;">
+        <li>Study characteristics (N, country of origin, date of publication)</li>
+        <li>Patient characteristics (N, disease, age, sex, handedness)</li>
+        <li>Stimulation procedure and parameters (EBS type, frequency, PW, intensity)</li>
+        <li>Stimulation location (hemisphere, lobe) and type of coordinates (MNI / ACPC / Talairach / mapped)</li>
+        <li>Functional responses (N per domain)</li>
+      </ul>
     </div>
 
     <div class="text-center pt-3">
@@ -340,11 +335,8 @@
       <div class="row gy-4 align-items-center">
         <div class="col-md-7">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
           </div>
-          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
-            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
-          </p>
         </div>
         <div class="col-md-5 text-md-end">
           <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>

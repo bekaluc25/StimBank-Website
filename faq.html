@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — StimBank</title>
+  <meta name="description" content="Frequently asked questions about the StimBank database, 3D brain viewer, and contribution process.">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/ebs_custom.css">
+  <style>
+    .faq-card {
+      background: rgba(255,255,255,0.96);
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      border-radius: 12px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.04);
+    }
+
+    .faq-answer {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      font-size: 0.97rem;
+    }
+
+    .faq-item .accordion-button {
+      font-weight: 600;
+      color: var(--text-primary);
+      background: transparent;
+      box-shadow: none;
+    }
+
+    .faq-item .accordion-button:not(.collapsed) {
+      background: rgba(59, 130, 246, 0.04);
+      color: var(--text-primary);
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
+    <div class="container px-4">
+      <a class="navbar-brand" href="index.html">
+        <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo">
+        <span>Stim<b>Bank</b></span>
+      </a>
+
+      <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+
+      <div class="collapse navbar-collapse justify-content-end" id="navbarMain">
+        <ul class="navbar-nav align-items-center">
+          <li class="nav-item"><a class="nav-link" href="explorer.html">Database</a></li>
+          <li class="nav-item"><a class="nav-link" href="viewer.html">3D Brain Viewer</a></li>
+          <li class="nav-item"><a class="nav-link" href="methods.html">Methods</a></li>
+          <li class="nav-item"><a class="nav-link" href="team.html">Team</a></li>
+          <li class="nav-item"><a class="nav-link" href="contribute.html">Contribute</a></li>
+          <li class="nav-item"><a class="nav-link active" href="faq.html">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container px-4 py-5" style="max-width: 980px; padding-top: 5rem !important;">
+    <div class="mb-4">
+      <div class="text-uppercase small mb-2" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.78rem;">
+        StimBank Help
+      </div>
+      <h1 class="display-6 fw-bold mb-2" style="letter-spacing: -0.02em;">Frequently Asked Questions</h1>
+      <p class="lead text-secondary mb-0" style="font-size: 1.02rem; max-width: 820px;">
+        Common questions about the database, the brain viewer, and how to contribute to StimBank.
+      </p>
+    </div>
+
+    <div class="faq-card p-3 p-md-4">
+      <div class="accordion" id="faqAccordion">
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+              What is StimBank?
+            </button>
+          </h2>
+          <div id="faq1" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              StimBank is an open database of 16,687 functional responses and non-responses to acute intracranial stimulation in humans.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+              Who develops StimBank?
+            </button>
+          </h2>
+          <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              StimBank is a collaborative effort originating from the MENDLab at the Center for Brain Circuit Therapeutics at Mass General Brigham and Harvard Medical School. This project is currently unfunded. Learn more on our <a href="team.html" class="text-decoration-underline">Team</a> page.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+              How can I use this data for my research?
+            </button>
+          </h2>
+          <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              You can browse and download the data through our <a href="explorer.html" class="text-decoration-underline">database page</a>. The data is openly available under the XXX license. In short, this means that you can… Read more here [link].
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+              How do I cite StimBank?
+            </button>
+          </h2>
+          <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              Please make sure to cite XXX in every publication that uses the StimBank. We also suggest that you cite the original studies from which the data you used was derived.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq5">
+              How was the StimBank data acquired?
+            </button>
+          </h2>
+          <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              In short, data were manually extracted and curated by human researchers through a systematic review of the literature, encompassing 269 studies. Stimulation sites were localized based on reported coordinates or available figures. Functional responses were categorized using a hierarchical classification scheme adapted from the ILAE seizure semiological feature classification. For more detail, see our <a href="methods.html" class="text-decoration-underline">Methods</a> page.
+              <br><br>
+              Although we took great care in collecting this data and used inter-rater agreement procedures when possible, errors might be inevitable in a database of this scale. If you notice an error, please submit a correction through our <a href="contribute.html" class="text-decoration-underline">Contact form</a>.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq6">
+              How often is StimBank updated?
+            </button>
+          </h2>
+          <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              We hope to release StimBank updates periodically in the future. However, since the project is currently unfunded, we are unsure how often and for how long we would be able to do this.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq7">
+              In what space are the stimulation coordinates reported?
+            </button>
+          </h2>
+          <div id="faq7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              StimBank uses the MNI152 non-linear asymmetric 2009b template space <a href="https://www.mcgill.ca/bic/software" class="text-decoration-underline" target="_blank" rel="noopener noreferrer">[link to the official webpage for the MNI template]</a>.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq8">
+              What information is available in the database?
+            </button>
+          </h2>
+          <div id="faq8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              Each entry in the database represents a unique stimulation event (N = 16,687). The primary information included in the database is the stimulation site location (MNI coordinates) and the nature of the evoked functional response. The database includes both the response type as categorized in our hierarchical classification scheme, and the response description as reported in the original paper. Besides that, it also includes, for each stimulation, basic information on the study, patient, and stimulation procedure and parameters. For more detail, see our <a href="methods.html" class="text-decoration-underline">Methods</a> page.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq9">
+              How accurate are the stimulation coordinates?
+            </button>
+          </h2>
+          <div id="faq9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              Stimulation sites were localized using coordinates reported in the original publications or estimated from available figures. This means that the precision of localization may vary across entries. Despite this limitation, we believe that StimBank provides a valuable resource for investigating brain function, especially when aggregating stimulation sites across studies. Users should still consider potential localization uncertainty when interpreting the data or conducting analyses that depend on precise anatomical localization.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq10">
+              How should I interpret the functional classification scheme?
+            </button>
+          </h2>
+          <div id="faq10" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              Classifying brain function into discrete categories is inherently challenging, as functional domains often overlap and their boundaries depend, in part, on arbitrary concepts. It is likely that no classification scheme can fully capture the complexity of human brain function. StimBank's hierarchical classification scheme was adapted from the ILAE seizure semiological feature classification, with refinements to better capture the diversity of functional responses evoked by intracranial stimulation. Of note, domains and sub-domains are not mutually exclusive, and a single response could be classified under multiple domains or sub-domains. Rather than claiming to provide a definitive ontology of functional responses to stimulation, we aimed to establish a transparent and reproducible framework with clearly defined categories and procedures to promote consistency in classification. We also retained the response descriptions reported in the original publications, allowing users to reclassify responses according to their own research questions or alternative classification schemes.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq11">
+              What does a non-response to stimulation mean?
+            </button>
+          </h2>
+          <div id="faq11" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              A non-response indicates that no functional effect was reported or identified under the conditions described in the original study. It might be the case, for example, that the stimulated site is involved in functions that were not directly assessed, that stimulation evoked covert responses that were not spontaneously reported by the patient, or that the stimulation amplitude was insufficient to elicit a detectable response.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0 border-bottom">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq12">
+              How do I contribute, report issues, or add my data?
+            </button>
+          </h2>
+          <div id="faq12" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              If you’d like to contribute data, submit corrections or feedback, or contribute to the project, please fill our <a href="contribute.html" class="text-decoration-underline">Contact form</a>.
+            </div>
+          </div>
+        </div>
+
+        <div class="accordion-item faq-item border-0">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq13">
+              How do I get support?
+            </button>
+          </h2>
+          <div id="faq13" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+            <div class="accordion-body faq-answer">
+              You are welcome to contact our team, however, since StimBank is currently unfunded, please note that support resources may be limited.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center pt-4">
+      <a href="contribute.html" class="btn-stimbank-primary btn-stimbank-sm me-2">Contribute</a>
+      <a href="explorer.html" class="btn-stimbank-secondary btn-stimbank-sm">Search Database</a>
+    </div>
+  </div>
+
+  <footer class="stimbank-footer mt-5">
+    <div class="container px-4">
+      <div class="row gy-4 align-items-center">
+        <div class="col-md-7">
+          <div class="d-flex align-items-center gap-2 mb-3">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+          </div>
+        </div>
+        <div class="col-md-5 text-md-end">
+          <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
+          <ul class="list-inline small mb-0 d-flex flex-wrap justify-content-md-end gap-3">
+            <li class="list-inline-item"><a href="explorer.html">Database</a></li>
+            <li class="list-inline-item"><a href="viewer.html">3D Brain Viewer</a></li>
+            <li class="list-inline-item"><a href="methods.html">Methods</a></li>
+            <li class="list-inline-item"><a href="team.html">Team</a></li>
+            <li class="list-inline-item"><a href="contribute.html">Contribute</a></li>
+            <li class="list-inline-item"><a href="faq.html">FAQ</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -13,29 +13,19 @@
   <style>
     .headshot-placeholder-box {
       width: 100%;
-      height: 190px;
       background-color: var(--surface-muted);
-      border: 2px dashed var(--border-strong);
-      border-radius: 8px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      position: relative;
+      border-radius: 10px;
       overflow: hidden;
-      transition: all 0.2s ease;
-    }
-    .headshot-placeholder-box:hover {
-      background-color: #F1F5F9;
-      border-color: #475569;
+      border: 1px solid rgba(15, 23, 42, 0.08);
+      box-shadow: inset 0 0 0 1px rgba(15, 23, 42, 0.02);
+      margin-bottom: 1rem;
+      line-height: 0;
     }
     .headshot-placeholder-box img {
+      display: block;
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      position: absolute;
-      top: 0;
-      left: 0;
+      height: auto;
+      border-radius: 10px;
     }
     .scholar-btn {
       font-size: 0.82rem;
@@ -64,7 +54,7 @@
   <nav class="navbar navbar-expand-md fixed-top navbar-stimbank">
     <div class="container px-4">
       <a class="navbar-brand" href="index.html">
-        <img src="static/images/Stimbanklogo.jpeg" alt="StimBank Logo">
+        <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank Logo">
         <span>Stim<b>Bank</b></span>
       </a>
 
@@ -86,6 +76,12 @@
           <li class="nav-item">
             <a class="nav-link active" href="team.html">Team</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contribute.html">Contribute</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="faq.html">FAQ</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -94,34 +90,35 @@
   <!-- Header -->
   <div class="container px-4 py-4" style="max-width: 1080px;">
     <div class="mb-4">
-      <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.78rem;">
-        MEND Lab &bull; Investigators &amp; Collaborators
-      </div>
       <h1 class="fw-bold mb-2">The StimBank Team</h1>
-      <p class="lead text-secondary mb-0" style="font-size: 1.05rem; max-width: 820px;">
-        StimBank is developed by the <strong>MEND Lab</strong> (Mapping &amp; Engineering Neural Dynamics Laboratory), an interdisciplinary research team dedicated to advancing human brain stimulation mapping, neuromodulation, and computational neuroanatomy.
-      </p>
+      <div class="row align-items-end g-3">
+        <div class="col-lg-9">
+          <p class="lead text-secondary mb-0" style="font-size: 1.05rem; max-width: 820px;">
+            StimBank is a collaborative effort originating from the <a href="https://www.rolstonlab.com/" target="_blank" rel="noopener noreferrer" class="text-decoration-underline">MEND Lab</a> at the <a href="https://www.massgeneral.org/neurology/research/center-for-brain-circuit-therapeutics" target="_blank" rel="noopener noreferrer" class="text-decoration-underline">Center for Brain Circuit Therapeutics</a> at Mass General Brigham and Harvard Medical School in Boston, United States.
+          </p>
+        </div>
+        <div class="col-lg-3 text-lg-end">
+          <p class="text-secondary mb-0" style="font-size: 0.98rem;">
+            Interested in contributing? <a href="contribute.html" class="text-decoration-underline">Contact us</a>
+          </p>
+        </div>
+      </div>
     </div>
 
-    <!-- Research Team Members -->
+    <!-- Core Team -->
     <div class="mb-5">
-      <h3 class="fw-bold mb-3" style="font-size: 1.25rem;">Core Team &amp; Researchers</h3>
+      <h3 class="fw-bold mb-3" style="font-size: 1.25rem;">Core Team</h3>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
         
         <!-- Member 1: John D. Rolston -->
         <div class="col">
           <div class="stimbank-card p-4 h-100 d-flex flex-column">
-            <!-- Empty Headshot Box Placeholder -->
-            <div class="headshot-placeholder-box mb-3">
-              <!-- To add headshot, insert: <img src="path/to/headshot.jpg" alt="John D. Rolston"> -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="text-secondary opacity-50 mb-1" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-              </svg>
-              <span class="small text-muted fw-semibold" style="font-size: 0.74rem;">Headshot Placeholder</span>
+            <div class="headshot-placeholder-box">
+              <img src="static/images/John_Rolston_headshot.png" alt="John D. Rolston">
             </div>
-            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">John D. Rolston</h5>
-            <p class="small text-secondary mb-3 flex-grow-1">
-              Neurosurgical &amp; Clinical Advisory
+            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">John D. Rolston, MD, PhD</h5>
+            <p class="small text-secondary mb-3" style="line-height: 1.55;">
+              Dr. John Rolston is a neurosurgeon and neuroscientist at Brigham &amp; Women’s Hospital and Harvard Medical School. Clinically, he specializes in epilepsy surgery—including laser ablation, deep brain stimulation (DBS), and responsive neurostimulation—and movement disorders, including DBS and focused ultrasound. Dr. Rolston received his Bachelor’s degree in computer science from Columbia University, before studying brain-computer interfaces for epilepsy during his PhD at the Georgia Institute of Technology and Emory University. He received an MD from Emory University before completing his residency training in neurosurgery at the University of California, San Francisco.
             </p>
             <div>
               <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="scholar-btn">
@@ -137,17 +134,12 @@
         <!-- Member 2: Zoé Dary -->
         <div class="col">
           <div class="stimbank-card p-4 h-100 d-flex flex-column">
-            <!-- Empty Headshot Box Placeholder -->
-            <div class="headshot-placeholder-box mb-3">
-              <!-- To add headshot, insert: <img src="path/to/headshot.jpg" alt="Zoé Dary"> -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="text-secondary opacity-50 mb-1" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-              </svg>
-              <span class="small text-muted fw-semibold" style="font-size: 0.74rem;">Headshot Placeholder</span>
+            <div class="headshot-placeholder-box">
+              <img src="static/images/Zoe_Dary_headshot.jpeg" alt="Zoé Dary">
             </div>
-            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Zoé Dary</h5>
-            <p class="small text-secondary mb-3 flex-grow-1">
-              Neuroscience &amp; Data Harmonization
+            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Zoé Dary, PhD</h5>
+            <p class="small text-secondary mb-3" style="line-height: 1.55;">
+              Zoé Dary completed her PhD in Cognitive Neuroscience at the University of Aix-Marseille, France, where she investigated the neural and multisensory basis of bodily self-consciousness. As a postdoctoral researcher, she is using electrophysiological techniques to study Lennox-Gastaut syndrome and explore key aspects of self-perception.
             </p>
             <div>
               <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="scholar-btn">
@@ -163,17 +155,12 @@
         <!-- Member 3: Garance Meyer -->
         <div class="col">
           <div class="stimbank-card p-4 h-100 d-flex flex-column">
-            <!-- Empty Headshot Box Placeholder -->
-            <div class="headshot-placeholder-box mb-3">
-              <!-- To add headshot, insert: <img src="path/to/headshot.jpg" alt="Garance Meyer"> -->
-              <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="text-secondary opacity-50 mb-1" viewBox="0 0 16 16">
-                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
-              </svg>
-              <span class="small text-muted fw-semibold" style="font-size: 0.74rem;">Headshot Placeholder</span>
+            <div class="headshot-placeholder-box">
+              <img src="static/images/Garance_Meyer_headshot.png" alt="Garance Meyer">
             </div>
-            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Garance Meyer</h5>
-            <p class="small text-secondary mb-3 flex-grow-1">
-              Neuroscience &amp; Phenomenological Curation
+            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Garance Meyer, PhD</h5>
+            <p class="small text-secondary mb-3" style="line-height: 1.55;">
+              Garance Meyer completed her PhD in Neuroscience at the University of Lyon, France, and completed her postdoctoral training with Dr Andy Horn at Mass General Brigham. As an Instructor of Neurology at Mass General Brigham and Harvard Medical School, her work focuses on brain stimulation as a way to interrogate human brain circuits, with the goal of advancing more precise and effective brain stimulation treatments for patients with treatment-refractory psychiatric conditions.
             </p>
             <div>
               <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="scholar-btn">
@@ -185,124 +172,53 @@
             </div>
           </div>
         </div>
+      </div>
+    </div>
+
+    <!-- Contributors -->
+    <div class="mb-5">
+      <h3 class="fw-bold mb-2" style="font-size: 1.25rem;">Contributors</h3>
+      <p class="text-secondary mb-3" style="font-size: 0.98rem;">Researchers and Trainees contributing to the development and curation of StimBank.</p>
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 
         <!-- Member 4: Christian Bekalu -->
         <div class="col">
           <div class="stimbank-card p-4 h-100 d-flex flex-column">
-            <!-- Empty Headshot Box Placeholder -->
             <div class="headshot-placeholder-box mb-3">
-              <!-- To add headshot, insert: <img src="path/to/headshot.jpg" alt="Christian Bekalu"> -->
               <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="text-secondary opacity-50 mb-1" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
               </svg>
               <span class="small text-muted fw-semibold" style="font-size: 0.74rem;">Headshot Placeholder</span>
             </div>
             <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Christian Bekalu</h5>
-            <p class="small text-secondary mb-3 flex-grow-1">
-              Computational Architecture &amp; Data Systems
-            </p>
-            <div>
-              <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="scholar-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
-                </svg>
-                <span>Google Scholar</span>
-              </a>
-            </div>
           </div>
         </div>
 
-        <!-- Member 5: Ella Gray Settle -->
+        <!-- Member 5: Sophia Sherzai -->
         <div class="col">
           <div class="stimbank-card p-4 h-100 d-flex flex-column">
-            <!-- Empty Headshot Box Placeholder -->
             <div class="headshot-placeholder-box mb-3">
-              <!-- To add headshot, insert: <img src="path/to/headshot.jpg" alt="Ella Gray Settle"> -->
               <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="text-secondary opacity-50 mb-1" viewBox="0 0 16 16">
                 <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
               </svg>
               <span class="small text-muted fw-semibold" style="font-size: 0.74rem;">Headshot Placeholder</span>
             </div>
-            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Ella Gray Settle</h5>
-            <p class="small text-secondary mb-3 flex-grow-1">
-              Neuroscience &amp; Research Analysis
-            </p>
-            <div>
-              <a href="https://scholar.google.com" target="_blank" rel="noopener noreferrer" class="scholar-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M12 24a7 7 0 1 1 0-14 7 7 0 0 1 0 14zm0-24L0 9.5l4.838 3.94A8 8 0 0 1 12 9a8 8 0 0 1 7.162 4.44L24 9.5z"/>
-                </svg>
-                <span>Google Scholar</span>
-              </a>
+            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Sophia Sherzai</h5>
+          </div>
+        </div>
+
+        <!-- Member 6: Ani Eranki -->
+        <div class="col">
+          <div class="stimbank-card p-4 h-100 d-flex flex-column">
+            <div class="headshot-placeholder-box mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38" fill="currentColor" class="text-secondary opacity-50 mb-1" viewBox="0 0 16 16">
+                <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z"/>
+              </svg>
+              <span class="small text-muted fw-semibold" style="font-size: 0.74rem;">Headshot Placeholder</span>
             </div>
+            <h5 class="fw-bold mb-1" style="font-size: 1.05rem;">Ani Eranki</h5>
           </div>
         </div>
-
-      </div>
-    </div>
-
-
-
-    <!-- Open Science Contribution Section -->
-    <div class="stimbank-card p-4 mb-4" id="contribute">
-      <div class="d-flex flex-wrap justify-content-between align-items-center mb-3">
-        <div>
-          <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--cat-sensory); font-weight: 700; font-size: 0.76rem;">
-            Open Science Collaboration
-          </div>
-          <h3 class="fw-bold mb-1">Want to contribute? Fill out this form!</h3>
-          <p class="small text-secondary mb-0">
-            Submit new literature findings, report coordinate corrections, or upload your team's mapped EBS stimulation dataset.
-          </p>
-        </div>
-        <button id="btnDownloadTemplate" class="btn btn-outline-dark btn-sm mt-2 mt-md-0" type="button">
-          📥 Download Excel Template (.csv)
-        </button>
-      </div>
-
-      <form id="contributeForm" class="mt-3">
-        <div class="row g-3">
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold text-secondary mb-1">Full Name</label>
-            <input type="text" class="form-control form-control-sm" placeholder="e.g. Dr. Jane Smith" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold text-secondary mb-1">Academic / Clinical Institution</label>
-            <input type="text" class="form-control form-control-sm" placeholder="e.g. Stanford University Medical Center" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold text-secondary mb-1">Email Address</label>
-            <input type="email" class="form-control form-control-sm" placeholder="jane.smith@institution.edu" required>
-          </div>
-          <div class="col-md-6">
-            <label class="form-label small fw-semibold text-secondary mb-1">Contribution Type</label>
-            <select class="form-select form-select-sm" id="contribType">
-              <option value="data">Upload New Dataset (Custom Excel / CSV)</option>
-              <option value="literature">Submit Literature Reference / DOI</option>
-              <option value="correction">Coordinate / Annotation Correction</option>
-              <option value="other">General Feedback / Note</option>
-            </select>
-          </div>
-          <div class="col-12">
-            <label class="form-label small fw-semibold text-secondary mb-1">Upload Data File (Optional - Excel / CSV)</label>
-            <input type="file" class="form-control form-control-sm" accept=".xlsx,.xls,.csv" id="contribFile">
-            <small class="text-muted" style="font-size: 0.74rem;">
-              Please ensure your file replicates the StimBank schema (Domain flags, MNI Coordinates, Procedure, Patient ID).
-            </small>
-          </div>
-          <div class="col-12">
-            <label class="form-label small fw-semibold text-secondary mb-1">Notes / Study Citation &amp; Methodology Details</label>
-            <textarea class="form-control form-control-sm" rows="3" placeholder="Provide literature DOI, patient cohort summary, or specific anatomical notes..."></textarea>
-          </div>
-          <div class="col-12 text-end">
-            <button type="submit" class="btn-stimbank-primary btn-stimbank-sm px-4">Submit Contribution</button>
-          </div>
-        </div>
-      </form>
-
-      <!-- Success Alert -->
-      <div id="contribSuccess" class="alert alert-success mt-3 py-2 px-3 small d-none" role="alert">
-        🎉 <strong>Thank you for contributing to StimBank!</strong> Your submission has been received for editorial and stereotactic review.
       </div>
     </div>
 
@@ -312,40 +228,14 @@
     </div>
   </div>
 
-  <script>
-    // Download Template Handler
-    document.getElementById('btnDownloadTemplate').addEventListener('click', () => {
-      const headers = "Publication,Region,Sample size,Nb patients included,Pathology,EBS procedure,Sensory-Perceptual,Affective,Autonomic,Cognitive/language,Motor ,Brain area explored,Phenomenological description,Patient ID,Age (years),Sex,Side of stimutation,Site of EBS evoking a response,EBS coordinates (MNI space) x,EBS coordinates (MNI space) y,EBS coordinates (MNI space) z,Article\n";
-      const sampleRow = "\"Smith et al., 2024\",United States,10,10,Epilepsy,SEEG,0,0,0,1,0,Temporal,\"Mentalizing response\",sub-01,28,F,Left,Middle temporal gyrus,52.0,14.0,-22.0,\"Smith, J. et al. (2024). Brain, 147(2), 100-112.\"\n";
-      const blob = new Blob([headers + sampleRow], { type: 'text/csv;charset=utf-8;' });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement('a');
-      a.href = url;
-      a.download = 'stimbank_dataset_template.csv';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
-    });
-
-    // Form Submit Handler
-    document.getElementById('contributeForm').addEventListener('submit', (e) => {
-      e.preventDefault();
-      document.getElementById('contribSuccess').classList.remove('d-none');
-      document.getElementById('contributeForm').reset();
-    });
-  </script>
-
   <!-- Footer -->
   <footer class="stimbank-footer mt-5">
     <div class="container px-4">
       <div class="row gy-4 align-items-center">
         <div class="col-md-7">
           <div class="d-flex align-items-center gap-2 mb-3">
-            <img src="static/images/Stimbanklogo.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
+            <img src="static/images/Stimbanklogo2.jpeg" alt="StimBank" style="height: 56px; width: auto; object-fit: contain;">
           </div>
-          <p class="small text-secondary mb-0" style="max-width: 520px; font-size: 0.92rem;">
-            An open scientific research database of human electrical brain stimulation sites and their reported effects in stereotaxic space (MNI152).
-          </p>
         </div>
         <div class="col-md-5 text-md-end">
           <div class="text-uppercase small fw-bold text-secondary mb-2" style="font-size: 0.72rem; letter-spacing: 0.06em;">Platform Navigation</div>
@@ -353,7 +243,7 @@
             <li class="list-inline-item"><a href="explorer.html">Database</a></li>
             <li class="list-inline-item"><a href="viewer.html">3D Brain Viewer</a></li>
             <li class="list-inline-item"><a href="methods.html">Methods</a></li>
-            <li class="list-inline-item"><a href="importer.html">Upload Data</a></li>
+            <li class="list-inline-item"><a href="contribute.html">Contribute</a></li>
             <li class="list-inline-item"><a href="team.html">Team</a></li>
           </ul>
         </div>
