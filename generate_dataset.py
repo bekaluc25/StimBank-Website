@@ -14,15 +14,33 @@ os.makedirs(data_dir, exist_ok=True)
 
 
 def find_local_sample_file():
-    """Return the first non-empty local sample file we should use as the input dataset."""
+    """Find the first available workbook to use as the source for this run."""
+    # Check the shared workbook location first, then the copy inside this project.
     candidates = [
         '/Users/cristina/Partners HealthCare Dropbox/Christian Bekalu/Zoe_Garance_Stimbank/website/Sample_Christian_2.xlsx',
         os.path.join(data_dir, 'Sample_Christian_2.xlsx'),
     ]
+    # Ignore missing and empty files so generation never reads an unusable workbook.
     for candidate in candidates:
         if candidate and os.path.exists(candidate) and os.path.getsize(candidate) > 0:
             return candidate
     return None
+
+
+def row_value(row, idx, column_name, default=None):
+    """Read a cell by its header name, or return a default if the column is absent."""
+    # idx maps each column title to its position in the row tuple.
+    column_index = idx.get(column_name)
+    if column_index is None or column_index >= len(row):
+        return default
+    return row[column_index]
+
+
+def extract_doi(article):
+    """Find a DOI inside the Article citation and remove trailing punctuation."""
+    # Article cells contain a full citation, so the DOI is embedded in other text.
+    match = re.search(r'10\.\d{4,9}/\S+', str(article or ''), re.IGNORECASE)
+    return match.group(0).rstrip(').,;]') if match else ''
 
 # Read x/y/z MNI coordinates from the Excel row if present.
 def parse_mni_xyz(row, idx):
@@ -43,9 +61,11 @@ def parse_mni_xyz(row, idx):
 
 # Load publication metadata from stimbank dataset
 def load_local_sample_publications(excel_path):
+    """Create one publication record for each distinct Publication label."""
     if not excel_path or not os.path.exists(excel_path):
         return []
 
+    # Read cached cell values from the first worksheet without modifying the file.
     try:
         wb = openpyxl.load_workbook(excel_path, read_only=True, data_only=True)
     except Exception:
@@ -60,49 +80,59 @@ def load_local_sample_publications(excel_path):
         return []
 
     header = [str(cell).strip() if cell is not None else "" for cell in rows[0]]
+    # Use names rather than hard-coded positions for publication details.
     idx = {name: i for i, name in enumerate(header)}
 
     publications = []
+    # The workbook repeats citations on every site row; this set prevents duplicates.
     seen = set()
 
     for row in rows[1:]:
+        # Skip completely blank rows before reading any fields.
         if not row or not any(cell is not None and str(cell).strip() for cell in row):
             continue
 
-        publication_label = row[idx['Publication']] if 'Publication' in idx and idx['Publication'] < len(row) else row[0]
-        article_label = row[idx['Article']] if 'Article' in idx and idx['Article'] < len(row) else publication_label
-        label = str(article_label or publication_label or '').strip()
+        # Reads the first column from the dataset as the publication label.
+        label = str(row_value(row, idx, 'Publication', row[0]) or '').strip()
         if not label:
             continue
 
-        key = label
-        if key in seen:
+        # Only add each label once, even when it appears on many site rows.
+        if label in seen:
             continue
-        seen.add(key)
+        seen.add(label)
 
-        pathology = str((row[idx['Pathology']] if 'Pathology' in idx and idx['Pathology'] < len(row) else 'Not specified') or 'Not specified').strip() or 'Not specified'
-        procedure = str((row[idx['EBS procedure']] if 'EBS procedure' in idx and idx['EBS procedure'] < len(row) else 'Not specified') or 'Not specified').strip() or 'Not specified'
-        sample_size = row[idx['Sample size']] if 'Sample size' in idx and idx['Sample size'] < len(row) else 0
+        # Article holds the longer citation, including the DOI when one is present.
+        article = str(row_value(row, idx, 'Article', '') or '').strip()
+
+        # Define columns containing study details: pathology, procedure, and sample size.
+        pathology = str(row_value(row, idx, 'Pathology', 'Not specified') or 'Not specified').strip() or 'Not specified'
+        procedure = str(row_value(row, idx, 'EBS procedure', 'Not specified') or 'Not specified').strip() or 'Not specified'
+        sample_size = row_value(row, idx, 'Sample size', 0)
+
+        # Some spreadsheets store numbers with commas, so remove them before conversion.
         try:
             sample_size_value = int(float(str(sample_size).replace(',', '')))
         except Exception:
             sample_size_value = 0
 
-        year_match = re.search(r'(19|20)\d{2}', label)
+        # Prefer the year in the short label; use the full citation if needed.
+        year_match = re.search(r'\b(?:19|20)\d{2}\b', label) or re.search(r'\b(?:19|20)\d{2}\b', article)
         year = int(year_match.group(0)) if year_match else 0
 
+        # Keep a structured publication record for the website's search and details view.
         publications.append({
             'id': f'LOCAL{len(publications) + 1:03d}',
             'authors': label[:120],
             'year': year,
-            'title': label,
+            'title': article or label,
             'journal': 'Local sample dataset',
-            'country': str((row[idx['Region']] if 'Region' in idx and idx['Region'] < len(row) else 'Local dataset') or 'Local dataset').strip() or 'Local dataset',
+            'country': str(row_value(row, idx, 'Region', 'Local dataset') or 'Local dataset').strip() or 'Local dataset',
             'institution': 'Local sample dataset',
             'sample_size': sample_size_value,
             'patient_population': pathology,
             'procedure_type': procedure,
-            'doi': '',
+            'doi': extract_doi(article),
             'pmid': ''
         })
 
@@ -113,22 +143,130 @@ def safe_float(value):
     """Parse a numeric value from the Excel workbook and return None if invalid."""
     if value is None:
         return None
+    # Coordinates may arrive as numbers or as strings containing commas/spaces.
     try:
         return float(str(value).replace(',', '').strip())
     except (TypeError, ValueError):
         return None
 
 
-def load_local_sample_sites(excel_path):
-    """Load site-level entries directly from the workbook.
 
-    This is the strict, no-fallback source. If the workbook lacks the required
-    coordinate columns or the row format is invalid, return an empty list so the
-    site remains empty instead of auto-populating placeholder values.
-    """
+# # Defining how data is mapped from a dataset (assuming it follows the StimBank excel template)
+
+
+# Each tuple is (website domain, workbook's main-domain header, start column, end column).
+# Python counts columns from zero and excludes the end, so H:AD is written as 7:30.
+# The column ranges for each domain are H:AD, AE:AN, AO:AU, AV:BF, BG:BT, BU, BV, BW, and BX.
+SAMPLE_CATEGORY_COLUMNS = (
+    ('Sensory', 'Sensory-Perceptual', 7, 30),
+    ('Affective', 'Affective', 30, 40),
+    ('Autonomic', 'Autonomic', 40, 47),
+    ('Cognitive', 'Cognitive/language', 47, 58),
+    ('Motor', 'Motor', 58, 72),
+    ('Consciousness', 'Altered consciousness/awareness', 72, 73),
+    ('Agency', 'Agency', 73, 74),
+    ('No Effect', 'No effect', 74, 75),
+    ('Other/ unclassifiable responses', 'Other/unclassifiable', 75, 76),
+)
+
+# Sample dataset does not use the same wording as the website taxonomy. Below are the proposed aliases.
+SAMPLE_SUBDOMAIN_ALIASES = {
+    ('Affective', 'positive'): 'Positive valence responses',
+    ('Affective', 'negative'): 'Negative valence responses',
+    ('Autonomic', 'visceralincludingepigastricsensations'): 'Visceral responses',
+    ('Cognitive', 'language'): 'Language disturbances',
+    ('Motor', 'negativearrestslowingdisturbances'): 'Negative',
+}
+
+# These entries do the same for response-type headers; suffix numbers distinguish
+# repeated Excel columns and are removed before matching below.
+SAMPLE_RESPONSE_TYPE_ALIASES = {
+    ('Sensory', 'Auditory', 'simpleperception'): 'Auditory Simple',
+    ('Sensory', 'Auditory', 'complexperception'): 'Auditory Complex',
+    ('Sensory', 'Auditory', 'illusion'): 'Auditory Illusions',
+    ('Sensory', 'Visual', 'simpleperception'): 'Visual Simple',
+    ('Sensory', 'Visual', 'complexperception'): 'Visual Complex',
+    ('Sensory', 'Visual', 'illusion'): 'Visual Illusions',
+    ('Cognitive', 'Language disturbances', 'speech'): 'Production',
+    ('Cognitive', 'Language disturbances', 'lexicalphonologicalgrammarerrors'): 'Production',
+}
+
+
+def is_true_flag(value):
+    """Return True only for an Excel boolean TRUE or the text 'true'."""
+    return value is True or (isinstance(value, str) and value.strip().casefold() == 'true')
+
+
+def is_one_flag(value):
+    """Return True for numeric 1 cells, but not boolean TRUE cells."""
+    # Excel booleans are also numeric-like in Python, so handle them separately.
+    if value is None or isinstance(value, bool):
+        return False
+    # Convert strings like '1' and numbers like 1.0 to the same comparison value.
+    try:
+        return float(str(value).strip()) == 1
+    except (TypeError, ValueError):
+        return False
+
+
+def clean_category_label(label):
+    """Remove a trailing number Excel uses to distinguish duplicate headers."""
+    return re.sub(r'\d+$', '', str(label or '').strip()).strip()
+
+
+def normalize_taxonomy_label(label):
+    """Make two labels comparable by ignoring case, spaces, and punctuation."""
+    return re.sub(r'[^a-z0-9]', '', clean_category_label(label).casefold())
+
+
+def find_taxonomy_subdomain(category, label):
+    """Find the taxonomy subdomain matching a workbook header, if it exists."""
+    # Apply an explicit alias first for headers whose wording differs substantially.
+    normalized_label = normalize_taxonomy_label(label)
+    alias = SAMPLE_SUBDOMAIN_ALIASES.get((category, normalized_label))
+    if alias:
+        normalized_label = normalize_taxonomy_label(alias)
+
+    # Otherwise compare normalized names against the selected domain's subdomains.
+    for subdomain in taxonomy_schema.get(category, {}).get('subdomains', []):
+        normalized_name = normalize_taxonomy_label(subdomain.get('name', ''))
+        # Some workbook labels omit a trailing word such as "responses".
+        if normalized_label == normalized_name or normalized_label == normalized_name.removesuffix('responses'):
+            return subdomain
+    return None
+
+
+def find_taxonomy_response_type(category, subdomain_name, label):
+    """Return the canonical response-type name that matches a workbook header."""
+    # Normalize and alias the workbook label before looking through schema names.
+    normalized_label = normalize_taxonomy_label(label)
+    alias = SAMPLE_RESPONSE_TYPE_ALIASES.get((category, subdomain_name, normalized_label))
+    if alias:
+        normalized_label = normalize_taxonomy_label(alias)
+
+    # Response types normally belong to a subdomain; some domains define them directly.
+    category_schema = taxonomy_schema.get(category, {})
+    subdomain = next((
+        item for item in category_schema.get('subdomains', [])
+        if item.get('name') == subdomain_name
+    ), None)
+    # Convert either supported schema format (list or dictionary) to a list of names.
+    response_types, _ = normalize_response_types(
+        subdomain.get('response_types', []) if subdomain else category_schema.get('response_types', [])
+    )
+    # Return the spelling used by the taxonomy, not the workbook's variant.
+    return next((
+        response_type for response_type in response_types
+        if normalize_taxonomy_label(response_type) == normalized_label
+    ), None)
+
+
+def load_local_sample_sites(excel_path):
+    """Turn each valid workbook row into one website stimulation-site record."""
     if not excel_path or not os.path.exists(excel_path):
         return []
 
+    # Open the workbook read-only and use displayed values rather than formulas.
     try:
         wb = openpyxl.load_workbook(excel_path, read_only=True, data_only=True)
     except Exception:
@@ -143,8 +281,15 @@ def load_local_sample_sites(excel_path):
         return []
 
     header = [str(cell).strip() if cell is not None else "" for cell in rows[0]]
+    # Build a header-to-position lookup so the fields below stay readable.
     idx = {name: i for i, name in enumerate(header)}
+    # Columns that are to be present in the database; without them a site cannot be identified or mapped.
     required = [
+        'Publication',
+        'Article',
+        'Patient ID',
+        'Pathology',
+        'EBS procedure',
         'Side of stimulation',
         'EBS coordinates (MNI space) x',
         'EBS coordinates (MNI space) y',
@@ -154,77 +299,86 @@ def load_local_sample_sites(excel_path):
         return []
 
     sites = []
-    domain_name_map = {
-        'Sensory-Perceptual': 'Sensory',
-        'Affective': 'Affective',
-        'Autonomic': 'Autonomic',
-        'Cognitive/language': 'Cognitive',
-        'Motor': 'Motor',
-        'Altered consciousness/awareness': 'Consciousness',
-        'Agency': 'Agency',
-        'No effect': 'No Effect',
-        'Other/unclassifiable': 'Other/ unclassifiable responses',
-    }
 
     for row_index, row in enumerate(rows[1:], start=2):
+        # Ignore empty rows, then accept only rows with a recognized left/right side.
         if not row or not any(cell is not None and str(cell).strip() for cell in row):
             continue
 
-        side = str(row[idx['Side of stimulation']] or '').strip().lower()
+        side = str(row_value(row, idx, 'Side of stimulation', '') or '').strip().casefold()
         if side not in {'left', 'right'}:
             continue
 
-        x = safe_float(row[idx['EBS coordinates (MNI space) x']])
-        y = safe_float(row[idx['EBS coordinates (MNI space) y']])
-        z = safe_float(row[idx['EBS coordinates (MNI space) z']])
+        # Read all three MNI coordinates; a row without a complete coordinate is skipped.
+        x = safe_float(row_value(row, idx, 'EBS coordinates (MNI space) x'))
+        y = safe_float(row_value(row, idx, 'EBS coordinates (MNI space) y'))
+        z = safe_float(row_value(row, idx, 'EBS coordinates (MNI space) z'))
         if x is None or y is None or z is None:
             continue
 
-        # 
-        category_labels = []
-        for col_index in range(7, min(79, len(header))):
-            value = row[col_index]
-            if value is None:
+        # Find the first selected main domain in the documented column order.
+        # TRUE is used for domain flags; a single-column domain without subdomains may instead use 1.
+        selected_group = None
+        for category, expected_header, start, end in SAMPLE_CATEGORY_COLUMNS:
+            if start >= len(row) or header[start].casefold() != expected_header.casefold():
                 continue
-            cell_name = str(header[col_index]).strip()
-            if not cell_name:
-                continue
-            normalized_value = str(value).strip().lower()
-            if value is True or value == 1 or normalized_value in {'true', '1', '1.0'}:
-                active_flag_names.append(cell_name)
+            if is_true_flag(row[start]) or is_one_flag(row[start]):
+                selected_group = (category, start, end)
+                break
 
-        if not active_flag_names:
+        if selected_group is None:
+            # Rows with no recognized domain cannot be included in the category filters.
             continue
 
-        domain_name = None
-        subdomain_name = None
+        # Keep the domain's name and the range of columns that belong to it.
+        category, start, end = selected_group
+        subdomain_schema = None
+        subdomain_column = None
+        # Within that domain, find the first active header that exists in the taxonomy.
+        for column in range(start + 1, min(end, len(row))):
+            if not (is_true_flag(row[column]) or is_one_flag(row[column])):
+                continue
+            subdomain_schema = find_taxonomy_subdomain(category, header[column])
+            if subdomain_schema:
+                subdomain_column = column
+                break
+
+        # Use the taxonomy's canonical spelling; if none exists, mark the site domain-only.
+        subdomain_name = subdomain_schema['name'] if subdomain_schema else category
+
         response_types = []
-        for cell_name in active_flag_names:
-            if cell_name in domain_name_map:
-                if domain_name is None:
-                    domain_name = cell_name
-                elif subdomain_name is None:
-                    subdomain_name = cell_name
-            else:
-                response_types.append(cell_name)
+        if subdomain_schema:
+            # Match the remaining active cells to this subdomain's allowed response types.
+            for column in range(start + 1, min(end, len(row))):
+                if column == subdomain_column or not (is_true_flag(row[column]) or is_one_flag(row[column])):
+                    continue
+                response_type = find_taxonomy_response_type(category, subdomain_name, header[column])
+                if response_type and response_type not in response_types:
+                    response_types.append(response_type)
+        else:
+            # Domains without subdomains can define response types at the domain level.
+            response_types, _ = normalize_response_types(
+                taxonomy_schema.get(category, {}).get('response_types', [])
+            )
 
-        if domain_name is None:
-            continue
+        # Read publication, patient, clinical, and effect details by their column titles.
+        publication = str(row_value(row, idx, 'Publication', '') or '').strip() or 'Unknown publication'
+        article = str(row_value(row, idx, 'Article', '') or '').strip()
+        region = str(row_value(row, idx, 'Site of EBS evoking a response', '') or row_value(row, idx, 'Brain area explored', '') or 'Unknown region').strip() or 'Unknown region'
+        effect = str(row_value(row, idx, 'Phenomenological description', '') or region).strip() or 'Stimulated site'
+        pathology = str(row_value(row, idx, 'Pathology', 'Unknown pathology') or 'Unknown pathology').strip() or 'Unknown pathology'
+        procedure = str(row_value(row, idx, 'EBS procedure', 'Unknown procedure') or 'Unknown procedure').strip() or 'Unknown procedure'
+        patient_id = str(row_value(row, idx, 'Patient ID', f'ROW{row_index}') or f'ROW{row_index}').strip()
+        age = safe_float(row_value(row, idx, 'Age (years)'))
+        sex = str(row_value(row, idx, 'Sex', 'Unknown') or 'Unknown').strip() or 'Unknown'
+        publication_year = re.search(r'\b(?:19|20)\d{2}\b', publication) or re.search(r'\b(?:19|20)\d{2}\b', article)
+        country = str(row_value(row, idx, 'Region', '') or '').strip()
 
-        category = domain_name_map.get(domain_name, domain_name)
-
-        publication = str(row[idx['Publication']] if 'Publication' in idx and idx['Publication'] < len(row) else '').strip() or 'Unknown publication'
-        region = str(row[idx['Site of EBS evoking a response']] if 'Site of EBS evoking a response' in idx and idx['Site of EBS evoking a response'] < len(row) else row[idx['Brain area explored']] if 'Brain area explored' in idx and idx['Brain area explored'] < len(row) else 'Unknown region').strip() or 'Unknown region'
-        effect = str(row[idx['Phenomenological description']] if 'Phenomenological description' in idx and idx['Phenomenological description'] < len(row) else row[idx['Site of EBS evoking a response']] if 'Site of EBS evoking a response' in idx and idx['Site of EBS evoking a response'] < len(row) else 'Stimulated site').strip() or 'Stimulated site'
-        pathology = str(row[idx['Pathology']] if 'Pathology' in idx and idx['Pathology'] < len(row) else 'Unknown pathology').strip() or 'Unknown pathology'
-        procedure = str(row[idx['EBS procedure']] if 'EBS procedure' in idx and idx['EBS procedure'] < len(row) else 'Unknown procedure').strip() or 'Unknown procedure'
-        age = safe_float(row[idx['Age (years)']] if 'Age (years)' in idx and idx['Age (years)'] < len(row) else None)
-        sex = str(row[idx['Sex']] if 'Sex' in idx and idx['Sex'] < len(row) else 'Unknown').strip() or 'Unknown'
-
+        # Store the fields used by the database table, viewer, and detail modal.
         sites.append({
             'id': f'WORKBOOK{len(sites) + 1:03d}',
-            'patient_id': str(row[idx['Patient ID']] if 'Patient ID' in idx and idx['Patient ID'] < len(row) else f'ROW{row_index}').strip() or f'ROW{row_index}',
-            'patient_display': str(row[idx['Patient ID']] if 'Patient ID' in idx and idx['Patient ID'] < len(row) else f'Row {row_index}').strip() or f'Row {row_index}',
+            'patient_id': patient_id,
+            'patient_display': patient_id,
             'category': category,
             'subcategory': subdomain_name or category,
             'domain': category,
@@ -232,17 +386,28 @@ def load_local_sample_sites(excel_path):
             'response_types': response_types,
             'effect': effect,
             'description': effect,
+            'raw_description': effect,
             'region': region,
             'hemisphere': 'L' if side == 'left' else 'R',
             'mni': [x, y, z],
             'procedure': procedure,
             'pathology': pathology,
-            'frequency_hz': safe_float(row[idx['Stimulation parameters Frequency (Hz)']] if 'Stimulation parameters Frequency (Hz)' in idx and idx['Stimulation parameters Frequency (Hz)'] < len(row) else None),
-            'current_ma': safe_float(row[idx['Stimulation parameters Intensity']] if 'Stimulation parameters Intensity' in idx and idx['Stimulation parameters Intensity'] < len(row) else None),
-            'pulse_width_ms': safe_float(row[idx['Stimulation parameters  Pulse width (ms)']] if 'Stimulation parameters  Pulse width (ms)' in idx and idx['Stimulation parameters  Pulse width (ms)'] < len(row) else None),
+            'frequency_hz': safe_float(row_value(row, idx, 'Stimulation parameters Frequency (Hz)')),
+            'current_ma': safe_float(row_value(row, idx, 'Stimulation parameters Intensity')),
+            'pulse_width_ms': safe_float(row_value(row, idx, 'Stimulation parameters  Pulse width (ms)')),
             'bipolar': True,
             'pub_id': publication,
-            'publication': {'title': publication, 'journal': 'Local workbook dataset'},
+            # Keep the short label and full citation separately; extract DOI for its link.
+            'publication': {
+                'label': publication,
+                'title': publication,
+                'article': article,
+                'authors': publication,
+                'year': int(publication_year.group(0)) if publication_year else 0,
+                'journal': '',
+                'country': country,
+                'doi': extract_doi(article),
+            },
             'patient_age': int(age) if age is not None else 0,
             'patient_sex': sex,
         })
@@ -330,7 +495,7 @@ def normalize_response_types(response_types):
 
     return [], {}
 
-
+# Classification of functional responses: used for front page and Methods page, as well as for the filters in the Database and 3D Viewer pages
 taxonomy_schema = {
     "Sensory": {
         "color": "#93C5FD",
@@ -602,7 +767,7 @@ taxonomy_schema = {
     }
 }
 
-
+ 
 
 # ==============================================================================
 # DATASET GENERATION
@@ -615,17 +780,24 @@ random.seed(42) # Deterministic for consistent scientific coordinates
 # but do not synthesize stimulation entries from the static taxonomy when the source data is missing.
 frontend_taxonomy = {}
 for category, cat_data in taxonomy_schema.items():
+    # Export top-level details and any response types defined directly on the domain.
+    category_response_types, category_response_type_definitions = normalize_response_types(
+        cat_data.get("response_types", [])
+    )
     frontend_taxonomy[category] = {
         "color": cat_data["color"],
         "desc": cat_data["description"],
         "regions": cat_data.get("regions", []),
+        "response_types": category_response_types,
         "subdomains": []
     }
     for sub in cat_data.get("subdomains", []):
+        # Standardize response-type names and clean anatomical site labels for the website.
         response_types, response_type_definitions = normalize_response_types(sub.get("response_types", []))
         cleaned_sites = [clean_site_name(site) for site in sub.get("sites", []) if str(site).strip()]
         cleaned_sites = [site for site in cleaned_sites if site]
 
+        # The front end uses "desc" for the definition shown in its taxonomy table.
         subdomain_record = {
             "name": sub["name"],
             "desc": sub["definition"],
@@ -639,6 +811,7 @@ for category, cat_data in taxonomy_schema.items():
         frontend_taxonomy[category]["subdomains"].append(subdomain_record)
 
 if local_sample_path:
+    # Load site rows only when a real workbook was found; otherwise keep the site list empty.
     all_sites = load_local_sample_sites(local_sample_path)
     if not all_sites:
         print("No valid workbook site rows loaded; leaving the website empty to surface the data issue.")
@@ -647,7 +820,7 @@ else:
 
 print(f"Generated {len(all_sites)} total stimulation sites across {len(publications)} publications.")
 
-# Assemble finalized dataset object
+# Put the site records, publication records, and taxonomy into one shared data object.
 dataset = {
     "name": "StimBank Electrical Brain Stimulation Database (Harmonized Clinical Taxonomy)",
     "version": "2.0",
@@ -658,12 +831,12 @@ dataset = {
     "sites": all_sites
 }
 
-# Write out JSON
+# Save JSON for Python/data consumers such as scripts and analysis tools.
 json_path = os.path.join(data_dir, "ebs_data.json")
 with open(json_path, "w", encoding="utf-8") as f:
     json.dump(dataset, f, indent=2)
 
-# Write out JS wrapper for standalone static consumption
+# Save the same data as JavaScript so browser pages can load it without a backend API.
 js_path = os.path.join(data_dir, "ebs_dataset.js")
 with open(js_path, "w", encoding="utf-8") as f:
     f.write("// StimBank Dataset & Taxonomy Export\n")

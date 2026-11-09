@@ -74,53 +74,52 @@
       </div>
     </div>
 
-    <!-- Filter Card: Domain, Dynamic Sub-domain, Procedure, Location -->
+    <!-- Filter Card: Taxonomy, Procedure, and Location -->
     <div class="stimbank-card p-3 mb-4">
       <div class="row g-3 align-items-end">
         <!-- 1. Domain Filter -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-12 col-sm-6 col-lg-2">
           <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">1. Domain</label>
           <select id="filterCat" class="form-select form-select-sm">
-            <option value="">All Domains (8)</option>
+            <option value="">All Domains</option>
           </select>
         </div>
 
-        <!-- 2. Sub-Domain Filter (Cascading) -->
-        <div class="col-md-4 col-sm-6">
-          <div class="row g-2">
-            <div class="col-6">
-              <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">2. Sub-Domain</label>
-              <select id="filterSubCat" class="form-select form-select-sm">
-                <option value="">All Sub-Domains</option>
-              </select>
-            </div>
-            <div class="col-6">
-              <select id="filterEffect" class="form-select form-select-sm" style="margin-top: 1.5rem;">
-                <option value="">All Response Types</option>
-              </select>
-            </div>
-          </div>
+        <!-- 2. Sub-Domain Filter -->
+        <div class="col-12 col-sm-6 col-lg-2">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">2. Sub-Domain</label>
+          <select id="filterSubCat" class="form-select form-select-sm" disabled>
+            <option value="">Select a domain first</option>
+          </select>
+        </div>
+
+        <!-- 3. Response Type Filter -->
+        <div class="col-12 col-sm-6 col-lg-2">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">3. Response Type</label>
+          <select id="filterEffect" class="form-select form-select-sm" disabled>
+            <option value="">Select a sub-domain first</option>
+          </select>
         </div>
 
         <!-- 3. EBS Procedure Filter -->
-        <div class="col-md-2 col-sm-6">
-          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">3. EBS Procedure</label>
+        <div class="col-12 col-sm-6 col-lg-2">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">4. EBS Procedure</label>
           <select id="filterProc" class="form-select form-select-sm">
             <option value="">All Procedures</option>
           </select>
         </div>
 
         <!-- 4. Brain Region Filter -->
-        <div class="col-md-2 col-sm-6">
-          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">4. Brain Region</label>
+        <div class="col-12 col-sm-6 col-lg-2">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">5. Brain Region</label>
           <select id="filterRegion" class="form-select form-select-sm">
             <option value="">All Brain Regions</option>
           </select>
         </div>
 
         <!-- 5. Author / DOI Search -->
-        <div class="col-md-3 col-sm-6">
-          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">5. Author / DOI</label>
+        <div class="col-12 col-sm-6 col-lg-2">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">6. Author / DOI</label>
           <input id="filterTextSearch" type="text" class="form-control form-control-sm" placeholder="Search author or DOI" aria-label="Search author or DOI">
         </div>
 
@@ -164,7 +163,7 @@
         <table id="stimTable" class="table-stimbank">
           <thead>
             <tr>
-              <th>Study / Reference</th>
+              <th>Publication</th>
               <th>Patient</th>
               <th>Anatomical Target</th>
               <th>Hemi</th>
@@ -393,53 +392,73 @@
       }
 
       // Dynamic Sub-Domain population based on selected Domain
+      const NO_SUBDOMAIN = '__no_subdomain__';
+      const NO_RESPONSE_TYPE = '__no_response_type__';
+
       function updateSubCatDropdown(selectedDomain) {
         const subCatSelect = document.getElementById('filterSubCat');
         subCatSelect.innerHTML = '<option value="">All Sub-Domains</option>';
+        subCatSelect.disabled = !selectedDomain;
 
-        const domainsToList = selectedDomain
-          ? [selectedDomain]
-          : Object.keys(taxonomy).length > 0
-            ? Object.keys(taxonomy)
-            : [...new Set(sites.map(s => s.category).filter(Boolean))];
+        const effectSelect = document.getElementById('filterEffect');
+        effectSelect.innerHTML = '<option value="">Select a sub-domain first</option>';
+        effectSelect.disabled = true;
 
-        domainsToList.forEach(domainName => {
-          const domainSites = sites.filter(s => s.category === domainName);
-          const uniqueSubCats = [...new Set(domainSites.map(s => s.subcategory || s.effect).filter(Boolean))].sort();
-          if (!uniqueSubCats.length) return;
+        if (!selectedDomain) return;
 
-          const optgroup = document.createElement('optgroup');
-          optgroup.label = domainName;
-          uniqueSubCats.forEach(sub => {
-            const opt = document.createElement('option');
-            opt.value = sub;
-            opt.innerText = sub;
-            optgroup.appendChild(opt);
-          });
-          subCatSelect.appendChild(optgroup);
+        const domain = taxonomy[selectedDomain] || {};
+        const subdomains = Array.isArray(domain.subdomains) ? domain.subdomains : [];
+        if (!subdomains.length) {
+          const option = document.createElement('option');
+          option.value = NO_SUBDOMAIN;
+          option.textContent = 'No sub-domain';
+          subCatSelect.appendChild(option);
+          subCatSelect.value = NO_SUBDOMAIN;
+          updateEffectDropdown(selectedDomain, NO_SUBDOMAIN);
+          return;
+        }
+
+        subdomains.forEach(subdomain => {
+          const option = document.createElement('option');
+          option.value = subdomain.name;
+          option.textContent = subdomain.name;
+          subCatSelect.appendChild(option);
         });
-
-        updateEffectDropdown(selectedDomain, '');
       }
 
       function updateEffectDropdown(selectedDomain, selectedSubCat) {
         const effectSelect = document.getElementById('filterEffect');
+        effectSelect.innerHTML = '';
+        if (!selectedDomain || !selectedSubCat) {
+          effectSelect.innerHTML = '<option value="">Select a sub-domain first</option>';
+          effectSelect.disabled = true;
+          return;
+        }
+
+        const domain = taxonomy[selectedDomain] || {};
+        const subdomain = selectedSubCat === NO_SUBDOMAIN
+          ? null
+          : (domain.subdomains || []).find(item => item.name === selectedSubCat);
+        const responseTypes = subdomain
+          ? (subdomain.response_types || [])
+          : (domain.response_types || []);
+        effectSelect.disabled = false;
+
+        if (!responseTypes.length) {
+          const option = document.createElement('option');
+          option.value = NO_RESPONSE_TYPE;
+          option.textContent = 'No response type';
+          effectSelect.appendChild(option);
+          effectSelect.value = NO_RESPONSE_TYPE;
+          return;
+        }
+
         effectSelect.innerHTML = '<option value="">All Response Types</option>';
-
-        let relevantSites = sites;
-        if (selectedDomain) {
-          relevantSites = relevantSites.filter(s => s.category === selectedDomain);
-        }
-        if (selectedSubCat) {
-          relevantSites = relevantSites.filter(s => (s.subcategory || s.effect) === selectedSubCat);
-        }
-
-        const uniqueEffects = [...new Set(relevantSites.map(s => s.effect).filter(Boolean))].sort();
-        uniqueEffects.forEach(effect => {
-          const opt = document.createElement('option');
-          opt.value = effect;
-          opt.innerText = effect;
-          effectSelect.appendChild(opt);
+        responseTypes.forEach(responseType => {
+          const option = document.createElement('option');
+          option.value = responseType;
+          option.textContent = responseType;
+          effectSelect.appendChild(option);
         });
       }
 
@@ -460,15 +479,15 @@
 
       sites.forEach(site => {
         const colHex = (taxonomy[site.category] && taxonomy[site.category].color) || categoryColors[site.category] || "#94A3B8";
-        const pubAuthors = site.publication ? site.publication.authors.split(',')[0] : "Study";
-        const pubYear = site.publication ? site.publication.year : "";
+        const publicationLabel = site.publication ? (site.publication.label || site.publication.title) : "Study";
+        const articleCitation = site.publication ? (site.publication.article || site.publication.title) : "";
         const patientLabel = site.patient_display || site.patient_id || "-";
 
         const tr = document.createElement('tr');
         tr.innerHTML = `
           <td>
-            <span class="fw-semibold d-block text-dark text-truncate" style="max-width: 170px; font-size: 0.88rem;" title="${site.publication ? site.publication.title : ''}">
-              ${pubAuthors} (${pubYear})
+            <span class="fw-semibold d-block text-dark text-truncate" style="max-width: 170px; font-size: 0.88rem;" title="${articleCitation}">
+              ${publicationLabel}
             </span>
           </td>
           <td>
@@ -536,10 +555,14 @@
           const selProc = document.getElementById('filterProc').value;
           const selRegion = document.getElementById('filterRegion').value;
           const quickSearch = (document.getElementById('filterTextSearch').value || '').trim().toLowerCase();
+          const siteSubdomain = site.subcategory || site.category;
+          const siteResponseTypes = Array.isArray(site.response_types) ? site.response_types : [];
 
           if (selCat && site.category !== selCat) return false;
-          if (selSubCat && (site.subcategory || site.effect) !== selSubCat) return false;
-          if (selEffect && site.effect !== selEffect) return false;
+          if (selSubCat === NO_SUBDOMAIN && siteSubdomain !== site.category) return false;
+          if (selSubCat && selSubCat !== NO_SUBDOMAIN && siteSubdomain !== selSubCat) return false;
+          if (selEffect === NO_RESPONSE_TYPE && siteResponseTypes.length > 0) return false;
+          if (selEffect && selEffect !== NO_RESPONSE_TYPE && !siteResponseTypes.includes(selEffect)) return false;
           if (selProc && site.procedure !== selProc) return false;
           if (selRegion && site.region !== selRegion) return false;
 
@@ -640,13 +663,19 @@
         document.getElementById('modalStimParams').innerText = `${site.frequency_hz} Hz, ${site.current_ma} mA, ${site.pulse_width_ms} ms`;
 
         if (site.publication) {
-          document.getElementById('modalPaperTitle').innerText = site.publication.title;
-          document.getElementById('modalPaperAuthors').innerText = site.publication.authors;
-          document.getElementById('modalPaperJournal').innerText = `${site.publication.journal} (${site.publication.year}) — ${site.publication.country}`;
+          document.getElementById('modalPaperTitle').innerText = site.publication.label || site.publication.title;
+          document.getElementById('modalPaperAuthors').innerText = site.publication.article || site.publication.authors;
+          document.getElementById('modalPaperJournal').innerText = [site.publication.year, site.publication.country].filter(Boolean).join(' — ');
           const doiLink = document.getElementById('modalPaperLink');
           if (doiLink) {
-            doiLink.href = `https://doi.org/${site.publication.doi}`;
-            doiLink.innerText = `DOI: ${site.publication.doi} ↗`;
+            if (site.publication.doi) {
+              doiLink.href = `https://doi.org/${site.publication.doi}`;
+              doiLink.innerText = `DOI: ${site.publication.doi} ↗`;
+              doiLink.classList.remove('d-none');
+            } else {
+              doiLink.removeAttribute('href');
+              doiLink.classList.add('d-none');
+            }
           }
         }
 

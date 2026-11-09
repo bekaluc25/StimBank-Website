@@ -3,7 +3,7 @@ window.EBS_DATASET = {
   "name": "StimBank Electrical Brain Stimulation Database (Harmonized Clinical Taxonomy)",
   "version": "2.0",
   "total_sites": 57,
-  "total_publications": 40,
+  "total_publications": 6,
   "taxonomy": {
     "Sensory": {
       "color": "#93C5FD",
@@ -17,6 +17,7 @@ window.EBS_DATASET = {
         "Posterior Insula",
         "Temporoparietal Junction (TPJ)"
       ],
+      "response_types": [],
       "subdomains": [
         {
           "name": "Auditory",
@@ -35,12 +36,7 @@ window.EBS_DATASET = {
             "Heschl's Gyrus (A1)",
             "Superior Temporal Gyrus",
             "Planum Temporale"
-          ],
-          "response_type_definitions": {
-            "Auditory Simple": "Evoked simple auditory perceptions such as ringing, water running, mumbling, buzzing, ringing, whistle",
-            "Auditory Complex": "Evoked complex auditory perceptions such as voices with clear or unclear content, or music",
-            "Auditory Illusions": "Alterations in auditory perception such as sounds appearing louder, sensation of ear obstruction, change in pitch, echo, or sound distortion."
-          }
+          ]
         },
         {
           "name": "Visual",
@@ -60,12 +56,7 @@ window.EBS_DATASET = {
             "Calcarine Sulcus (V1)",
             "Fusiform Face Area (FFA)",
             "Middle Temporal Visual Area (MT/V5)"
-          ],
-          "response_type_definitions": {
-            "Visual Simple": "Evoked simple visual perceptions such as phosphenes, flashes, shadows, simple shapes, colors, moving or flickering lights/dots.",
-            "Visual Complex": "Evoked complex visual perceptions such as faces or face parts, characters, animals, complex scenes, or cartoons",
-            "Visual Illusions": "Alterations in visual perception such as changes in brightness/halo, face/letter/number distortions, changes in visual texture, illusion of visual motion, objects appearing smaller/larger (micropsia/macropsia)."
-          }
+          ]
         },
         {
           "name": "Gustatory",
@@ -82,11 +73,7 @@ window.EBS_DATASET = {
           "sites": [
             "Anterior Insular Operculum",
             "Anterior Insular Operculum"
-          ],
-          "response_type_definitions": {
-            "Pleasant": "Taste experiences perceived as enjoyable, appetitive, or pleasant in hedonic tone.",
-            "Unpleasant": "Taste experiences perceived as aversive, bitter, foul, or unpleasant in hedonic tone."
-          }
+          ]
         },
         {
           "name": "Olfactory",
@@ -103,11 +90,7 @@ window.EBS_DATASET = {
           "sites": [
             "Piriform Cortex / Uncus",
             "Piriform Cortex / Uncus"
-          ],
-          "response_type_definitions": {
-            "Pleasant": "Olfactory experiences perceived as pleasant",
-            "Unpleasant": "Olfactory experiences perceived as unpleasant"
-          }
+          ]
         },
         {
           "name": "Vestibular",
@@ -157,14 +140,7 @@ window.EBS_DATASET = {
             "Postcentral Gyrus (S1)",
             "Paracentral Lobule",
             "Dorsal Posterior Insula"
-          ],
-          "response_type_definitions": {
-            "Non-Painful": "Somatosensory sensations such as tingling, warmth, numbness, pressure, or vibration without pain.",
-            "Painful": "Painful somatosensory responses including burning, pricking, sharp, or aching sensations.",
-            "Upper Limb": "Somatosensory responses localized to the upper limb, arm, hand, or fingers.",
-            "Lower Limb": "Somatosensory responses localized to the lower limb, leg, foot, or hip.",
-            "Head/Neck/Trunk": "Somatosensory responses localized to the head, neck, or trunk region."
-          }
+          ]
         }
       ]
     },
@@ -178,6 +154,7 @@ window.EBS_DATASET = {
         "Subthalamic Nucleus (STN)",
         "VIM Thalamus"
       ],
+      "response_types": [],
       "subdomains": [
         {
           "name": "Positive",
@@ -200,14 +177,7 @@ window.EBS_DATASET = {
             "Supplementary Motor Area (SMA)",
             "Precentral Gyrus (M1)",
             "Frontal Eye Field (FEF)"
-          ],
-          "response_type_definitions": {
-            "Upper limb": "Movement responses involving the shoulder, arm, hand, or fingers.",
-            "Lower limb": "Movement responses involving the leg, foot, or hip.",
-            "Head/neck/trunk": "Movement responses involving the neck, trunk, or head musculature.",
-            "Articulatory": "Motor responses affecting speech-related muscles such as tongue, lips, jaw, or larynx.",
-            "Eyes": "Eye movement responses including saccades, conjugate eye deviation, or oculomotor effects."
-          }
+          ]
         },
         {
           "name": "Negative",
@@ -229,14 +199,7 @@ window.EBS_DATASET = {
             "Superior Frontal Sulcus",
             "Superior Frontal Sulcus (FEF)",
             "Superior Frontal Sulcus"
-          ],
-          "response_type_definitions": {
-            "Upper limb": "Movement arrest or interference affecting the arm, hand, or shoulder.",
-            "Lower limb": "Movement arrest or interference affecting the leg, foot, or hip.",
-            "Head/neck/trunk": "Movement arrest or interference affecting the neck, trunk, or head.",
-            "Articulatory": "Speech or facial motor impairment involving tongue, lips, jaw, or laryngeal movements.",
-            "Eyes": "Eye movement interruption or directional gaze suppression."
-          }
+          ]
         },
         {
           "name": "Automatisms",
@@ -264,6 +227,7 @@ window.EBS_DATASET = {
         "DLPFC",
         "Temporoparietal Junction (TPJ)"
       ],
+      "response_types": [],
       "subdomains": [
         {
           "name": "Language disturbances",
@@ -282,12 +246,7 @@ window.EBS_DATASET = {
             "Pars Opercularis (Broca's Area)",
             "Ventral Premotor Cortex (vPMC)",
             "Ventral Premotor Cortex (vPMC)"
-          ],
-          "response_type_definitions": {
-            "Production": "Impairment or alteration in language production, including complete interruption of speech or errors affecting the production of words and sentences.",
-            "Comprehension": "Impairment in understanding or accessing the meaning of verbal information, including words and sentences (e.g., word comprehension deficits, auditory comprehension impairment, or lexico-semantic interference)",
-            "Written Language": "Reading impairment/alexia (letters, words, or sentences) and writing impairment (e.g., agraphia or paragraphia)."
-          }
+          ]
         },
         {
           "name": "Derealization / Depersonalization",
@@ -352,6 +311,7 @@ window.EBS_DATASET = {
         "Subgenual Area 25",
         "Nucleus Accumbens"
       ],
+      "response_types": [],
       "subdomains": [
         {
           "name": "Positive valence responses",
@@ -369,12 +329,7 @@ window.EBS_DATASET = {
             "Basolateral Amygdala",
             "Anterior Insula (Affective Core)",
             "Anterior Insula (Affective Core)"
-          ],
-          "response_type_definitions": {
-            "Happiness/Wellbeing": "Positive affective changes associated with contentment, well-being, or pleasant mood.",
-            "Ecstatic/Bliss": "Intense positive affect characterized by profound bliss, euphoria, or heightened wellbeing.",
-            "Mirth": "Amusement or laughter-like affective responses without a necessarily broad emotional context."
-          }
+          ]
         },
         {
           "name": "Negative valence responses",
@@ -394,13 +349,7 @@ window.EBS_DATASET = {
             "Anterior Cingulate Cortex (ACC)",
             "Pre-SMA Affective Interface",
             "Pre-SMA Affective Interface"
-          ],
-          "response_type_definitions": {
-            "Anger": "Negative affective responses characterized by irritability, anger, or hostile emotional arousal.",
-            "Anxiety": "Anxious or apprehensive emotional states, often with worry or tension.",
-            "Fear": "Fearful affective states including panic, dread, or apprehension of threat.",
-            "Sadness": "Negative affective states involving sadness, despair, or emotional dysphoria."
-          }
+          ]
         }
       ]
     },
@@ -413,6 +362,7 @@ window.EBS_DATASET = {
         "Hypothalamus",
         "Medial Prefrontal Cortex"
       ],
+      "response_types": [],
       "subdomains": [
         {
           "name": "Cardiovascular responses",
@@ -486,6 +436,9 @@ window.EBS_DATASET = {
         "Premotor Cortex",
         "Pre-SMA"
       ],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "subdomains": []
     },
     "Consciousness": {
@@ -498,6 +451,7 @@ window.EBS_DATASET = {
         "Posterior Cingulate Cortex",
         "Default Mode Network"
       ],
+      "response_types": [],
       "subdomains": []
     },
     "No Effect": {
@@ -508,19 +462,21 @@ window.EBS_DATASET = {
         "Non-Eloquent Association Cortex",
         "Subthreshold White Matter Tracts"
       ],
+      "response_types": [],
       "subdomains": []
     },
     "Other/ unclassifiable responses": {
       "color": "#D3D3D3",
       "desc": "Stimulation responses that could not be assigned to any other domain.",
       "regions": [],
+      "response_types": [],
       "subdomains": []
     }
   },
   "publications": [
     {
       "id": "LOCAL001",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
+      "authors": "Cecchi et al., 2024",
       "year": 2024,
       "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-8",
       "journal": "Local sample dataset",
@@ -529,251 +485,13 @@ window.EBS_DATASET = {
       "sample_size": 15,
       "patient_population": "Epilepsy",
       "procedure_type": "SEEG",
-      "doi": "",
+      "doi": "10.1038/s41467-024-51822-8",
       "pmid": ""
     },
     {
       "id": "LOCAL002",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-9",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL003",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-10",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL004",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-11",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL005",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-12",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL006",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-13",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL007",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-14",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL008",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-15",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL009",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-16",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL010",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-17",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL011",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-18",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL012",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-19",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL013",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-20",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL014",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-21",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL015",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-22",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL016",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-23",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL017",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-24",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL018",
-      "authors": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimul",
-      "year": 2024,
-      "title": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-25",
-      "journal": "Local sample dataset",
-      "country": "France",
-      "institution": "Local sample dataset",
-      "sample_size": 15,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL019",
-      "authors": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimu",
-      "year": 2015,
+      "authors": "Caruana et al., 2016",
+      "year": 2016,
       "title": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimulation of the frontal operculum. Neuropsychologia, 78, 117\u2013125. https://doi.org/10.1016/j.neuropsychologia.2015.10.001",
       "journal": "Local sample dataset",
       "country": "Italy",
@@ -781,12 +499,12 @@ window.EBS_DATASET = {
       "sample_size": 4,
       "patient_population": "Epilepsy",
       "procedure_type": "SEEG",
-      "doi": "",
+      "doi": "10.1016/j.neuropsychologia.2015.10.001",
       "pmid": ""
     },
     {
-      "id": "LOCAL020",
-      "authors": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimul",
+      "id": "LOCAL003",
+      "authors": "Caruana et al., 2015",
       "year": 2015,
       "title": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
       "journal": "Local sample dataset",
@@ -795,12 +513,12 @@ window.EBS_DATASET = {
       "sample_size": 50,
       "patient_population": "Epilepsy",
       "procedure_type": "SEEG",
-      "doi": "",
+      "doi": "10.1016/j.cortex.2015.07.024",
       "pmid": ""
     },
     {
-      "id": "LOCAL021",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
+      "id": "LOCAL004",
+      "authors": "Mani et al., 2008",
       "year": 2008,
       "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f0",
       "journal": "Local sample dataset",
@@ -809,110 +527,12 @@ window.EBS_DATASET = {
       "sample_size": 3,
       "patient_population": "Epilepsy",
       "procedure_type": "ECoG",
-      "doi": "",
+      "doi": "10.1212/01.wnl.0000334755.32850.f0",
       "pmid": ""
     },
     {
-      "id": "LOCAL022",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f1",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL023",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f2",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL024",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f3",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL025",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f4",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL026",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f5",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL027",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f6",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL028",
-      "authors": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008)",
-      "year": 2008,
-      "title": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f7",
-      "journal": "Local sample dataset",
-      "country": "USA - Ohio",
-      "institution": "Local sample dataset",
-      "sample_size": 3,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL029",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
+      "id": "LOCAL005",
+      "authors": "Andelman-Gur et al., 2020",
       "year": 2020,
       "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183538",
       "journal": "Local sample dataset",
@@ -921,138 +541,12 @@ window.EBS_DATASET = {
       "sample_size": 19,
       "patient_population": "Epilepsy",
       "procedure_type": "ECoG, SEEG",
-      "doi": "",
+      "doi": "10.3171/2019.3.JNS183538",
       "pmid": ""
     },
     {
-      "id": "LOCAL030",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183539",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG, SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL031",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183541",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG, SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL032",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183542",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG, SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL033",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183543",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL034",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183544",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL035",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183545",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG, SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL036",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183546",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG, SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL037",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183547",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL038",
-      "authors": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020",
-      "year": 2020,
-      "title": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183548",
-      "journal": "Local sample dataset",
-      "country": "Israel",
-      "institution": "Local sample dataset",
-      "sample_size": 19,
-      "patient_population": "Epilepsy",
-      "procedure_type": "ECoG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL039",
-      "authors": "Matsumoto, R., Imamura, H., Inouchi, M., Nakagawa, T., Yokoyama, Y., Matsuhashi, M., Mikuni, N., Miyamoto, S., Fukuyama,",
+      "id": "LOCAL006",
+      "authors": "Matsumoto et al., 2011",
       "year": 2011,
       "title": "Matsumoto, R., Imamura, H., Inouchi, M., Nakagawa, T., Yokoyama, Y., Matsuhashi, M., Mikuni, N., Miyamoto, S., Fukuyama, H., Takahashi, R., & Ikeda, A. (2011). Left anterior temporal cortex actively engages in speech perception: A direct cortical stimulation study. Neuropsychologia, 49(5), 1350\u20131354. https://doi.org/10.1016/j.neuropsychologia.2011.01.023",
       "journal": "Local sample dataset",
@@ -1061,21 +555,7 @@ window.EBS_DATASET = {
       "sample_size": 2,
       "patient_population": "Epilepsy",
       "procedure_type": "SEEG",
-      "doi": "",
-      "pmid": ""
-    },
-    {
-      "id": "LOCAL040",
-      "authors": "Matsumoto, R., Imamura, H., Inouchi, M., Nakagawa, T., Yokoyama, Y., Matsuhashi, M., Mikuni, N., Miyamoto, S., Fukuyama,",
-      "year": 2011,
-      "title": "Matsumoto, R., Imamura, H., Inouchi, M., Nakagawa, T., Yokoyama, Y., Matsuhashi, M., Mikuni, N., Miyamoto, S., Fukuyama, H., Takahashi, R., & Ikeda, A. (2011). Left anterior temporal cortex actively engages in speech perception: A direct cortical stimulation study. Neuropsychologia, 49(5), 1350\u20131354. https://doi.org/10.1016/j.neuropsychologia.2011.01.024",
-      "journal": "Local sample dataset",
-      "country": "Japan",
-      "institution": "Local sample dataset",
-      "sample_size": 2,
-      "patient_population": "Epilepsy",
-      "procedure_type": "SEEG",
-      "doi": "",
+      "doi": "10.1016/j.neuropsychologia.2011.01.023",
       "pmid": ""
     }
   ],
@@ -1091,6 +571,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, ventral anterior",
       "hemisphere": "R",
       "mni": [
@@ -1106,8 +587,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-8",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-8"
       },
       "patient_age": 31,
       "patient_sex": "NA"
@@ -1123,6 +610,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, ventral anterior",
       "hemisphere": "R",
       "mni": [
@@ -1138,8 +626,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-9",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-9"
       },
       "patient_age": 31,
       "patient_sex": "NA"
@@ -1155,6 +649,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1170,8 +665,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-10",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-10"
       },
       "patient_age": 44,
       "patient_sex": "NA"
@@ -1187,6 +688,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1202,8 +704,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-11",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-11"
       },
       "patient_age": 44,
       "patient_sex": "NA"
@@ -1213,16 +721,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 4",
       "patient_display": "Patient 4",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
         "Painful",
-        "Head/neck/trunk"
+        "Head/Neck/Trunk"
       ],
       "effect": "Pain (<mild cephalalgia>)",
       "description": "Pain (<mild cephalalgia>)",
+      "raw_description": "Pain (<mild cephalalgia>)",
       "region": "Suprarostral sulcus",
       "hemisphere": "R",
       "mni": [
@@ -1238,8 +746,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-12",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-12"
       },
       "patient_age": 41,
       "patient_sex": "NA"
@@ -1255,6 +769,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, ventral anterior",
       "hemisphere": "R",
       "mni": [
@@ -1270,8 +785,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-13",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-13"
       },
       "patient_age": 41,
       "patient_sex": "NA"
@@ -1281,16 +802,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 5",
       "patient_display": "Patient 5",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Upper limb"
+        "Non-Painful",
+        "Upper Limb"
       ],
       "effect": "Sensory (<left forearm paresthesia and thermal sensation>)",
       "description": "Sensory (<left forearm paresthesia and thermal sensation>)",
+      "raw_description": "Sensory (<left forearm paresthesia and thermal sensation>)",
       "region": "Insula, dorsal anterior",
       "hemisphere": "R",
       "mni": [
@@ -1306,8 +827,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-14",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-14"
       },
       "patient_age": 25,
       "patient_sex": "NA"
@@ -1317,16 +844,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 5",
       "patient_display": "Patient 5",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
         "Painful",
-        "Upper limb"
+        "Upper Limb"
       ],
       "effect": "Sensory (<pain and stiffness in the left hand>)",
       "description": "Sensory (<pain and stiffness in the left hand>)",
+      "raw_description": "Sensory (<pain and stiffness in the left hand>)",
       "region": "Insula, dorsal anterior",
       "hemisphere": "R",
       "mni": [
@@ -1342,8 +869,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-15",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-15"
       },
       "patient_age": 25,
       "patient_sex": "NA"
@@ -1353,14 +886,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 6",
       "patient_display": "Patient 6",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Body Perception",
       "domain": "Sensory",
-      "subdomain": "Sensory",
-      "response_types": [
-        "Body perception"
-      ],
+      "subdomain": "Body Perception",
+      "response_types": [],
       "effect": "Experiential (<mild sensation that the right hand does not exist>)",
       "description": "Experiential (<mild sensation that the right hand does not exist>)",
+      "raw_description": "Experiential (<mild sensation that the right hand does not exist>)",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1376,8 +908,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-16",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-16"
       },
       "patient_age": 41,
       "patient_sex": "NA"
@@ -1387,16 +925,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 6",
       "patient_display": "Patient 6",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Lower limb"
+        "Non-Painful",
+        "Lower Limb"
       ],
       "effect": "Sensory (<sensation of muscular stiffness inside the right leg, extended to the whole leg without the foot>)",
       "description": "Sensory (<sensation of muscular stiffness inside the right leg, extended to the whole leg without the foot>)",
+      "raw_description": "Sensory (<sensation of muscular stiffness inside the right leg, extended to the whole leg without the foot>)",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1412,8 +950,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-17",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-17"
       },
       "patient_age": 41,
       "patient_sex": "NA"
@@ -1429,6 +973,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1444,8 +989,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-18",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-18"
       },
       "patient_age": 37,
       "patient_sex": "NA"
@@ -1461,6 +1012,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Suprarostral sulcus",
       "hemisphere": "L",
       "mni": [
@@ -1476,8 +1028,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-19",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-19"
       },
       "patient_age": 31,
       "patient_sex": "NA"
@@ -1493,6 +1051,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Suprarostral sulcus",
       "hemisphere": "L",
       "mni": [
@@ -1508,8 +1067,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-20",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-20"
       },
       "patient_age": 31,
       "patient_sex": "NA"
@@ -1519,16 +1084,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 9",
       "patient_display": "Patient 9",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Head/neck/trunk"
+        "Non-Painful",
+        "Head/Neck/Trunk"
       ],
       "effect": "Sensory (<tongue tingling, not painful>)",
       "description": "Sensory (<tongue tingling, not painful>)",
+      "raw_description": "Sensory (<tongue tingling, not painful>)",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1544,8 +1109,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-21",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-21"
       },
       "patient_age": 31,
       "patient_sex": "NA"
@@ -1555,16 +1126,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 9",
       "patient_display": "Patient 9",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Lower limb"
+        "Non-Painful",
+        "Lower Limb"
       ],
       "effect": "Sensory (<thermal feeling of a heat wave extending from the feet to the knees>)",
       "description": "Sensory (<thermal feeling of a heat wave extending from the feet to the knees>)",
+      "raw_description": "Sensory (<thermal feeling of a heat wave extending from the feet to the knees>)",
       "region": "Insula, ventral anterior",
       "hemisphere": "L",
       "mni": [
@@ -1580,8 +1151,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-22",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-22"
       },
       "patient_age": 31,
       "patient_sex": "NA"
@@ -1591,16 +1168,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 10",
       "patient_display": "Patient 10",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Head/neck/trunk"
+        "Non-Painful",
+        "Head/Neck/Trunk"
       ],
       "effect": "Sensory (<something sticks to the posterior of the palate in the mouth>)",
       "description": "Sensory (<something sticks to the posterior of the palate in the mouth>)",
+      "raw_description": "Sensory (<something sticks to the posterior of the palate in the mouth>)",
       "region": "Insula, dorsal anterior",
       "hemisphere": "L",
       "mni": [
@@ -1616,8 +1193,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-23",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-23"
       },
       "patient_age": 25,
       "patient_sex": "NA"
@@ -1627,16 +1210,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 11",
       "patient_display": "Patient 11",
       "category": "Sensory",
-      "subcategory": "Sensory",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Sensory",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Head/neck/trunk"
+        "Non-Painful",
+        "Head/Neck/Trunk"
       ],
       "effect": "Sensory (<thermal: heat on the tip of the tongue>)",
       "description": "Sensory (<thermal: heat on the tip of the tongue>)",
+      "raw_description": "Sensory (<thermal: heat on the tip of the tongue>)",
       "region": "Insula, ventral anterior",
       "hemisphere": "L",
       "mni": [
@@ -1652,8 +1235,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-24",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-24"
       },
       "patient_age": 18,
       "patient_sex": "NA"
@@ -1669,6 +1258,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Insula, ventral anterior",
       "hemisphere": "L",
       "mni": [
@@ -1684,8 +1274,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Cecchi et al., 2024",
       "publication": {
+        "label": "Cecchi et al., 2024",
         "title": "Cecchi et al., 2024",
-        "journal": "Local workbook dataset"
+        "article": "Cecchi, R., Collomb-Clerc, A., Rachidi, I., Minotti, L., Kahane, P., Pessiglione, M., & Bastin, J. (2024). Direct stimulation of anterior insula and ventromedial prefrontal cortex disrupts economic choices. Nature Communications, 15, 7508. https://doi.org/10.1038/s41467-024-51822-25",
+        "authors": "Cecchi et al., 2024",
+        "year": 2024,
+        "journal": "",
+        "country": "France",
+        "doi": "10.1038/s41467-024-51822-25"
       },
       "patient_age": 25,
       "patient_sex": "NA"
@@ -1695,14 +1291,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 1",
       "patient_display": "Patient 1",
       "category": "Motor",
-      "subcategory": "Altered consciousness/awareness",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Altered consciousness/awareness",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<The stimulation elicited a smile starting from the contralateral zygomaticus muscle and subsequently involving all the lower facial muscles, without interrupting the speech. The facial expression was not accompanied by vocalization or any postural movement, resulting in a smile and not a laughter. Smile production was not accompanied by mirth and, more interestingly, the patient did not became aware that she produced a facial expression. More specifically, she did not spontaneously commented on her facial expression and, when explicitly asked whether she smiled, she responded negatively, stating that the stimulation was completely ineffective.>",
       "description": "<The stimulation elicited a smile starting from the contralateral zygomaticus muscle and subsequently involving all the lower facial muscles, without interrupting the speech. The facial expression was not accompanied by vocalization or any postural movement, resulting in a smile and not a laughter. Smile production was not accompanied by mirth and, more interestingly, the patient did not became aware that she produced a facial expression. More specifically, she did not spontaneously commented on her facial expression and, when explicitly asked whether she smiled, she responded negatively, stating that the stimulation was completely ineffective.>",
+      "raw_description": "<The stimulation elicited a smile starting from the contralateral zygomaticus muscle and subsequently involving all the lower facial muscles, without interrupting the speech. The facial expression was not accompanied by vocalization or any postural movement, resulting in a smile and not a laughter. Smile production was not accompanied by mirth and, more interestingly, the patient did not became aware that she produced a facial expression. More specifically, she did not spontaneously commented on her facial expression and, when explicitly asked whether she smiled, she responded negatively, stating that the stimulation was completely ineffective.>",
       "region": "Frontal operculum",
       "hemisphere": "L",
       "mni": [
@@ -1718,8 +1313,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2016",
       "publication": {
+        "label": "Caruana et al., 2016",
         "title": "Caruana et al., 2016",
-        "journal": "Local workbook dataset"
+        "article": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimulation of the frontal operculum. Neuropsychologia, 78, 117\u2013125. https://doi.org/10.1016/j.neuropsychologia.2015.10.001",
+        "authors": "Caruana et al., 2016",
+        "year": 2016,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.neuropsychologia.2015.10.001"
       },
       "patient_age": 23,
       "patient_sex": "F"
@@ -1735,6 +1336,7 @@ window.EBS_DATASET = {
       "response_types": [],
       "effect": "No effect",
       "description": "No effect",
+      "raw_description": "No effect",
       "region": "Frontal operculum",
       "hemisphere": "L",
       "mni": [
@@ -1750,8 +1352,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2016",
       "publication": {
+        "label": "Caruana et al., 2016",
         "title": "Caruana et al., 2016",
-        "journal": "Local workbook dataset"
+        "article": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimulation of the frontal operculum. Neuropsychologia, 78, 117\u2013125. https://doi.org/10.1016/j.neuropsychologia.2015.10.001",
+        "authors": "Caruana et al., 2016",
+        "year": 2016,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.neuropsychologia.2015.10.001"
       },
       "patient_age": 23,
       "patient_sex": "F"
@@ -1761,17 +1369,16 @@ window.EBS_DATASET = {
       "patient_id": "Patient 1",
       "patient_display": "Patient 1",
       "category": "Sensory",
-      "subcategory": "Motor",
+      "subcategory": "Somatosensory",
       "domain": "Sensory",
-      "subdomain": "Motor",
+      "subdomain": "Somatosensory",
       "response_types": [
-        "Somatosensory",
-        "Non-painful",
-        "Head/neck/trunk",
-        "Automatisms"
+        "Non-Painful",
+        "Head/Neck/Trunk"
       ],
       "effect": "<The high frequency stimulation of the adjacent contacts and gave similar results. During the stimulation, the patient exhibited an evident smile (latency \u22454 s) preserved after the end of the stimulation. No vocalizations accompanied the facial expression. The expression recovered suddenly and completely as the patient started to speak and answered questions. She reported only a very faint sensation behind the left ear and, when the neurologist explicitly asked whether she felt anything to the face, to the tongue or to the throat, the patient gave a negative answer.>",
       "description": "<The high frequency stimulation of the adjacent contacts and gave similar results. During the stimulation, the patient exhibited an evident smile (latency \u22454 s) preserved after the end of the stimulation. No vocalizations accompanied the facial expression. The expression recovered suddenly and completely as the patient started to speak and answered questions. She reported only a very faint sensation behind the left ear and, when the neurologist explicitly asked whether she felt anything to the face, to the tongue or to the throat, the patient gave a negative answer.>",
+      "raw_description": "<The high frequency stimulation of the adjacent contacts and gave similar results. During the stimulation, the patient exhibited an evident smile (latency \u22454 s) preserved after the end of the stimulation. No vocalizations accompanied the facial expression. The expression recovered suddenly and completely as the patient started to speak and answered questions. She reported only a very faint sensation behind the left ear and, when the neurologist explicitly asked whether she felt anything to the face, to the tongue or to the throat, the patient gave a negative answer.>",
       "region": "Frontal operculum",
       "hemisphere": "L",
       "mni": [
@@ -1787,8 +1394,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2016",
       "publication": {
+        "label": "Caruana et al., 2016",
         "title": "Caruana et al., 2016",
-        "journal": "Local workbook dataset"
+        "article": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimulation of the frontal operculum. Neuropsychologia, 78, 117\u2013125. https://doi.org/10.1016/j.neuropsychologia.2015.10.001",
+        "authors": "Caruana et al., 2016",
+        "year": 2016,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.neuropsychologia.2015.10.001"
       },
       "patient_age": 23,
       "patient_sex": "F"
@@ -1798,16 +1411,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 2",
       "patient_display": "Patient 2",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Negative",
       "domain": "Motor",
-      "subdomain": "Motor",
+      "subdomain": "Negative",
       "response_types": [
-        "Negative - Arrest/Slowing/disturbances",
-        "Articulatory1",
-        "Automatisms"
+        "Articulatory"
       ],
       "effect": "<One second after the stimulation onset the patient interrupted her speech (anarthria) and smiled. Similar to Patients 1, the facial expression was not accompanied by vocalization or any postural movement, resulting in a smile and not a laughter. When explicitly asked by the neurologist why she arrested her speech and started smiling, she answered that she was not able to speak anymore, and she was not able to explain the reason why she smiled.>",
       "description": "<One second after the stimulation onset the patient interrupted her speech (anarthria) and smiled. Similar to Patients 1, the facial expression was not accompanied by vocalization or any postural movement, resulting in a smile and not a laughter. When explicitly asked by the neurologist why she arrested her speech and started smiling, she answered that she was not able to speak anymore, and she was not able to explain the reason why she smiled.>",
+      "raw_description": "<One second after the stimulation onset the patient interrupted her speech (anarthria) and smiled. Similar to Patients 1, the facial expression was not accompanied by vocalization or any postural movement, resulting in a smile and not a laughter. When explicitly asked by the neurologist why she arrested her speech and started smiling, she answered that she was not able to speak anymore, and she was not able to explain the reason why she smiled.>",
       "region": "Frontal operculum",
       "hemisphere": "R",
       "mni": [
@@ -1823,8 +1435,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2016",
       "publication": {
+        "label": "Caruana et al., 2016",
         "title": "Caruana et al., 2016",
-        "journal": "Local workbook dataset"
+        "article": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimulation of the frontal operculum. Neuropsychologia, 78, 117\u2013125. https://doi.org/10.1016/j.neuropsychologia.2015.10.001",
+        "authors": "Caruana et al., 2016",
+        "year": 2016,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.neuropsychologia.2015.10.001"
       },
       "patient_age": 30,
       "patient_sex": "F"
@@ -1834,14 +1452,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 3",
       "patient_display": "Patient 3",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Motor",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<Five seconds after the stimulation onset the patient interrupted her speech and produced a laughter, the smiling facial expression being accompanied by air exhalation. Subsequently, the patient spontaneously reported that she arrested her speech because she was laughing.>",
       "description": "<Five seconds after the stimulation onset the patient interrupted her speech and produced a laughter, the smiling facial expression being accompanied by air exhalation. Subsequently, the patient spontaneously reported that she arrested her speech because she was laughing.>",
+      "raw_description": "<Five seconds after the stimulation onset the patient interrupted her speech and produced a laughter, the smiling facial expression being accompanied by air exhalation. Subsequently, the patient spontaneously reported that she arrested her speech because she was laughing.>",
       "region": "Frontal operculum",
       "hemisphere": "L",
       "mni": [
@@ -1857,8 +1474,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2016",
       "publication": {
+        "label": "Caruana et al., 2016",
         "title": "Caruana et al., 2016",
-        "journal": "Local workbook dataset"
+        "article": "Caruana, F., Gozzo, F., Pelliccia, V., Cossu, M., & Avanzini, P. (2015). Smile and laughter elicited by electrical stimulation of the frontal operculum. Neuropsychologia, 78, 117\u2013125. https://doi.org/10.1016/j.neuropsychologia.2015.10.001",
+        "authors": "Caruana et al., 2016",
+        "year": 2016,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.neuropsychologia.2015.10.001"
       },
       "patient_age": 39,
       "patient_sex": "F"
@@ -1868,16 +1491,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 1",
       "patient_display": "Patient 1",
       "category": "Affective",
-      "subcategory": "Motor",
+      "subcategory": "Positive valence responses",
       "domain": "Affective",
-      "subdomain": "Motor",
+      "subdomain": "Positive valence responses",
       "response_types": [
-        "Positive",
-        "Mirth",
-        "Automatisms"
+        "Mirth"
       ],
       "effect": "<Burst of laugh. Electrical stimulation elicited a smile, starting from the contralateral zygomaticus and the orbicularis oculi muscles, then involving the entire face, and eventually producing laugh. Also in this case the patient felt amused and reported that he could not restrain from laughing. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 1 attributed their reaction to the impulse to laugh, without knowing the reason why. Electrical stimulation elicited a smile, starting from the contralateral zygomaticus and the orbicularis oculi muscles, then involving the entire face, and eventually producing laugh. Also in this case the patient felt amused and reported that he could not restrain from laughing. >",
       "description": "<Burst of laugh. Electrical stimulation elicited a smile, starting from the contralateral zygomaticus and the orbicularis oculi muscles, then involving the entire face, and eventually producing laugh. Also in this case the patient felt amused and reported that he could not restrain from laughing. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 1 attributed their reaction to the impulse to laugh, without knowing the reason why. Electrical stimulation elicited a smile, starting from the contralateral zygomaticus and the orbicularis oculi muscles, then involving the entire face, and eventually producing laugh. Also in this case the patient felt amused and reported that he could not restrain from laughing. >",
+      "raw_description": "<Burst of laugh. Electrical stimulation elicited a smile, starting from the contralateral zygomaticus and the orbicularis oculi muscles, then involving the entire face, and eventually producing laugh. Also in this case the patient felt amused and reported that he could not restrain from laughing. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 1 attributed their reaction to the impulse to laugh, without knowing the reason why. Electrical stimulation elicited a smile, starting from the contralateral zygomaticus and the orbicularis oculi muscles, then involving the entire face, and eventually producing laugh. Also in this case the patient felt amused and reported that he could not restrain from laughing. >",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -1893,8 +1515,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "F"
@@ -1904,14 +1532,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 1",
       "patient_display": "Patient 1",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Motor",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<The patient arrested his reading and started laughing. At the end of the stimulation the patient spontaneously reported that he could not restrain from laughing. When the neurologist further asked him to provide more details, he replied that he was not sure whether the reason of his reaction had been due to the electrical stimulation or rather to the situation, thus asking the neurologist to repeat the stimulation.>",
       "description": "<The patient arrested his reading and started laughing. At the end of the stimulation the patient spontaneously reported that he could not restrain from laughing. When the neurologist further asked him to provide more details, he replied that he was not sure whether the reason of his reaction had been due to the electrical stimulation or rather to the situation, thus asking the neurologist to repeat the stimulation.>",
+      "raw_description": "<The patient arrested his reading and started laughing. At the end of the stimulation the patient spontaneously reported that he could not restrain from laughing. When the neurologist further asked him to provide more details, he replied that he was not sure whether the reason of his reaction had been due to the electrical stimulation or rather to the situation, thus asking the neurologist to repeat the stimulation.>",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -1927,8 +1554,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "F"
@@ -1938,14 +1571,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 1",
       "patient_display": "Patient 1",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Motor",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<The patient arrested his reading and started laughing. At the end of the stimulation the patient spontaneously reported that he could not restrain from laughing. When the neurologist further asked him to provide more details, he replied that he was not sure whether the reason of his reaction had been due to the electrical stimulation or rather to the situation, thus asking the neurologist to repeat the stimulation.>",
       "description": "<The patient arrested his reading and started laughing. At the end of the stimulation the patient spontaneously reported that he could not restrain from laughing. When the neurologist further asked him to provide more details, he replied that he was not sure whether the reason of his reaction had been due to the electrical stimulation or rather to the situation, thus asking the neurologist to repeat the stimulation.>",
+      "raw_description": "<The patient arrested his reading and started laughing. At the end of the stimulation the patient spontaneously reported that he could not restrain from laughing. When the neurologist further asked him to provide more details, he replied that he was not sure whether the reason of his reaction had been due to the electrical stimulation or rather to the situation, thus asking the neurologist to repeat the stimulation.>",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -1961,8 +1593,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "F"
@@ -1972,16 +1610,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 2",
       "patient_display": "Patient 2",
       "category": "Affective",
-      "subcategory": "Motor",
+      "subcategory": "Positive valence responses",
       "domain": "Affective",
-      "subdomain": "Motor",
+      "subdomain": "Positive valence responses",
       "response_types": [
-        "Positive",
-        "Mirth",
-        "Automatisms"
+        "Mirth"
       ],
       "effect": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 2 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
       "description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 2 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
+      "raw_description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 2 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -1997,8 +1634,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2008,16 +1651,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 3",
       "patient_display": "Patient 3",
       "category": "Affective",
-      "subcategory": "Motor",
+      "subcategory": "Positive valence responses",
       "domain": "Affective",
-      "subdomain": "Motor",
+      "subdomain": "Positive valence responses",
       "response_types": [
-        "Positive",
-        "Mirth",
-        "Automatisms"
+        "Mirth"
       ],
       "effect": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 3 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
       "description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 3 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
+      "raw_description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 3 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
       "region": "Anterior cingulate",
       "hemisphere": "L",
       "mni": [
@@ -2033,8 +1675,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2044,16 +1692,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 4",
       "patient_display": "Patient 4",
       "category": "Affective",
-      "subcategory": "Motor",
+      "subcategory": "Positive valence responses",
       "domain": "Affective",
-      "subdomain": "Motor",
+      "subdomain": "Positive valence responses",
       "response_types": [
-        "Positive",
-        "Mirth",
-        "Automatisms"
+        "Mirth"
       ],
       "effect": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 4 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
       "description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 4 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
+      "raw_description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 4 attributed their reaction to the impulse to laugh, without knowing the reason why.>",
       "region": "Anterior cingulate",
       "hemisphere": "L",
       "mni": [
@@ -2069,8 +1716,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "M"
@@ -2080,16 +1733,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 5",
       "patient_display": "Patient 5",
       "category": "Affective",
-      "subcategory": "Motor",
+      "subcategory": "Positive valence responses",
       "domain": "Affective",
-      "subdomain": "Motor",
+      "subdomain": "Positive valence responses",
       "response_types": [
-        "Positive",
-        "Mirth",
-        "Automatisms"
+        "Mirth"
       ],
       "effect": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 5 attributed their reaction to the impulse to laugh, without knowing the reason why.> <Only in one case (Pat.5) the patient said that something weird had occurred to him, making him laugh.>",
       "description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 5 attributed their reaction to the impulse to laugh, without knowing the reason why.> <Only in one case (Pat.5) the patient said that something weird had occurred to him, making him laugh.>",
+      "raw_description": "<Burst of laugh. The effect of the stimulation was not restricted to the production of a facial expression, but also elicited a clear feeling of mirth. More specifically, patient arrested the reading asked by the neurologist, and started to laugh. Patient 5 attributed their reaction to the impulse to laugh, without knowing the reason why.> <Only in one case (Pat.5) the patient said that something weird had occurred to him, making him laugh.>",
       "region": "Anterior cingulate",
       "hemisphere": "L",
       "mni": [
@@ -2105,8 +1757,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2116,15 +1774,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 6",
       "patient_display": "Patient 6",
       "category": "Autonomic",
-      "subcategory": "Motor",
+      "subcategory": "Visceral responses",
       "domain": "Autonomic",
-      "subdomain": "Motor",
-      "response_types": [
-        "Visceral (including epigastric sensations)",
-        "Automatisms"
-      ],
+      "subdomain": "Visceral responses",
+      "response_types": [],
       "effect": "<Laugh without mirth. The electrical stimulation elicited a smile starting from the contralateral side of the face, but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 6 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 6 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body>",
       "description": "<Laugh without mirth. The electrical stimulation elicited a smile starting from the contralateral side of the face, but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 6 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 6 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body>",
+      "raw_description": "<Laugh without mirth. The electrical stimulation elicited a smile starting from the contralateral side of the face, but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 6 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 6 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body>",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -2140,8 +1796,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2151,14 +1813,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 7",
       "patient_display": "Patient 7",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Motor",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
       "description": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
+      "raw_description": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -2174,8 +1835,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2185,15 +1852,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 8",
       "patient_display": "Patient 8",
       "category": "Autonomic",
-      "subcategory": "Motor",
+      "subcategory": "Visceral responses",
       "domain": "Autonomic",
-      "subdomain": "Motor",
-      "response_types": [
-        "Visceral (including epigastric sensations)",
-        "Automatisms"
-      ],
+      "subdomain": "Visceral responses",
+      "response_types": [],
       "effect": "<Laugh without mirth. The electrical stimulation elicited a smile starting from the contralateral side of the face , but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 8 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 8 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body.>",
       "description": "<Laugh without mirth. The electrical stimulation elicited a smile starting from the contralateral side of the face , but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 8 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 8 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body.>",
+      "raw_description": "<Laugh without mirth. The electrical stimulation elicited a smile starting from the contralateral side of the face , but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 8 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 8 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body.>",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -2209,8 +1874,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2220,15 +1891,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 9",
       "patient_display": "Patient 9",
       "category": "Autonomic",
-      "subcategory": "Motor",
+      "subcategory": "Visceral responses",
       "domain": "Autonomic",
-      "subdomain": "Motor",
-      "response_types": [
-        "Visceral (including epigastric sensations)",
-        "Automatisms"
-      ],
+      "subdomain": "Visceral responses",
+      "response_types": [],
       "effect": "<Laugh without mirth. The stimulation elicited a smile starting from the contralateral side of the face, but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 9 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 9 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body>",
       "description": "<Laugh without mirth. The stimulation elicited a smile starting from the contralateral side of the face, but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 9 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 9 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body>",
+      "raw_description": "<Laugh without mirth. The stimulation elicited a smile starting from the contralateral side of the face, but without mirth. During the elicited expression patients continued to read. At the end of the stimulation Patient 9 spontaneously said that he could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted. Interestingly, Patient 9 reported sensations not involving the facial muscles, i.e., a shiver to the stomach, to the throat, or to the whole body>",
       "region": "Anterior cingulate",
       "hemisphere": "L",
       "mni": [
@@ -2244,8 +1913,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "M"
@@ -2255,14 +1930,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 10",
       "patient_display": "Patient 10",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Motor",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
       "description": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
+      "raw_description": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -2278,8 +1952,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2289,14 +1969,13 @@ window.EBS_DATASET = {
       "patient_id": "Patient 10",
       "patient_display": "Patient 10",
       "category": "Motor",
-      "subcategory": "Motor",
+      "subcategory": "Automatisms",
       "domain": "Motor",
-      "subdomain": "Motor",
-      "response_types": [
-        "Automatisms"
-      ],
+      "subdomain": "Automatisms",
+      "response_types": [],
       "effect": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
       "description": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
+      "raw_description": "<Laugh without mirth.> <In 5 patients (6 sites) the ES elicited a smile starting from the contralateral side of the face (similar to Pat.1), but without mirth. During the elicited expression patients continued to read. At the end of the stimulation all patients spontaneously said that they could not keep from smiling, and reported a sensation diffused to the contralateral part of the face, as well as the feeling that the cheek was lifted.",
       "region": "Anterior cingulate",
       "hemisphere": "R",
       "mni": [
@@ -2312,8 +1991,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Caruana et al., 2015",
       "publication": {
+        "label": "Caruana et al., 2015",
         "title": "Caruana et al., 2015",
-        "journal": "Local workbook dataset"
+        "article": "Caruana F, Avanzini P, Gozzo F, Francione S, Cardinale F, Rizzolatti G. Mirth and laughter elicited by electrical stimulation of the human anterior cingulate cortex. Cortex. 2015 Oct;71:323-31. doi: 10.1016/j.cortex.2015.07.024. Epub 2015 Aug 1. PMID: 26291664.",
+        "authors": "Caruana et al., 2015",
+        "year": 2015,
+        "journal": "",
+        "country": "Italy",
+        "doi": "10.1016/j.cortex.2015.07.024"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2323,15 +2008,15 @@ window.EBS_DATASET = {
       "patient_id": "P1",
       "patient_display": "P1",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrode SC3, P1 was able to name pictures but unable to follow written commands. >",
       "description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrode SC3, P1 was able to name pictures but unable to follow written commands. >",
+      "raw_description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrode SC3, P1 was able to name pictures but unable to follow written commands. >",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2347,8 +2032,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f0",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f0"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2358,17 +2049,16 @@ window.EBS_DATASET = {
       "patient_id": "P1",
       "patient_display": "P1",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Production",
-        "Lexical, phonological, grammar errors",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
       "description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
+      "raw_description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2384,8 +2074,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f1",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f1"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2395,17 +2091,16 @@ window.EBS_DATASET = {
       "patient_id": "P1",
       "patient_display": "P1",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Production",
-        "Lexical, phonological, grammar errors",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
       "description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
+      "raw_description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2421,8 +2116,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f2",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f2"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2432,17 +2133,16 @@ window.EBS_DATASET = {
       "patient_id": "P1",
       "patient_display": "P1",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Production",
-        "Lexical, phonological, grammar errors",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
       "description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
+      "raw_description": "Alexia - <P1 was unable to execute written commands, but executed the same commands promptly if they were given orally during the stimulation. Writing sentences to dictation was performed with ease, but he was unable to read those sentences when they were presented to him visually during a subsequent stimulation in random order, after intervening distractor tasks. These findings were consistent with pure alexia without agraphia. At electrodes SC4, 5, and 9, difficulties were encountered with picture naming and picture identification, suggesting that the underlying cortex was specifically involved in processing visually presented lexical symbols. >",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2458,8 +2158,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f3",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f3"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2469,15 +2175,15 @@ window.EBS_DATASET = {
       "patient_id": "P2",
       "patient_display": "P2",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <Stimulation of electrode SC9 replicated the findings seen at SC3 of patient P1. On more detailed testing of reading, P2 was able to read letters but could not read words or sentences. P2 read short words (three to four letters) by spelling them out aloud letter by letter. Reading and comprehension of single and multidigit numbers and picture naming were intact. He was able to perform simple oral and written arithmetic. Writing to dictation was intact for complicated words and sentences, consistent with alexia without agraphia. Copying was slower with a few errors>",
       "description": "Alexia - <Stimulation of electrode SC9 replicated the findings seen at SC3 of patient P1. On more detailed testing of reading, P2 was able to read letters but could not read words or sentences. P2 read short words (three to four letters) by spelling them out aloud letter by letter. Reading and comprehension of single and multidigit numbers and picture naming were intact. He was able to perform simple oral and written arithmetic. Writing to dictation was intact for complicated words and sentences, consistent with alexia without agraphia. Copying was slower with a few errors>",
+      "raw_description": "Alexia - <Stimulation of electrode SC9 replicated the findings seen at SC3 of patient P1. On more detailed testing of reading, P2 was able to read letters but could not read words or sentences. P2 read short words (three to four letters) by spelling them out aloud letter by letter. Reading and comprehension of single and multidigit numbers and picture naming were intact. He was able to perform simple oral and written arithmetic. Writing to dictation was intact for complicated words and sentences, consistent with alexia without agraphia. Copying was slower with a few errors>",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2493,8 +2199,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f4",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f4"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2504,17 +2216,16 @@ window.EBS_DATASET = {
       "patient_id": "P3",
       "patient_display": "P3",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Production",
-        "Lexical, phonological, grammar errors",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
       "description": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
+      "raw_description": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2530,8 +2241,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f5",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f5"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2541,17 +2258,16 @@ window.EBS_DATASET = {
       "patient_id": "P3",
       "patient_display": "P3",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Production",
-        "Lexical, phonological, grammar errors",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
       "description": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
+      "raw_description": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2567,8 +2283,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f6",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f6"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2578,17 +2300,16 @@ window.EBS_DATASET = {
       "patient_id": "P3",
       "patient_display": "P3",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Production",
-        "Lexical, phonological, grammar errors",
-        "Written language"
+        "Written Language"
       ],
       "effect": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
       "description": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
+      "raw_description": "Alexia - <Arrest of reading was noted, with marked difficulty in reading comprehension. Spontaneous speech, auditory comprehension, and writing (spontaneously and to dictation) were intact. P3 was unable to read sentences and words. Letter by letter reading was performed with a few mistakes. He read out \u201cfinger\u201d as \u201cf . . . a . . . n . . . g . . . e . . . l\u201d and pronounced it true to the letters as \u201cfangel.\u201d He read \u201cclose\u201d as \u201cc . . . l . . . a . . . s . . . e\u201d and pronounced it accordingly. Spelling of words given orally during the stimulation was prompt and correct. Picture naming was impaired. To the picture of a chair he responded \u201csit down.\u201d On seeing a hammer, he mimicked its use with his hand but was unable to name it. P3 was able to read numbers and perform simple oral and written calculations. However, he was unable to read a number when it was written in words.>",
       "region": "Basal temporal visual area, visual language area",
       "hemisphere": "L",
       "mni": [
@@ -2604,8 +2325,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Mani et al., 2008",
       "publication": {
+        "label": "Mani et al., 2008",
         "title": "Mani et al., 2008",
-        "journal": "Local workbook dataset"
+        "article": "Mani, J., Diehl, B., Piao, Z., Schuele, S. S., Lapresto, E., Liu, P., Nair, D. R., Dinner, D. S., & L\u00fcders, H. O. (2008). Evidence for a basal temporal visual language center: Cortical stimulation producing pure alexia. Neurology, 71(20), 1621\u20131627. https://doi.org/10.1212/01.wnl.0000334755.32850.f7",
+        "authors": "Mani et al., 2008",
+        "year": 2008,
+        "journal": "",
+        "country": "USA - Ohio",
+        "doi": "10.1212/01.wnl.0000334755.32850.f7"
       },
       "patient_age": 0,
       "patient_sex": "NA"
@@ -2615,14 +2342,13 @@ window.EBS_DATASET = {
       "patient_id": "NA",
       "patient_display": "NA",
       "category": "Sensory",
-      "subcategory": "Agency",
+      "subcategory": "Body Perception",
       "domain": "Sensory",
-      "subdomain": "Agency",
-      "response_types": [
-        "Body perception"
-      ],
+      "subdomain": "Body Perception",
+      "response_types": [],
       "effect": "Changes in thinking e.g. Felt her head is filling with pictures and her head is getting inflated",
       "description": "Changes in thinking e.g. Felt her head is filling with pictures and her head is getting inflated",
+      "raw_description": "Changes in thinking e.g. Felt her head is filling with pictures and her head is getting inflated",
       "region": "Superior temporal gyrus / supramarginal gyrus",
       "hemisphere": "R",
       "mni": [
@@ -2638,8 +2364,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183538",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183538"
       },
       "patient_age": 0,
       "patient_sex": "9 M / 10 F"
@@ -2649,14 +2381,13 @@ window.EBS_DATASET = {
       "patient_id": "NA",
       "patient_display": "NA",
       "category": "Sensory",
-      "subcategory": "Agency",
+      "subcategory": "Body Perception",
       "domain": "Sensory",
-      "subdomain": "Agency",
-      "response_types": [
-        "Body perception"
-      ],
+      "subdomain": "Body Perception",
+      "response_types": [],
       "effect": "Changes in thinking e.g. Felt her head is filling with pictures and her head is getting inflated",
       "description": "Changes in thinking e.g. Felt her head is filling with pictures and her head is getting inflated",
+      "raw_description": "Changes in thinking e.g. Felt her head is filling with pictures and her head is getting inflated",
       "region": "Superior temporal gyrus",
       "hemisphere": "R",
       "mni": [
@@ -2672,8 +2403,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183539",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183539"
       },
       "patient_age": 0,
       "patient_sex": "9 M / 10 F"
@@ -2686,9 +2423,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will",
       "description": "Change in will",
+      "raw_description": "Change in will",
       "region": "Precentral gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2704,8 +2444,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183541",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183541"
       },
       "patient_age": 0,
       "patient_sex": "9 M / 10 F"
@@ -2718,9 +2464,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will",
       "description": "Change in will",
+      "raw_description": "Change in will",
       "region": "Precentral gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2736,8 +2485,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183542",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183542"
       },
       "patient_age": 0,
       "patient_sex": "9 M / 10 F"
@@ -2750,9 +2505,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
       "description": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
+      "raw_description": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2768,8 +2526,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183543",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183543"
       },
       "patient_age": 56,
       "patient_sex": "M"
@@ -2782,9 +2546,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
       "description": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
+      "raw_description": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2800,8 +2567,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183544",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183544"
       },
       "patient_age": 56,
       "patient_sex": "M"
@@ -2814,9 +2587,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. Felt a strong resistance to performing the task, said that despite his conscious  will to continue with the task something blocks him",
       "description": "Change in will - e.g. Felt a strong resistance to performing the task, said that despite his conscious  will to continue with the task something blocks him",
+      "raw_description": "Change in will - e.g. Felt a strong resistance to performing the task, said that despite his conscious  will to continue with the task something blocks him",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2832,8 +2608,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183545",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183545"
       },
       "patient_age": 0,
       "patient_sex": "9 M / 10 F"
@@ -2846,9 +2628,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. Felt a strong resistance to performing the task, said that despite his conscious  will to continue with the task something blocks him",
       "description": "Change in will - e.g. Felt a strong resistance to performing the task, said that despite his conscious  will to continue with the task something blocks him",
+      "raw_description": "Change in will - e.g. Felt a strong resistance to performing the task, said that despite his conscious  will to continue with the task something blocks him",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2864,8 +2649,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183546",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183546"
       },
       "patient_age": 0,
       "patient_sex": "9 M / 10 F"
@@ -2878,9 +2669,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. <The patient depicted a sensation of strong resistance to any kind of action: \u201cI feel resistance to anything I am told to do [\u2026] the possibility of continuing in any action is blocked\u201d>",
       "description": "Change in will - e.g. <The patient depicted a sensation of strong resistance to any kind of action: \u201cI feel resistance to anything I am told to do [\u2026] the possibility of continuing in any action is blocked\u201d>",
+      "raw_description": "Change in will - e.g. <The patient depicted a sensation of strong resistance to any kind of action: \u201cI feel resistance to anything I am told to do [\u2026] the possibility of continuing in any action is blocked\u201d>",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2896,8 +2690,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183547",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183547"
       },
       "patient_age": 56,
       "patient_sex": "M"
@@ -2910,9 +2710,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. <The patient depicted a sensation of strong resistance to any kind of action: \u201cI feel resistance to anything I am told to do [\u2026] the possibility of continuing in any action is blocked\u201d.>",
       "description": "Change in will - e.g. <The patient depicted a sensation of strong resistance to any kind of action: \u201cI feel resistance to anything I am told to do [\u2026] the possibility of continuing in any action is blocked\u201d.>",
+      "raw_description": "Change in will - e.g. <The patient depicted a sensation of strong resistance to any kind of action: \u201cI feel resistance to anything I am told to do [\u2026] the possibility of continuing in any action is blocked\u201d.>",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2928,8 +2731,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183548",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183548"
       },
       "patient_age": 56,
       "patient_sex": "M"
@@ -2942,9 +2751,12 @@ window.EBS_DATASET = {
       "subcategory": "Agency",
       "domain": "Agency",
       "subdomain": "Agency",
-      "response_types": [],
+      "response_types": [
+        "Autoscopic Displacement"
+      ],
       "effect": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
       "description": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
+      "raw_description": "Change in will - e.g. <The patient to report a sense of conscious resistance and, simultaneously, of urges for random goal-directed actions, such as throwing the pillow or leaving the room (\u201cI feel strong resistance [\u2026] I feel it's enough, I want to get out of here \u2026 I want to throw the pillow\u201d [\u2026] I want to switch languages from Hebrew to English\u201d).>",
       "region": "Superior frontal gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2960,8 +2772,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Andelman-Gur et al., 2020",
       "publication": {
+        "label": "Andelman-Gur et al., 2020",
         "title": "Andelman-Gur et al., 2020",
-        "journal": "Local workbook dataset"
+        "article": "Andelman-Gur, M. M., Gazit, T., Andelman, F., Kipervasser, S., Kramer, U., Neufeld, M. Y., Fried, I., & Fahoum, F. (2020). Spatial distribution and hemispheric asymmetry of electrically evoked experiential phenomena in the human brain. Journal of Neurosurgery, 133(1), 54\u201362. https://doi.org/10.3171/2019.3.JNS183548",
+        "authors": "Andelman-Gur et al., 2020",
+        "year": 2020,
+        "journal": "",
+        "country": "Israel",
+        "doi": "10.3171/2019.3.JNS183548"
       },
       "patient_age": 56,
       "patient_sex": "M"
@@ -2971,15 +2789,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 1",
       "patient_display": "Patient 1",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Comprehension"
       ],
       "effect": "Speech perception - <\u201cSpeech was heard as a series of meaningless utterence\u201d. The patient reported that speech was heard as a series of meaningless utterance, though she could recognize that the utterance belonged to the examiner's voice. >",
       "description": "Speech perception - <\u201cSpeech was heard as a series of meaningless utterence\u201d. The patient reported that speech was heard as a series of meaningless utterance, though she could recognize that the utterance belonged to the examiner's voice. >",
+      "raw_description": "Speech perception - <\u201cSpeech was heard as a series of meaningless utterence\u201d. The patient reported that speech was heard as a series of meaningless utterance, though she could recognize that the utterance belonged to the examiner's voice. >",
       "region": "Anterior superior temporal sulcus/gyrus",
       "hemisphere": "L",
       "mni": [
@@ -2995,8 +2813,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Matsumoto et al., 2011",
       "publication": {
+        "label": "Matsumoto et al., 2011",
         "title": "Matsumoto et al., 2011",
-        "journal": "Local workbook dataset"
+        "article": "Matsumoto, R., Imamura, H., Inouchi, M., Nakagawa, T., Yokoyama, Y., Matsuhashi, M., Mikuni, N., Miyamoto, S., Fukuyama, H., Takahashi, R., & Ikeda, A. (2011). Left anterior temporal cortex actively engages in speech perception: A direct cortical stimulation study. Neuropsychologia, 49(5), 1350\u20131354. https://doi.org/10.1016/j.neuropsychologia.2011.01.023",
+        "authors": "Matsumoto et al., 2011",
+        "year": 2011,
+        "journal": "",
+        "country": "Japan",
+        "doi": "10.1016/j.neuropsychologia.2011.01.023"
       },
       "patient_age": 30,
       "patient_sex": "F"
@@ -3006,15 +2830,15 @@ window.EBS_DATASET = {
       "patient_id": "Patient 2",
       "patient_display": "Patient 2",
       "category": "Cognitive",
-      "subcategory": "Cognitive",
+      "subcategory": "Language disturbances",
       "domain": "Cognitive",
-      "subdomain": "Cognitive",
+      "subdomain": "Language disturbances",
       "response_types": [
-        "Language",
         "Comprehension"
       ],
       "effect": "Speech perception - <\u201cI could hear the voice but failed to understand the contents of the sentence\u201d. The patient reported that she could hear the voice but failed to understand the contents to perform the gesture.>",
       "description": "Speech perception - <\u201cI could hear the voice but failed to understand the contents of the sentence\u201d. The patient reported that she could hear the voice but failed to understand the contents to perform the gesture.>",
+      "raw_description": "Speech perception - <\u201cI could hear the voice but failed to understand the contents of the sentence\u201d. The patient reported that she could hear the voice but failed to understand the contents to perform the gesture.>",
       "region": "Anterior superior temporal sulcus/gyrus",
       "hemisphere": "L",
       "mni": [
@@ -3030,8 +2854,14 @@ window.EBS_DATASET = {
       "bipolar": true,
       "pub_id": "Matsumoto et al., 2011",
       "publication": {
+        "label": "Matsumoto et al., 2011",
         "title": "Matsumoto et al., 2011",
-        "journal": "Local workbook dataset"
+        "article": "Matsumoto, R., Imamura, H., Inouchi, M., Nakagawa, T., Yokoyama, Y., Matsuhashi, M., Mikuni, N., Miyamoto, S., Fukuyama, H., Takahashi, R., & Ikeda, A. (2011). Left anterior temporal cortex actively engages in speech perception: A direct cortical stimulation study. Neuropsychologia, 49(5), 1350\u20131354. https://doi.org/10.1016/j.neuropsychologia.2011.01.024",
+        "authors": "Matsumoto et al., 2011",
+        "year": 2011,
+        "journal": "",
+        "country": "Japan",
+        "doi": "10.1016/j.neuropsychologia.2011.01.024"
       },
       "patient_age": 32,
       "patient_sex": "F"
