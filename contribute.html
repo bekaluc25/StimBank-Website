@@ -44,13 +44,7 @@
 
   <div class="container px-4 py-5" style="max-width: 960px; padding-top: 4rem !important;">
     <div class="mb-4">
-      <div class="text-uppercase small mb-1" style="letter-spacing: 0.08em; color: var(--text-secondary); font-size: 0.78rem;">
-        StimBank Community
-      </div>
       <h1 class="display-6 fw-bold mb-2" style="letter-spacing: -0.02em;">Want to contribute? Fill out this form!</h1>
-      <p class="lead text-secondary mb-0" style="font-size: 1.02rem; max-width: 800px;">
-        Submit new literature findings, report coordinate corrections, or upload a team dataset to help expand the StimBank archive.
-      </p>
     </div>
 
     <div class="stimbank-card p-4 mb-4" id="contribute">
@@ -70,35 +64,34 @@
         <div class="row g-3">
           <div class="col-md-6">
             <label class="form-label small fw-semibold text-secondary mb-1">Full Name</label>
-            <input type="text" class="form-control form-control-sm" placeholder="e.g. Dr. Jane Smith" required>
+            <input type="text" class="form-control form-control-sm" name="name" placeholder="e.g. Dr. Jane Smith" required>
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold text-secondary mb-1">Academic / Clinical Institution</label>
-            <input type="text" class="form-control form-control-sm" placeholder="e.g. Stanford University Medical Center" required>
+            <input type="text" class="form-control form-control-sm" name="institution" placeholder="e.g. Stanford University Medical Center" required>
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold text-secondary mb-1">Email Address</label>
-            <input type="email" class="form-control form-control-sm" placeholder="jane.smith@institution.edu" required>
+            <input type="email" class="form-control form-control-sm" name="email" placeholder="jane.smith@institution.edu" required>
           </div>
           <div class="col-md-6">
             <label class="form-label small fw-semibold text-secondary mb-1">Contribution Type</label>
-            <select class="form-select form-select-sm" id="contribType">
+            <select class="form-select form-select-sm" id="contribType" name="contribution_type">
               <option value="data">Upload New Dataset (Custom Excel / CSV)</option>
-              <option value="literature">Submit Literature Reference / DOI</option>
               <option value="correction">Coordinate / Annotation Correction</option>
               <option value="other">General Feedback / Note</option>
             </select>
           </div>
           <div class="col-12">
-            <label class="form-label small fw-semibold text-secondary mb-1">Upload Data File (Optional - Excel / CSV)</label>
-            <input type="file" class="form-control form-control-sm" accept=".xlsx,.xls,.csv" id="contribFile">
+            <label class="form-label small fw-semibold text-secondary mb-1">Upload Data File (Excel / CSV; optional if notes are provided)</label>
+            <input type="file" class="form-control form-control-sm" accept=".xlsx,.xls,.csv" id="contribFile" name="file">
             <small class="text-muted" style="font-size: 0.74rem;">
               Please ensure your file replicates the StimBank schema (Domain flags, MNI Coordinates, Procedure, Patient ID).
             </small>
           </div>
           <div class="col-12">
-            <label class="form-label small fw-semibold text-secondary mb-1">Notes / Study Citation &amp; Methodology Details</label>
-            <textarea class="form-control form-control-sm" rows="3" placeholder="Provide literature DOI, patient cohort summary, or specific anatomical notes..."></textarea>
+            <label class="form-label small fw-semibold text-secondary mb-1">Notes / Study Citation &amp; Methodology Details (required if no file is uploaded)</label>
+            <textarea class="form-control form-control-sm" id="contribNotes" name="notes" rows="3"></textarea>
           </div>
           <div class="col-12 text-end">
             <button type="submit" class="btn-stimbank-primary btn-stimbank-sm px-4">Submit Contribution</button>
@@ -107,8 +100,9 @@
       </form>
 
       <div id="contribSuccess" class="alert alert-success mt-3 py-2 px-3 small d-none" role="alert">
-        🎉 <strong>Thank you for contributing to StimBank!</strong> Your submission has been received for editorial and stereotactic review.
+        Thank you for your submission! A member of our team will be in touch shortly.
       </div>
+      <div id="contribError" class="alert alert-danger mt-3 py-2 px-3 small d-none" role="alert"></div>
     </div>
 
     <div class="text-center pt-2">
@@ -154,10 +148,66 @@
       document.body.removeChild(a);
     });
 
-    document.getElementById('contributeForm').addEventListener('submit', (e) => {
+    const contributeForm = document.getElementById('contributeForm');
+    const contribType = document.getElementById('contribType');
+    const contribFile = document.getElementById('contribFile');
+    const contribNotes = document.getElementById('contribNotes');
+    const notesPlaceholders = {
+      data: 'Describe the dataset, study citation or DOI, patient cohort, and methodology...',
+      correction: 'Describe the coordinate or annotation to correct, the proposed change, and its source...',
+      other: 'Share your feedback, question, or other information for the StimBank team...'
+    };
+
+    const updateNotesPlaceholder = () => {
+      contribNotes.placeholder = notesPlaceholders[contribType.value];
+    };
+
+    const updateNotesRequirement = () => {
+      const notesRequired = contribFile.files.length === 0;
+      contribNotes.required = notesRequired;
+      contribNotes.setCustomValidity(
+        notesRequired && !contribNotes.value.trim()
+          ? 'Add notes or upload a data file before submitting.'
+          : ''
+      );
+    };
+
+    contribType.addEventListener('change', updateNotesPlaceholder);
+    contribFile.addEventListener('change', updateNotesRequirement);
+    contribNotes.addEventListener('input', updateNotesRequirement);
+    updateNotesPlaceholder();
+    updateNotesRequirement();
+
+    contributeForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      document.getElementById('contribSuccess').classList.remove('d-none');
-      document.getElementById('contributeForm').reset();
+      updateNotesRequirement();
+      if (!contributeForm.reportValidity()) return;
+
+      const successMessage = document.getElementById('contribSuccess');
+      const errorMessage = document.getElementById('contribError');
+      const submitButton = contributeForm.querySelector('button[type="submit"]');
+      successMessage.classList.add('d-none');
+      errorMessage.classList.add('d-none');
+      submitButton.disabled = true;
+
+      try {
+        const response = await fetch('/api/contributions', {
+          method: 'POST',
+          body: new FormData(contributeForm)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.error || 'The submission could not be sent.');
+
+        successMessage.classList.remove('d-none');
+        contributeForm.reset();
+        updateNotesPlaceholder();
+        updateNotesRequirement();
+      } catch (error) {
+        errorMessage.textContent = error.message || 'The submission could not be sent. Please try again.';
+        errorMessage.classList.remove('d-none');
+      } finally {
+        submitButton.disabled = false;
+      }
     });
   </script>
 </body>

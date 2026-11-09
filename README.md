@@ -64,6 +64,16 @@ Then open your browser to:
 ### Option 2: Open Directly in Any Web Browser
 Because all assets, styles, and datasets are self-contained and loaded via robust client-side scripts, you can also double-click `index.html` to open it directly in Chrome, Safari, Firefox, or Edge!
 
+### Contribution Email Delivery
+The contribution form sends submissions and optional CSV / Excel attachments through the Python server. Configure SMTP on the server before accepting submissions:
+
+- `STIMBANK_SMTP_HOST`: SMTP server hostname
+- `STIMBANK_SMTP_PORT`: SMTP port; defaults to `587` (STARTTLS), or use `465` for implicit TLS
+- `STIMBANK_SMTP_FROM`: sender address permitted by the SMTP server
+- `STIMBANK_SMTP_USERNAME` and `STIMBANK_SMTP_PASSWORD`: optional; set both when authentication is required
+
+Keep SMTP credentials in the server environment, not in this repository. Static-only hosting and opening `index.html` directly do not support email delivery; production hosting must run this endpoint (or an equivalent backend). Uploaded files are limited to CSV / XLS / XLSX, with a 16 MB request limit.
+
 ---
 
 ## Directory Structure
