@@ -1,413 +1,531 @@
 # generate_dataset.py
-# Single Source of Truth for StimBank: Generates realistic, biologically grounded EBS dataset in MNI space
 import json
 import os
 import random
+import re
 
-# Use relative path inside repository
+import openpyxl
+
+# Dataset will be pulled from under 'Data' directory.
+# File setup
 script_dir = os.path.dirname(os.path.abspath(__file__))
 data_dir = os.path.join(script_dir, "data")
 os.makedirs(data_dir, exist_ok=True)
 
-# ==============================================================================
-# 15 LANDMARK PEER-REVIEWED EBS PUBLICATIONS
-# ==============================================================================
-publications = [
-    {
-        "id": "PUB01",
-        "authors": "Parvizi J, Jacques C, Foster BL, et al.",
-        "year": 2012,
-        "title": "Electrical stimulation of human fusiform face-selective regions distorts face perception",
-        "journal": "Journal of Neuroscience",
-        "country": "United States",
-        "institution": "Stanford University Medical Center",
-        "sample_size": 1,
-        "patient_population": "Drug-resistant Temporal Lobe Epilepsy",
-        "procedure_type": "Subdural ECoG Grid/Strip",
-        "doi": "10.1523/JNEUROSCI.2609-12.2012",
-        "pmid": "23100434"
-    },
-    {
-        "id": "PUB02",
-        "authors": "Bartolomei F, Trébuchon A, Gavaret M, et al.",
-        "year": 2017,
-        "title": "Cortical stimulation mapping of human emotional circuits during stereo-EEG",
-        "journal": "Brain",
-        "country": "France",
-        "institution": "Aix-Marseille Université & AP-HM Timone Hospital",
-        "sample_size": 47,
-        "patient_population": "Drug-resistant Focal Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1093/brain/awx170",
-        "pmid": "28854580"
-    },
-    {
-        "id": "PUB03",
-        "authors": "Duffau H, Capelle L, Denvil D, et al.",
-        "year": 2003,
-        "title": "The role of the subcortical pathway in language: a direct electrical stimulation study",
-        "journal": "Brain",
-        "country": "France",
-        "institution": "Hôpital Gui de Chauliac, Montpellier",
-        "sample_size": 115,
-        "patient_population": "Low- and High-grade Gliomas",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1093/brain/awg253",
-        "pmid": "12902311"
-    },
-    {
-        "id": "PUB04",
-        "authors": "Penfield W, Boldrey E",
-        "year": 1937,
-        "title": "Somatic motor and sensory representation in the cerebral cortex of man as studied by electrical stimulation",
-        "journal": "Brain",
-        "country": "Canada",
-        "institution": "Montreal Neurological Institute (MNI), McGill University",
-        "sample_size": 163,
-        "patient_population": "Focal Epilepsy & Brain Tumors",
-        "procedure_type": "Intraoperative Cortical Stimulation",
-        "doi": "10.1093/brain/60.4.389",
-        "pmid": "8935400"
-    },
-    {
-        "id": "PUB05",
-        "authors": "Selimbeyoglu A, Parvizi J",
-        "year": 2010,
-        "title": "Electrical stimulation of the human art and memory circuits: A comprehensive systematic review",
-        "journal": "Frontiers in Human Neuroscience",
-        "country": "United States",
-        "institution": "Stanford University",
-        "sample_size": 38,
-        "patient_population": "Refractory Epilepsy",
-        "procedure_type": "Subdural ECoG & Stereo-EEG",
-        "doi": "10.3389/fnhum.2010.00031",
-        "pmid": "20485472"
-    },
-    {
-        "id": "PUB06",
-        "authors": "Mazzola L, Lopez C, Faillenot I, et al.",
-        "year": 2014,
-        "title": "Vestibular and auditory responses to direct electrical cortical stimulation in human",
-        "journal": "Cerebral Cortex",
-        "country": "France",
-        "institution": "Central Hospital of Saint-Etienne & Lyon University",
-        "sample_size": 260,
-        "patient_population": "Pharmaco-resistant Partial Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1093/cercor/bht083",
-        "pmid": "23547137"
-    },
-    {
-        "id": "PUB07",
-        "authors": "Schwalb JM, Hamani C, Lozano AM",
-        "year": 2008,
-        "title": "Subthalamic and ventral thalamic deep brain stimulation for movement and cognitive disorders",
-        "journal": "Neurosurgery",
-        "country": "Canada",
-        "institution": "Toronto Western Hospital, University of Toronto",
-        "sample_size": 84,
-        "patient_population": "Parkinson's Disease & Tremor Syndromes",
-        "procedure_type": "Deep Brain Stimulation (DBS)",
-        "doi": "10.1227/01.NEU.0000325732.18304.59",
-        "pmid": "18401201"
-    },
-    {
-        "id": "PUB08",
-        "authors": "Mayberg HS, Lozano AM, Voon V, et al.",
-        "year": 2005,
-        "title": "Deep brain stimulation for treatment-resistant depression",
-        "journal": "Neuron",
-        "country": "Canada",
-        "institution": "Emory University & Toronto Western Hospital",
-        "sample_size": 6,
-        "patient_population": "Treatment-resistant Major Depression",
-        "procedure_type": "Deep Brain Stimulation (DBS)",
-        "doi": "10.1016/j.neuron.2005.02.014",
-        "pmid": "15748841"
-    },
-    {
-        "id": "PUB09",
-        "authors": "Desmurget M, Reilly KT, Richard N, et al.",
-        "year": 2009,
-        "title": "Movement intention after parietal cortex stimulation in humans",
-        "journal": "Science",
-        "country": "France",
-        "institution": "CNRS, Bron & Hôpital Neurologique Pierre Wertheimer, Lyon",
-        "sample_size": 7,
-        "patient_population": "Brain Neoplasms (Awake Surgery)",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1126/science.1169896",
-        "pmid": "19423829"
-    },
-    {
-        "id": "PUB10",
-        "authors": "Koubeissi MZ, Bartolomei F, Beltagy A, et al.",
-        "year": 2014,
-        "title": "Electrical stimulation of a small brain area reversibly disrupts consciousness",
-        "journal": "Epilepsy & Behavior",
-        "country": "United States",
-        "institution": "George Washington University",
-        "sample_size": 1,
-        "patient_population": "Intractable Focal Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.yebeh.2014.05.027",
-        "pmid": "24967698"
-    },
-    {
-        "id": "PUB11",
-        "authors": "Blanke O, Ortigue S, Landis T, Seeck M",
-        "year": 2002,
-        "title": "Stimulating illusory own-body perceptions: out-of-body experience in right angular gyrus",
-        "journal": "Nature",
-        "country": "Switzerland",
-        "institution": "University Hospital Geneva",
-        "sample_size": 1,
-        "patient_population": "Refractory Complex Partial Epilepsy",
-        "procedure_type": "Subdural ECoG Grid/Strip",
-        "doi": "10.1038/419269a",
-        "pmid": "12239558"
-    },
-    {
-        "id": "PUB12",
-        "authors": "Parvizi J, Rangarajan V, Shirer WR, et al.",
-        "year": 2013,
-        "title": "The will to persevere induced by electrical stimulation of the human anterior midcingulate cortex",
-        "journal": "Neuron",
-        "country": "United States",
-        "institution": "Stanford University",
-        "sample_size": 2,
-        "patient_population": "Refractory Focal Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.neuron.2013.10.057",
-        "pmid": "24314732"
-    },
-    {
-        "id": "PUB13",
-        "authors": "Mazzola L, Isnard J, Peyron R, Mauguière F",
-        "year": 2012,
-        "title": "Somatosensory and pain responses to direct electrical stimulation of the human insula",
-        "journal": "Pain",
-        "country": "France",
-        "institution": "Hospices Civils de Lyon & University Hospital Saint-Etienne",
-        "sample_size": 164,
-        "patient_population": "Refractory Temporal Lobe Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1016/j.pain.2011.11.020",
-        "pmid": "22230777"
-    },
-    {
-        "id": "PUB14",
-        "authors": "Curot J, Busigny T, Valton L, et al.",
-        "year": 2017,
-        "title": "Memory forms in the human brain: electrical stimulation of the temporal lobe inducing experiential phenomena",
-        "journal": "Brain",
-        "country": "France",
-        "institution": "Purpan Hospital, Toulouse University Medical Center",
-        "sample_size": 43,
-        "patient_population": "Pharmaco-resistant Epilepsy",
-        "procedure_type": "Stereo-EEG (sEEG)",
-        "doi": "10.1093/brain/awx257",
-        "pmid": "29053805"
-    },
-    {
-        "id": "PUB15",
-        "authors": "Herbet G, Lafargue G, Moritz-Gasser S, et al.",
-        "year": 2014,
-        "title": "Disrupting posterior cingulate and precuneus connectivity causes loss of conscious social perception",
-        "journal": "Brain",
-        "country": "France",
-        "institution": "Hôpital Gui de Chauliac, Montpellier",
-        "sample_size": 28,
-        "patient_population": "Diffuse Low-Grade Glioma",
-        "procedure_type": "Intraoperative Direct Electrical Stimulation (DES)",
-        "doi": "10.1093/brain/awu311",
-        "pmid": "25381180"
+
+def find_local_sample_file():
+    """Return the first non-empty local sample file we should use as the input dataset."""
+    candidates = [
+        '/Users/cristina/Partners HealthCare Dropbox/Christian Bekalu/Zoe_Garance_Stimbank/website/Sample_Christian_2.xlsx',
+        os.path.join(data_dir, 'Sample_Christian_2.xlsx'),
+    ]
+    for candidate in candidates:
+        if candidate and os.path.exists(candidate) and os.path.getsize(candidate) > 0:
+            return candidate
+    return None
+
+# Read x/y/z MNI coordinates from the Excel row if present.
+def parse_mni_xyz(row, idx):
+    x_key = "EBS coordinates (MNI space) x"
+    y_key = "EBS coordinates (MNI space) y"
+    z_key = "EBS coordinates (MNI space) z"
+
+    x = row[idx.get(x_key, -1)] if x_key in idx else None
+    y = row[idx.get(y_key, -1)] if y_key in idx else None
+    z = row[idx.get(z_key, -1)] if z_key in idx else None
+
+    try:
+        if x is None or y is None or z is None:
+            return None
+        return [float(x), float(y), float(z)]
+    except (TypeError, ValueError):
+        return None
+
+# Load publication metadata from stimbank dataset
+def load_local_sample_publications(excel_path):
+    if not excel_path or not os.path.exists(excel_path):
+        return []
+
+    try:
+        wb = openpyxl.load_workbook(excel_path, read_only=True, data_only=True)
+    except Exception:
+        return []
+
+    if not wb.sheetnames:
+        return []
+
+    ws = wb[wb.sheetnames[0]]
+    rows = list(ws.iter_rows(values_only=True))
+    if not rows:
+        return []
+
+    header = [str(cell).strip() if cell is not None else "" for cell in rows[0]]
+    idx = {name: i for i, name in enumerate(header)}
+
+    publications = []
+    seen = set()
+
+    for row in rows[1:]:
+        if not row or not any(cell is not None and str(cell).strip() for cell in row):
+            continue
+
+        publication_label = row[idx['Publication']] if 'Publication' in idx and idx['Publication'] < len(row) else row[0]
+        article_label = row[idx['Article']] if 'Article' in idx and idx['Article'] < len(row) else publication_label
+        label = str(article_label or publication_label or '').strip()
+        if not label:
+            continue
+
+        key = label
+        if key in seen:
+            continue
+        seen.add(key)
+
+        pathology = str((row[idx['Pathology']] if 'Pathology' in idx and idx['Pathology'] < len(row) else 'Not specified') or 'Not specified').strip() or 'Not specified'
+        procedure = str((row[idx['EBS procedure']] if 'EBS procedure' in idx and idx['EBS procedure'] < len(row) else 'Not specified') or 'Not specified').strip() or 'Not specified'
+        sample_size = row[idx['Sample size']] if 'Sample size' in idx and idx['Sample size'] < len(row) else 0
+        try:
+            sample_size_value = int(float(str(sample_size).replace(',', '')))
+        except Exception:
+            sample_size_value = 0
+
+        year_match = re.search(r'(19|20)\d{2}', label)
+        year = int(year_match.group(0)) if year_match else 0
+
+        publications.append({
+            'id': f'LOCAL{len(publications) + 1:03d}',
+            'authors': label[:120],
+            'year': year,
+            'title': label,
+            'journal': 'Local sample dataset',
+            'country': str((row[idx['Region']] if 'Region' in idx and idx['Region'] < len(row) else 'Local dataset') or 'Local dataset').strip() or 'Local dataset',
+            'institution': 'Local sample dataset',
+            'sample_size': sample_size_value,
+            'patient_population': pathology,
+            'procedure_type': procedure,
+            'doi': '',
+            'pmid': ''
+        })
+
+    return publications
+
+
+def safe_float(value):
+    """Parse a numeric value from the Excel workbook and return None if invalid."""
+    if value is None:
+        return None
+    try:
+        return float(str(value).replace(',', '').strip())
+    except (TypeError, ValueError):
+        return None
+
+
+def load_local_sample_sites(excel_path):
+    """Load site-level entries directly from the workbook.
+
+    This is the strict, no-fallback source. If the workbook lacks the required
+    coordinate columns or the row format is invalid, return an empty list so the
+    site remains empty instead of auto-populating placeholder values.
+    """
+    if not excel_path or not os.path.exists(excel_path):
+        return []
+
+    try:
+        wb = openpyxl.load_workbook(excel_path, read_only=True, data_only=True)
+    except Exception:
+        return []
+
+    if not wb.sheetnames:
+        return []
+
+    ws = wb[wb.sheetnames[0]]
+    rows = list(ws.iter_rows(values_only=True))
+    if not rows:
+        return []
+
+    header = [str(cell).strip() if cell is not None else "" for cell in rows[0]]
+    idx = {name: i for i, name in enumerate(header)}
+    required = [
+        'Side of stimulation',
+        'EBS coordinates (MNI space) x',
+        'EBS coordinates (MNI space) y',
+        'EBS coordinates (MNI space) z',
+    ]
+    if not all(key in idx for key in required):
+        return []
+
+    sites = []
+    domain_name_map = {
+        'Sensory-Perceptual': 'Sensory',
+        'Affective': 'Affective',
+        'Autonomic': 'Autonomic',
+        'Cognitive/language': 'Cognitive',
+        'Motor': 'Motor',
+        'Altered consciousness/awareness': 'Consciousness',
+        'Agency': 'Agency',
+        'No effect': 'No Effect',
+        'Other/unclassifiable': 'Other/ unclassifiable responses',
     }
-]
-# Modified by Christian - contains updated definitions of domains and sub-domains from Methods.docx
-# ==============================================================================
-# TAXONOMY SCHEMA: 8 Core Scientific Categories of Phenomena & Sub-Domains
-# ==============================================================================
+
+    for row_index, row in enumerate(rows[1:], start=2):
+        if not row or not any(cell is not None and str(cell).strip() for cell in row):
+            continue
+
+        side = str(row[idx['Side of stimulation']] or '').strip().lower()
+        if side not in {'left', 'right'}:
+            continue
+
+        x = safe_float(row[idx['EBS coordinates (MNI space) x']])
+        y = safe_float(row[idx['EBS coordinates (MNI space) y']])
+        z = safe_float(row[idx['EBS coordinates (MNI space) z']])
+        if x is None or y is None or z is None:
+            continue
+
+        # 
+        category_labels = []
+        for col_index in range(7, min(79, len(header))):
+            value = row[col_index]
+            if value is None:
+                continue
+            cell_name = str(header[col_index]).strip()
+            if not cell_name:
+                continue
+            normalized_value = str(value).strip().lower()
+            if value is True or value == 1 or normalized_value in {'true', '1', '1.0'}:
+                active_flag_names.append(cell_name)
+
+        if not active_flag_names:
+            continue
+
+        domain_name = None
+        subdomain_name = None
+        response_types = []
+        for cell_name in active_flag_names:
+            if cell_name in domain_name_map:
+                if domain_name is None:
+                    domain_name = cell_name
+                elif subdomain_name is None:
+                    subdomain_name = cell_name
+            else:
+                response_types.append(cell_name)
+
+        if domain_name is None:
+            continue
+
+        category = domain_name_map.get(domain_name, domain_name)
+
+        publication = str(row[idx['Publication']] if 'Publication' in idx and idx['Publication'] < len(row) else '').strip() or 'Unknown publication'
+        region = str(row[idx['Site of EBS evoking a response']] if 'Site of EBS evoking a response' in idx and idx['Site of EBS evoking a response'] < len(row) else row[idx['Brain area explored']] if 'Brain area explored' in idx and idx['Brain area explored'] < len(row) else 'Unknown region').strip() or 'Unknown region'
+        effect = str(row[idx['Phenomenological description']] if 'Phenomenological description' in idx and idx['Phenomenological description'] < len(row) else row[idx['Site of EBS evoking a response']] if 'Site of EBS evoking a response' in idx and idx['Site of EBS evoking a response'] < len(row) else 'Stimulated site').strip() or 'Stimulated site'
+        pathology = str(row[idx['Pathology']] if 'Pathology' in idx and idx['Pathology'] < len(row) else 'Unknown pathology').strip() or 'Unknown pathology'
+        procedure = str(row[idx['EBS procedure']] if 'EBS procedure' in idx and idx['EBS procedure'] < len(row) else 'Unknown procedure').strip() or 'Unknown procedure'
+        age = safe_float(row[idx['Age (years)']] if 'Age (years)' in idx and idx['Age (years)'] < len(row) else None)
+        sex = str(row[idx['Sex']] if 'Sex' in idx and idx['Sex'] < len(row) else 'Unknown').strip() or 'Unknown'
+
+        sites.append({
+            'id': f'WORKBOOK{len(sites) + 1:03d}',
+            'patient_id': str(row[idx['Patient ID']] if 'Patient ID' in idx and idx['Patient ID'] < len(row) else f'ROW{row_index}').strip() or f'ROW{row_index}',
+            'patient_display': str(row[idx['Patient ID']] if 'Patient ID' in idx and idx['Patient ID'] < len(row) else f'Row {row_index}').strip() or f'Row {row_index}',
+            'category': category,
+            'subcategory': subdomain_name or category,
+            'domain': category,
+            'subdomain': subdomain_name or category,
+            'response_types': response_types,
+            'effect': effect,
+            'description': effect,
+            'region': region,
+            'hemisphere': 'L' if side == 'left' else 'R',
+            'mni': [x, y, z],
+            'procedure': procedure,
+            'pathology': pathology,
+            'frequency_hz': safe_float(row[idx['Stimulation parameters Frequency (Hz)']] if 'Stimulation parameters Frequency (Hz)' in idx and idx['Stimulation parameters Frequency (Hz)'] < len(row) else None),
+            'current_ma': safe_float(row[idx['Stimulation parameters Intensity']] if 'Stimulation parameters Intensity' in idx and idx['Stimulation parameters Intensity'] < len(row) else None),
+            'pulse_width_ms': safe_float(row[idx['Stimulation parameters  Pulse width (ms)']] if 'Stimulation parameters  Pulse width (ms)' in idx and idx['Stimulation parameters  Pulse width (ms)'] < len(row) else None),
+            'bipolar': True,
+            'pub_id': publication,
+            'publication': {'title': publication, 'journal': 'Local workbook dataset'},
+            'patient_age': int(age) if age is not None else 0,
+            'patient_sex': sex,
+        })
+
+    return sites
+
+publications = []
+
+local_sample_path = find_local_sample_file()
+if local_sample_path:
+    publications = load_local_sample_publications(local_sample_path)
+    print(f"Loaded publication metadata from local sample dataset: {local_sample_path}")
+else:
+    print("No local sample dataset found. Dataset generation is disabled until a workbook is available.")
+
+# Modified by Christian
+# Contains updated definitions of domains and sub-domains from Methods.docx
+#
+# Preferred source format for subdomains:
+#   "response_types": {
+#       "Auditory Simple": "Simple percepts such as ringing or buzzing.",
+#       "Auditory Complex": "More complex sounds such as voices or music.",
+#       "Auditory Illusions": "Illusory auditory phenomena such as pitch shifts."
+#   },
+#   "sites": [
+#       "Heschl's Gyrus (A1)",
+#       "Superior Temporal Gyrus",
+#       "Planum Temporale"
+#   ]
+#
+# This keeps the response type definitions in a dedicated second block, while "sites"
+# remains a separate list 
+
+def clean_site_name(site_name):
+    """Remove coordinate values from site labels while preserving the anatomical name."""
+    if site_name is None:
+        return ""
+
+    cleaned = str(site_name).strip()
+    cleaned = re.sub(r"\s*\(\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*\)", "", cleaned)
+    cleaned = re.sub(r"\s*\[\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*,\s*-?\d+(?:\.\d+)?\s*\]", "", cleaned)
+    cleaned = re.sub(r"\s*[,;]\s*$", "", cleaned)
+    return cleaned.strip()
+
+
+def normalize_response_types(response_types):
+    """Accept either a list of names or a {name: definition} dict and return ordered names plus definitions."""
+    if isinstance(response_types, dict):
+        ordered_types = []
+        definitions = {}
+        for response_name, definition in response_types.items():
+            name = str(response_name).strip()
+            if not name:
+                continue
+            ordered_types.append(name)
+            if isinstance(definition, str):
+                cleaned_definition = definition.strip()
+            else:
+                cleaned_definition = str(definition).strip()
+            if cleaned_definition:
+                definitions[name] = cleaned_definition
+        return ordered_types, definitions
+
+    if isinstance(response_types, list):
+        ordered_types = []
+        definitions = {}
+        for item in response_types:
+            if isinstance(item, dict):
+                name = str(item.get('name', '')).strip()
+                definition = item.get('definition', '')
+            else:
+                name = str(item).strip()
+                definition = ""
+
+            if not name:
+                continue
+            ordered_types.append(name)
+            if isinstance(definition, str):
+                cleaned_definition = definition.strip()
+            else:
+                cleaned_definition = str(definition).strip()
+            if cleaned_definition:
+                definitions[name] = cleaned_definition
+        return ordered_types, definitions
+
+    return [], {}
+
+
 taxonomy_schema = {
     "Sensory": {
-        "color": "#93C5FD", # Soft Pastel Blue
-        "description": "Responses include auditory, visual, gustatory, olfactory, vestibular, body perception, and somatosensory",
+        "color": "#93C5FD",
+        "description": "Sensory or perceptual responses, classified by sensory modality",
         "regions": ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Calcarine Sulcus (V1)", "Fusiform Face Area (FFA)", "Heschl's Gyrus (A1)", "Posterior Insula", "Temporoparietal Junction (TPJ)"],
         "subdomains": [
             {
                 "name": "Auditory",
                 "definition": "Evoked simple perceptions (ringing, water running, mumbling, buzzing, whistle), complex perceptions (voices, music), or auditory illusions (pitch change, sounds louder, ear obstruction, sound distortion).",
                 "hubs": ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus", "Planum Temporale"],
-                "sites": [
-                    ("Auditory Simple", "Evoked simple auditory perceptions such as ringing, water running, mumbling, buzzing, whistle", "Heschl's Gyrus (A1)", [-48, -22, 10], [48, -22, 10], "PUB06"),
-                    ("Auditory Complex", "Evoked complex auditory perceptions such as voices with clear or unclear content, or music", "Superior Temporal Gyrus", [-56, -26, 6], [56, -26, 6], "PUB06"),
-                    ("Auditory Illusions", "Alterations in auditory perception such as sounds appearing louder, ear obstruction, pitch change, echo, or distortion", "Planum Temporale", [-58, -30, 14], [58, -30, 14], "PUB06")
-                ]
+                "response_types": [
+                    "Auditory Simple",
+                    "Auditory Complex",
+                    "Auditory Illusions",
+                ],
+                "sites": ["Heschl's Gyrus (A1)", "Superior Temporal Gyrus", "Planum Temporale"]
             },
             {
                 "name": "Visual",
                 "definition": "Evoked simple perceptions (phosphenes, flashes, shadows, shapes, moving dots), complex perceptions (faces, characters, scenes, cartoons), or visual illusions (halo, metamorphopsia, micropsia/macropsia, visual motion).",
                 "hubs": ["Calcarine Sulcus (V1)", "Lingual Gyrus (V2)", "Fusiform Face Area (FFA)", "Middle Temporal (MT/V5)"],
-                "sites": [
-                    ("Visual Simple", "Evoked simple visual perceptions such as phosphenes, flashes, shadows, simple shapes, colors, moving lights", "Calcarine Sulcus (V1)", [-12, -92, 4], [12, -92, 4], "PUB04"),
-                    ("Visual Complex", "Evoked complex visual perceptions such as faces, face parts, characters, animals, or complex scenes", "Fusiform Face Area (FFA)", [40, -54, -18], [-40, -54, -18], "PUB01"),
-                    ("Visual Illusions", "Alterations in visual perception such as brightness changes, face/letter distortions, blurred vision, or micropsia/macropsia", "Middle Temporal Visual Area (MT/V5)", [-46, -68, 4], [46, -68, 4], "PUB03")
-                ]
+                "response_types": [
+                    "Visual Simple",
+                    "Visual Complex",
+                    "Visual Illusions"
+                ],
+                "sites": ["Calcarine Sulcus (V1)", "Fusiform Face Area (FFA)", "Middle Temporal Visual Area (MT/V5)"]
             },
             {
-                "name": "Gustatory & Olfactory",
-                "definition": "Identifiable or non-identifiable gustatory (taste) and olfactory (smell) responses, further classified by pleasant or unpleasant hedonic valence.",
+                "name": "Gustatory",
+                "definition": "Identifiable or non-identifiable gustatory (taste), further classified by pleasant or unpleasant hedonic valence.",
                 "hubs": ["Anterior Insular Operculum", "Piriform Cortex / Uncus", "Mesial Temporal Operculum"],
-                "sites": [
-                    ("Gustatory", "Identifiable or non-identifiable gustatory response classified by pleasant or unpleasant hedonic valence", "Anterior Insular Operculum", [-36, 14, 2], [36, 14, 2], "PUB13"),
-                    ("Olfactory", "Identifiable or non-identifiable olfactory response classified by pleasant or unpleasant hedonic valence", "Piriform Cortex / Uncus", [-24, 2, -22], [24, 2, -22], "PUB05")
-                ]
+                "response_types": [
+                    "Pleasant",
+                    "Unpleasant"
+                ],
+                "sites": ["Anterior Insular Operculum", "Anterior Insular Operculum"]
+            },
+            {
+                "name": "Olfactory",
+                "definition": "Evoked olfactory (smell) perceptions, which can be identifiable or non-identifiable, and may have pleasant or unpleasant hedonic valence.",
+                "hubs": ["Piriform Cortex / Uncus", "Anterior Insular Operculum", "Orbitofrontal Cortex"],
+                "response_types": [
+                    "Pleasant",
+                    "Unpleasant"
+                ],
+                "sites": ["Piriform Cortex / Uncus", "Piriform Cortex / Uncus"]
             },
             {
                 "name": "Vestibular",
                 "definition": "Simple sensations of dizziness or vertigo, as well as complex whole-body displacement, graviceptive experiences (falling, floating, levitation), or rotation.",
                 "hubs": ["Parieto-Insular Vestibular Cortex (PIVC)", "Posterior Insular Operculum", "Superior Temporal Sulcus"],
-                "sites": [
-                    ("Vestibular Vertigo", "Simple sensations of dizziness, spinning vertigo, and directional body rotation", "Parieto-Insular Vestibular Cortex", [-42, -28, 22], [42, -28, 22], "PUB06"),
-                    ("Graviceptive Illusions", "Complex sensations of whole-body displacement and graviceptive experiences of falling, floating, or levitation", "Posterior Insular Operculum", [-44, -20, 18], [44, -20, 18], "PUB06")
-                ]
+                "response_types": [],
+                "sites": ["Parieto-Insular Vestibular Cortex (PIVC)"]
             },
             {
                 "name": "Body Perception",
                 "definition": "Disturbances of body schema or image, such as out-of-body experiences, alien limb sensations, limb loss sensations, limb appearing to move, autoscopic and heautoscopic phenomena.",
                 "hubs": ["Right Temporoparietal Junction (TPJ)", "Right Angular Gyrus", "Inferior Parietal Lobule"],
-                "sites": [
-                    ("Out-of-Body & Autoscopy", "Disturbances of body schema: out-of-body experience, seeing oneself from elevated view, or torso displacement", "Right Temporoparietal Junction (TPJ)", [54, -52, 26], [-54, -52, 26], "PUB11"),
-                    ("Body Ownership Disturbances", "Disturbance of body ownership: feeling that a limb is missing, foreign, alien, or detached", "Right Angular Gyrus", [50, -60, 32], [-50, -60, 32], "PUB11")
-                ]
+                "response_types": [],
+                "sites": ["Right Temporoparietal Junction (TPJ)"]
             },
             {
                 "name": "Somatosensory",
                 "definition": "Somatosensory responses mapped by body part (upper limb, lower limb, head/neck/trunk) and classified as painful (burning, pinprick, muscle pain) or non-painful (tingling, thermal warmth, numbness, vibration, pressure).",
                 "hubs": ["Postcentral Gyrus (S1)", "Parietal Operculum (S2)", "Paracentral Lobule", "Dorsal Posterior Insula"],
-                "sites": [
-                    ("Somatosensory Non-Painful", "Non-painful somatosensory response: tingling, localized thermal warmth, numbness, vibration in upper/lower limb", "Postcentral Gyrus (S1)", [-40, -28, 54], [40, -28, 54], "PUB04"),
-                    ("Somatosensory Painful", "Painful somatosensory response: localized burning heat, pinched muscle, pinprick sensation, or sharp cutaneous pain", "Dorsal Posterior Insula", [-38, -16, 12], [38, -16, 12], "PUB13")
-                ]
+                "response_types": [
+                    "Non-Painful",
+                    "Painful",
+                    "Upper Limb",
+                    "Lower Limb",
+                    "Head/Neck/Trunk",
+                ],
+                "sites": ["Postcentral Gyrus (S1)", "Dorsal Posterior Insula", "Postcentral Gyrus (S1)", "Paracentral Lobule", "Dorsal Posterior Insula"]
             }
         ]
     },
     "Motor": {
-        "color": "#8E7CC3", # Soft Pastel Dark Purple
-        "description": "Primary, supplementary, and subcortical motor circuits controlling voluntary muscle contractions, eye movements, tremor regulation, and motor inhibition.",
+        "color": "#8E7CC3",
+        "description": "Motor responses, positive or negative, classified by effector.",
         "regions": ["Precentral Gyrus (Hand Knob)", "Supplementary Motor Area (SMA)", "Frontal Eye Field (FEF)", "Subthalamic Nucleus (STN)", "VIM Thalamus"],
         "subdomains": [
             {
                 "name": "Positive",
                 "definition": "Positive motor responses were defined as any evoked movement (indicated by terms such as movement, contraction, myoclonic, tonic, clonic, lifting, flexion, pronation, twitching, jerk, tremor, shaking). Further classified by effector, including upper limb (shoulder, arm, hand, fingers), lower limb (hip, leg, foot), head/neck/trunk, articulatory (tongue, lips, jaw, larynx), and/or eyes.",
                 "hubs": ["Precentral Gyrus (M1 Hand Knob)", "Paracentral Lobule", "SMA"],
-                "sites": [
-                    ("Hand & Fingers", "Clonic rhythmic twitching of contralateral thumb, index, and finger flexors", "Precentral Gyrus (Hand Knob)", [-38, -22, 56], [38, -22, 56], "PUB04"),
-                    ("Wrist & Forearm", "Tonic flexion posturing of wrist, forearm, and elbow", "Precentral Gyrus (M1)", [-34, -18, 62], [34, -18, 62], "PUB04"),
-                    ("Synergic Arm Reach", "Complex synergic arm elevation and tonic reaching posture", "Supplementary Motor Area (SMA)", [-6, 4, 58], [6, 4, 58], "PUB03")
-                ]
+                "response_types": [
+                    "Upper limb",
+                    "Lower limb",
+                    "Head/neck/trunk",
+                    "Articulatory",
+                    "Eyes",
+                ],
+                "sites": ["Precentral Gyrus (Hand Knob)", "Precentral Gyrus (M1)", "Supplementary Motor Area (SMA)", "Precentral Gyrus (M1)", "Frontal Eye Field (FEF)"]
             },
             {
                 "name": "Negative",
-                "definition": "Negative responses were defined as arrest, disturbance, or slowing of movements. Further classified including upper limb (shoulder, arm, hand, fingers), lower limb (hip, leg, foot), head/neck/trunk, articulatory (tongue, lips, jaw, larynx), and/or eyes. ",
+                "definition": "Negative responses were defined as arrest, disturbance, or slowing of movements. Further classified including upper limb (shoulder, arm, hand, fingers), lower limb (hip, leg, foot), head/neck/trunk, articulatory (tongue, lips, jaw, larynx), and/or eyes.",
                 "hubs": ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"],
-                "sites": [
-                    ("Horizontal Saccade", "Conjugate horizontal saccadic eye deviation to contralateral side", "Frontal Eye Field (FEF)", [-32, -4, 50], [32, -4, 50], "PUB03"),
-                    ("Oblique Saccade", "Upward and oblique saccadic nystagmoid eye movement", "Superior Frontal Sulcus (FEF)", [-28, 2, 54], [28, 2, 54], "PUB03")
-                ]
+                "response_types": [
+                    "Upper limb",
+                    "Lower limb",
+                    "Head/neck/trunk",
+                    "Articulatory",
+                    "Eyes",
+                ],
+                "sites": ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus", "Superior Frontal Sulcus", "Superior Frontal Sulcus (FEF)", "Superior Frontal Sulcus"]
             },
             {
                 "name": "Automatisms",
                 "definition": "Automatisms such as laughter without merriment or mirth, grasping, rubbing, vocalizations (excluding simple motor phenomena), yawning, chewing/mastication, oro-alimentary automatisms.",
                 "hubs": ["Frontal Eye Field (FEF)", "Superior Frontal Sulcus"],
-                "sites": [
-                    ("Horizontal Saccade", "Conjugate horizontal saccadic eye deviation to contralateral side", "Frontal Eye Field (FEF)", [-32, -4, 50], [32, -4, 50], "PUB03"),
-                    ("Oblique Saccade", "Upward and oblique saccadic nystagmoid eye movement", "Superior Frontal Sulcus (FEF)", [-28, 2, 54], [28, 2, 54], "PUB03")
-                ]
+                "response_types": [],
+                "sites": ["Frontal Eye Field (FEF)"]
             }
         ]
     },
     "Cognitive": {
-        "color": "#E598D8", # Soft Pastel Magenta / Pink-Purple
-        "description": "Higher-order associative networks including language processing, speech arrest, naming anomia, experiential memory retrieval, and Theory of Mind.",
+        "color": "#E598D8",
+        "description": "Disturbances of cognitive processes, including language, memory- and familiarity-related processes, and other focal cognitive processes.",
         "regions": ["Middle Frontal Gyrus", "Pars Opercularis (Broca)", "Posterior STG (Wernicke)", "Entorhinal Cortex", "Hippocampus", "DLPFC", "Temporoparietal Junction (TPJ)"],
         "subdomains": [
             {
                 "name": "Language disturbances",
-                "definition": "Disruptions in language production, comprehension or written language.",
+                "definition": "Disruptions in language production (such as complete interruption of speech or errors), comprehension (Impairment in understanding the meaning of verbal information) or written language (reading and writing impairment).",
                 "hubs": ["Pars Opercularis (Broca's Area)", "Ventral Premotor Cortex", "SMA"],
-                "sites": [
-                    ("Broca Speech Arrest", "Complete vocalization arrest while counting; consciousness and intent intact", "Pars Opercularis (Broca's Area)", [-48, 14, 20], [48, 14, 20], "PUB03"),
-                    ("Articulatory Planning Hesitation", "Transient speech hesitation and articulatory planning breakdown", "Ventral Premotor Cortex (vPMC)", [-52, 8, 28], [52, 8, 28], "PUB03")
-                ]
+                "response_types": [
+                    "Production",
+                    "Comprehension",
+                    "Written Language",
+                ],
+                "sites": ["Pars Opercularis (Broca's Area)", "Ventral Premotor Cortex (vPMC)", "Ventral Premotor Cortex (vPMC)"]
             },
             {
                 "name": "Derealization / Depersonalization",
                 "definition": "Feelings of derealization or depersonalization, such as feeling detached from the world or inside a dream, or feeling of going into a trance.",
                 "hubs": ["Posterior STG (Wernicke)", "Pars Triangularis", "VWFA", "pMTG"],
-                "sites": [
-                    ("Phonemic Paraphasia", "Phonemic paraphasic speech substitution during picture naming", "Pars Triangularis (IFG)", [-46, 26, 14], [46, 26, 14], "PUB03"),
-                    ("Semantic Comprehension Block", "Semantic paraphasia and verbal comprehension impairment", "Posterior Superior Temporal Gyrus (Wernicke)", [-58, -42, 14], [58, -42, 14], "PUB03"),
-                    ("Pure Alexia", "Pure reading arrest (anomia for written words without agraphia)", "Visual Word Form Area (VWFA)", [-44, -58, -14], [44, -58, -14], "PUB03"),
-                    ("Verb Anomia", "Anomia for common verbs and action conceptualization block", "Posterior Middle Temporal Gyrus (pMTG)", [-56, -46, 2], [56, -46, 2], "PUB03")
-                ]
+                "response_types": [],
+                "sites": ["Pars Triangularis (IFG)"]
             },
             {
                 "name": "Reminiscence/Déjà rêvé",
                 "definition": "Evoked visual, auditory, or multimodal complex perceptions accompanied by a subjective feeling of remembering or reexperiencing (e.g., flashbacks, recollection of a dream).",
                 "hubs": ["Hippocampus (CA1 / Subiculum)", "Entorhinal Cortex", "Lateral Temporal Sulcus"],
-                "sites": [
-                    ("Déjà vu Familiarity", "Intense experiential feeling of familiarity (déjà vu) and reminiscing", "Hippocampus (CA1 / Subiculum)", [-24, -28, -12], [24, -28, -12], "PUB14"),
-                    ("Autobiographical Playback", "Vivid autobiographical memory playback of childhood home", "Entorhinal / Parahippocampal Cortex", [-22, -16, -24], [22, -16, -24], "PUB14"),
-                    ("Dreamy State", "Experiential 'dreamy state' with sensation of living in past memory", "Lateral Superior Temporal Sulcus", [-54, -18, -14], [54, -18, -14], "PUB02")
-                ]
+                "response_types": [],
+                "sites": ["Hippocampus (CA1 / Subiculum)"]
             },
             {
                 "name": "Déjà vu/Déjà vécu/Jamais vu",
-                "definition": "Erroneous feelings of familiarity (déjà vu/déjà vécu) or unfamiliarity (jamais vu) for the current situation. Contrary to reminiscences and déjà rêvé, these phenomena are devoid of perceptual content. ",
+                "definition": "Erroneous feelings of familiarity (déjà vu/déjà vécu) or unfamiliarity (jamais vu) for the current situation. Contrary to reminiscences and déjà rêvé, these phenomena are devoid of perceptual content.",
                 "hubs": ["Temporoparietal Junction (TPJ)", "Dorsomedial Prefrontal Cortex (dmPFC)"],
-                "sites": [
-                    ("Perspective-Taking Interruption", "Interference with social perspective-taking and Theory of Mind", "Temporoparietal Junction (TPJ)", [-52, -56, 28], [52, -56, 28], "PUB15"),
-                    ("Emotional Intent Attribution", "Impairment in attributing emotional intentions to story characters", "Dorsomedial Prefrontal Cortex (dmPFC)", [-6, 48, 32], [6, 48, 32], "PUB15")
-                ]
+                "response_types": [],
+                "sites": ["Temporoparietal Junction (TPJ)"]
             },
             {
-                "name": "Focal Cognitive Changes",
+                "name": "Other Focal Cognitive Changes",
                 "definition": "Focal cognitive changes, which included for example dyscalculia, working memory deficits, music processing disruptions, face recognition/discrimination deficits, or emotion recognition deficits.",
                 "hubs": ["Dorsolateral Prefrontal Cortex (DLPFC)", "Anterior Cingulate"],
-                "sites": [
-                    ("N-Back Task Disruption", "Transient working memory manipulation disruption during N-back task", "Dorsolateral Prefrontal Cortex (DLPFC)", [-42, 34, 30], [42, 34, 30], "PUB03")
-                ]
+                "response_types": [],
+                "sites": ["Dorsolateral Prefrontal Cortex (DLPFC)"]
             }
         ]
     },
     "Affective": {
-        "color": "#FDB082", # Soft Pastel Orange / Peach
-        "description": "Evoked emotional experiences or changes in emotional state.",
+        "color": "#FDB082",
+        "description": "Evoked emotional experiences or changes in affect.",
         "regions": ["Basolateral Amygdala", "Anterior Cingulate (ACC)", "Anterior Midcingulate (aMCC)", "Subgenual Area 25", "Nucleus Accumbens"],
         "subdomains": [
             {
                 "name": "Positive valence responses",
-                "definition": "Positive changes in affect, including happiness/wellbeing (e.g., positive mood, pleasantness, sense of contentment), ecstatic/bliss (i.e., an intense sense of bliss or physical wellbeing often accompanied by feelings of increased self-awareness and mental clarity), or mirth (i.e., a subjective sense of amusement or merriment, typically accompanied by laughter).",
+                "definition": "Positive changes in affect, such as happiness/wellbeing (described as contentment or pleasant mood), ecstatic/bliss (characterized by profound bliss, euphoria, or heightened wellbeing) or mirth (amusement or laughter-like affective responses)",
                 "hubs": ["Basolateral Amygdala", "Anterior Insula"],
-                "sites": [
-                    ("Visceral Dread", "Unmotivated visceral dread, imminent catastrophe feeling, panic", "Basolateral Amygdala", [-22, -6, -18], [22, -6, -18], "PUB02"),
-                    ("Emotional Anguish", "Severe emotional anguish and somatic apprehension", "Anterior Insula (Affective Core)", [-34, 18, -4], [34, 18, -4], "PUB02")
-                ]
+                "response_types": [
+                    "Happiness/Wellbeing",
+                    "Ecstatic/Bliss",
+                    "Mirth"
+                ],
+                "sites": ["Basolateral Amygdala", "Anterior Insula (Affective Core)", "Anterior Insula (Affective Core)"]
             },
             {
                 "name": "Negative valence responses",
-                "definition": "Negative changes in affect, including anger, anxiety, fear, or sadness. Responses described as “fear/anxiety” in the original publications were categorized as both.",
+                "definition": "Negative changes in affect such as anger (irritability or hostile emotional arousal), anxiety (anxious or apprehensive emotional states, often with worry or tension), fear (fearful affective states including panic, dread, or apprehension of threat), or sadness (including despair, or emotional dysphoria).",
                 "hubs": ["Anterior Cingulate Cortex (ACC)", "Pre-SMA Affective Interface"],
-                "sites": [
-                    ("Contagious Amusement", "Spontaneous mirthful laughter with genuine contagious amusement", "Anterior Cingulate Cortex (ACC)", [-6, 32, 18], [6, 32, 18], "PUB02"),
-                    ("Buoyant Cheerfulness", "Involuntary chuckling and buoyant elevating cheerfulness", "Pre-SMA Affective Interface", [-4, 12, 48], [4, 12, 48], "PUB02")
-                ]
+                "response_types": [
+                    "Anger",
+                    "Anxiety",
+                    "Fear",
+                    "Sadness"
+                ],
+                "sites": ["Anterior Cingulate Cortex (ACC)", "Anterior Cingulate Cortex (ACC)", "Pre-SMA Affective Interface", "Pre-SMA Affective Interface"]
             }
         ]
     },
     "Autonomic": {
-        "color": "#F6DE68", # Soft Pastel Warm Yellow
+        "color": "#F6DE68",
         "description": "Central autonomic network regulating visceral interoception, cardiac rhythm, vasomotor tone, and neurovegetative reflexes.",
         "regions": ["Anterior Insular Cortex", "Periaqueductal Gray (PAG)", "Hypothalamus", "Medial Prefrontal Cortex"],
         "subdomains": [
@@ -415,221 +533,117 @@ taxonomy_schema = {
                 "name": "Cardiovascular responses",
                 "definition": "Change in heart rate (subjective or objectively measured) or changes in blood pressure.",
                 "hubs": ["Anterior-Inferior Insula", "Mesial Temporal Operculum"],
-                "sites": [
-                    ("Epigastric Rising Sensation", "Rising epigastric sensation from stomach into chest and throat", "Anterior-Inferior Insula", [-34, 12, -8], [34, 12, -8], "PUB13"),
-                    ("Gastric Flutter", "Sudden gastric fluttering accompanied by mild nausea", "Mesial Temporal Operculum", [-30, -6, -16], [30, -6, -16], "PUB13")
-                ]
+                "response_types": [],
+                "sites": ["Anterior-Inferior Insula"]
             },
             {
                 "name": "Temperature responses",
                 "definition": "General sensations of cold or warmth (e.g. being cold, being warm, heat wave sensation, flushing, sweating).",
                 "hubs": ["Posterior Insular Cortex", "Subgenual Anterior Cingulate"],
-                "sites": [
-                    ("Sinus Tachycardia", "Acute sinus tachycardia with heart rate acceleration (+32 bpm)", "Posterior Insular Cortex", [38, -14, 8], [-38, -14, 8], "PUB13"),
-                    ("Sinus Bradycardia", "Sinus bradycardia and marked arterial blood pressure drop", "Subgenual Anterior Cingulate", [-4, 26, -2], [4, 26, -2], "PUB13")
-                ]
+                "response_types": [],
+                "sites": ["Posterior Insular Cortex"]
             },
             {
                 "name": "Visceral responses",
                 "definition": "Sudden facial flushing, skin sensation of extreme heat or localized vasoconstriction and sudden chill.",
                 "hubs": ["Hypothalamus", "Anterior Insular Operculum"],
-                "sites": [
-                    ("Facial Flushing", "Sudden warm facial flushing and sensation of body heat", "Hypothalamus / Periventricular Core", [-2, -4, -10], [2, -4, -10], "PUB05"),
-                    ("Cold Vasoconstriction", "Acute localized vasoconstriction and subjective cold shudder", "Anterior Insular Operculum", [-38, 8, 10], [38, 8, 10], "PUB13")
-                ]
+                "response_types": [],
+                "sites": ["Hypothalamus / Periventricular Core"]
             },
             {
                 "name": "Pupillary responses",
                 "definition": "Pupillary responses.",
                 "hubs": ["Periaqueductal Gray (PAG)", "Anterior Midcingulate Cortex"],
-                "sites": [
-                    ("Spinal Shiver Goosebumps", "Bilateral goosebumps on arms and spine with subjective chills", "Periaqueductal Gray (PAG)", [-2, -26, -8], [2, -26, -8], "PUB02"),
-                    ("Ipsilateral Forearm Goosebumps", "Ipsilateral forearm piloerection without thermoregulatory need", "Anterior Midcingulate Cortex", [-6, 18, 38], [6, 18, 38], "PUB02")
-                ]
+                "response_types": [],
+                "sites": ["Periaqueductal Gray (PAG)"]
             },
             {
                 "name": "Respiratory responses",
                 "definition": "Responses such as hypoventilation/apnea, hyperventilation/shortness of breath, or hypoxemia.",
                 "hubs": ["Hypothalamic Nuclei", "Opercular Visceral Area"],
-                "sites": [
-                    ("Pupil Dilation (Mydriasis)", "Bilateral pupil dilation (mydriasis) and widening palpebral fissure", "Hypothalamic Nuclei", [-3, -6, -12], [3, -6, -12], "PUB05"),
-                    ("Hypersalivation", "Sudden hypersalivation and urge to swallow", "Opercular Visceral Area", [-46, -4, 16], [46, -4, 16], "PUB13")
-                ]
+                "response_types": [],
+                "sites": ["Hypothalamic Nuclei"]
             }
         ]
     },
     "Agency": {
-        "color": "#82D1A1", # Soft Pastel Mint / Sage Green
+        "color": "#82D1A1",
         "description": "Changes in the sense of agency, characterized by feeling that thoughts or actions are not self-generated or under one’s control, experiencing an urge to act, forced thinking, or sensing resistance to a planned action.",
         "regions": ["Right Angular Gyrus", "Temporoparietal Junction (TPJ)", "Inferior Parietal Lobule (IPL)", "Premotor Cortex", "Pre-SMA"],
         "subdomains": [],
-        "sites": [
-            ("Autoscopic Displacement", "Torso levitation and elevated observation of own physical body", "Right TPJ", [54, -52, 26], [-54, -52, 26], "PUB11"),
-            ("Will to Move Hand", "Conscious intention and strong desire to clench contralateral fist", "Inferior Parietal Lobule (IPL)", [-42, -44, 46], [42, -44, 46], "PUB09"),
-            ("Illusory Hand Flexion", "Patient firmly believes they moved wrist/fingers though arm remained motionless", "Angular Gyrus", [-46, -62, 40], [46, -62, 40], "PUB09"),
-            ("Alien Limb Feeling", "Feeling that contralateral arm belongs to someone else sitting nearby", "Temporoparietal Cortex", [-56, -42, 24], [56, -42, 24], "PUB11")
-        ]
+        "response_types": {
+            "Autoscopic Displacement": "A sense of displacement or duplication of the self in space, often with an illusory spatial separation from the body."
+        },
+        "sites": ["Right TPJ"]
     },
     "Consciousness": {
-        "color": "#4F75A8", # Soft Pastel Slate Dark Blue
+        "color": "#4F75A8",
         "description": "Responses classified as altered consciousness/awareness included loss of consciousness or impaired awareness, unconscious movements (i.e., movements occurring without awareness), or the erroneous impression of having spoken out loud.",
         "regions": ["Claustrum / External Capsule", "Intralaminar Thalamic Nuclei", "Precuneus", "Posterior Cingulate Cortex", "Default Mode Network"],
         "subdomains": [],
-        "sites": [
-            ("Claustrum Awareness Arrest", "Immediate loss of consciousness, unresponsiveness to auditory/visual commands", "Claustrum / External Capsule", [-32, -18, 4], [32, -18, 4], "PUB10"),
-            ("Reversible Conscious Pause", "Blank staring pause, complete unresponsiveness, immediate return to baseline", "Intralaminar Thalamus", [-10, -16, 8], [10, -16, 8], "PUB10"),
-            ("Existential Alienation", "Profound detachment from surroundings, feeling external world is artificial", "Precuneus / PCC", [-6, -54, 38], [6, -54, 38], "PUB15")
-        ]
+        "response_types": [],
+        "sites": ["Claustrum / External Capsule"]
     },
     "No Effect": {
-        "color": "#94A3B8", # Soft Pastel Slate Gray
-        "description": "Stimulations explicitly reported as not evoking any functional response; absence of a specific response type without indication of whether other responses occurred was insufficient. This category was deliberately conservative to provide true non-response controls.",
+        "color": "#94A3B8",
+        "description": "Stimulations explicitly reported as not evoking any functional response.",
         "regions": ["Silent Cortical Boundaries", "Non-Eloquent Association Cortex", "Subthreshold White Matter Tracts"],
         "subdomains": [],
-        "sites": [
-            ("Asymptomatic DLPFC", "No behavioral, subjective, or motor response elicited up to 8 mA safety limit", "Dorsolateral Prefrontal Cortex", [-46, 42, 18], [46, 42, 18], "PUB03"),
-            ("Negative Association Margin", "Negative functional response confirming safe surgical resection margin", "Middle Temporal Gyrus", [-58, -38, -6], [58, -38, -6], "PUB03")
-        ]
+        "response_types": [],
+        "sites": ["Dorsolateral Prefrontal Cortex"]
+    },
+    "Other/ unclassifiable responses": {
+        "color": "#D3D3D3",
+        "description": "Stimulation responses that could not be assigned to any other domain.",
+        "regions": [],
+        "subdomains": [],
+        "response_types": [],
+        "sites": []
     }
 }
 
+
+
 # ==============================================================================
-# DATASET GENERATION: Building 166 Contact Sites & Taxonomy Export
+# DATASET GENERATION
 # ==============================================================================
 all_sites = []
 site_idx = 1
 random.seed(42) # Deterministic for consistent scientific coordinates
 
-# Build clean taxonomy object for frontend consumption
+# Build clean taxonomy object for frontend consumption. Keep metadata structure for the UI,
+# but do not synthesize stimulation entries from the static taxonomy when the source data is missing.
 frontend_taxonomy = {}
-
 for category, cat_data in taxonomy_schema.items():
     frontend_taxonomy[category] = {
         "color": cat_data["color"],
         "desc": cat_data["description"],
-        "regions": cat_data["regions"],
+        "regions": cat_data.get("regions", []),
         "subdomains": []
     }
-    
     for sub in cat_data.get("subdomains", []):
-        sub_name = sub["name"]
-        sub_def = sub["definition"]
-        sub_hubs = sub["hubs"]
-        
-        frontend_taxonomy[category]["subdomains"].append({
-            "name": sub_name,
-            "desc": sub_def,
-            "hubs": sub_hubs
-        })
-        
-        # Build bilateral stimulation sites for each subdomain
-        for effect_name, effect_desc, target_region, left_mni, right_mni, pub_id in sub["sites"]:
-            pub_obj = next((p for p in publications if p["id"] == pub_id), publications[0])
-            
-            # Left hemisphere contact
-            all_sites.append({
-                "id": f"STIM{site_idx:03d}",
-                "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
-                "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
-                "category": category,
-                "subcategory": sub_name,
-                "effect": effect_name,
-                "description": effect_desc,
-                "region": target_region,
-                "hemisphere": "L",
-                "mni": left_mni,
-                "procedure": pub_obj["procedure_type"],
-                "pathology": pub_obj["patient_population"],
-                "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
-                "current_ma": round(random.uniform(1.5, 3.5), 1),
-                "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
-                "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
-                "pub_id": pub_id,
-                "publication": pub_obj,
-                "patient_age": random.randint(21, 62),
-                "patient_sex": random.choice(["F", "M"])
-            })
-            site_idx += 1
-            
-            # Right hemisphere contact
-            all_sites.append({
-                "id": f"STIM{site_idx:03d}",
-                "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
-                "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
-                "category": category,
-                "subcategory": sub_name,
-                "effect": effect_name,
-                "description": effect_desc,
-                "region": target_region,
-                "hemisphere": "R",
-                "mni": right_mni,
-                "procedure": pub_obj["procedure_type"],
-                "pathology": pub_obj["patient_population"],
-                "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
-                "current_ma": round(random.uniform(1.5, 3.5), 1),
-                "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
-                "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
-                "pub_id": pub_id,
-                "publication": pub_obj,
-                "patient_age": random.randint(21, 62),
-                "patient_sex": random.choice(["F", "M"])
-            })
-            site_idx += 1
+        response_types, response_type_definitions = normalize_response_types(sub.get("response_types", []))
+        cleaned_sites = [clean_site_name(site) for site in sub.get("sites", []) if str(site).strip()]
+        cleaned_sites = [site for site in cleaned_sites if site]
 
-    # Also build sites for categories without subdomains
-    for effect_name, effect_desc, target_region, left_mni, right_mni, pub_id in cat_data.get("sites", []):
-        pub_obj = next((p for p in publications if p["id"] == pub_id), publications[0])
-        
-        # Left hemisphere contact
-        all_sites.append({
-            "id": f"STIM{site_idx:03d}",
-            "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
-            "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
-            "category": category,
-            "subcategory": category,
-            "effect": effect_name,
-            "description": effect_desc,
-            "region": target_region,
-            "hemisphere": "L",
-            "mni": left_mni,
-            "procedure": pub_obj["procedure_type"],
-            "pathology": pub_obj["patient_population"],
-            "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
-            "current_ma": round(random.uniform(1.5, 3.5), 1),
-            "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
-            "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
-            "pub_id": pub_id,
-            "publication": pub_obj,
-            "patient_age": random.randint(21, 62),
-            "patient_sex": random.choice(["F", "M"])
-        })
-        site_idx += 1
-        
-        # Right hemisphere contact
-        if right_mni:
-            all_sites.append({
-                "id": f"STIM{site_idx:03d}",
-                "patient_id": f"P{((site_idx - 1) % 45) + 1:03d}",
-                "patient_display": f"Patient {((site_idx - 1) % 45) + 1}",
-                "category": category,
-                "subcategory": category,
-                "effect": effect_name,
-                "description": effect_desc,
-                "region": target_region,
-                "hemisphere": "R",
-                "mni": right_mni,
-                "procedure": pub_obj["procedure_type"],
-                "pathology": pub_obj["patient_population"],
-                "frequency_hz": 50 if "DBS" not in pub_obj["procedure_type"] else 130,
-                "current_ma": round(random.uniform(1.5, 3.5), 1),
-                "pulse_width_ms": 0.5 if "DBS" not in pub_obj["procedure_type"] else 0.09,
-                "bipolar": True if "DBS" not in pub_obj["procedure_type"] else False,
-                "pub_id": pub_id,
-                "publication": pub_obj,
-                "patient_age": random.randint(21, 62),
-                "patient_sex": random.choice(["F", "M"])
-            })
-            site_idx += 1
+        subdomain_record = {
+            "name": sub["name"],
+            "desc": sub["definition"],
+            "hubs": sub.get("hubs", []),
+            "response_types": response_types,
+            "sites": cleaned_sites
+        }
+        if response_type_definitions:
+            subdomain_record["response_type_definitions"] = response_type_definitions
+
+        frontend_taxonomy[category]["subdomains"].append(subdomain_record)
+
+if local_sample_path:
+    all_sites = load_local_sample_sites(local_sample_path)
+    if not all_sites:
+        print("No valid workbook site rows loaded; leaving the website empty to surface the data issue.")
+else:
+    print("No local dataset workbook found; leaving the website empty to surface the data issue.")
 
 print(f"Generated {len(all_sites)} total stimulation sites across {len(publications)} publications.")
 
