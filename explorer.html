@@ -86,15 +86,24 @@
         </div>
 
         <!-- 2. Sub-Domain Filter (Cascading) -->
-        <div class="col-md-3 col-sm-6">
-          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">2. Sub-Domain</label>
-          <select id="filterSubCat" class="form-select form-select-sm">
-            <option value="">All Sub-Domains</option>
-          </select>
+        <div class="col-md-4 col-sm-6">
+          <div class="row g-2">
+            <div class="col-6">
+              <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">2. Sub-Domain</label>
+              <select id="filterSubCat" class="form-select form-select-sm">
+                <option value="">All Sub-Domains</option>
+              </select>
+            </div>
+            <div class="col-6">
+              <select id="filterEffect" class="form-select form-select-sm" style="margin-top: 1.5rem;">
+                <option value="">All Response Types</option>
+              </select>
+            </div>
+          </div>
         </div>
 
         <!-- 3. EBS Procedure Filter -->
-        <div class="col-md-3 col-sm-6">
+        <div class="col-md-2 col-sm-6">
           <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">3. EBS Procedure</label>
           <select id="filterProc" class="form-select form-select-sm">
             <option value="">All Procedures</option>
@@ -107,6 +116,12 @@
           <select id="filterRegion" class="form-select form-select-sm">
             <option value="">All Brain Regions</option>
           </select>
+        </div>
+
+        <!-- 5. Author / DOI Search -->
+        <div class="col-md-3 col-sm-6">
+          <label class="small text-secondary mb-1 d-block fw-semibold" style="font-size: 0.76rem; text-transform: uppercase; letter-spacing: 0.04em;">5. Author / DOI</label>
+          <input id="filterTextSearch" type="text" class="form-control form-control-sm" placeholder="Search author or DOI" aria-label="Search author or DOI">
         </div>
 
         <!-- Reset Button -->
@@ -155,7 +170,7 @@
               <th>Hemi</th>
               <th>MNI [X, Y, Z]</th>
               <th>Domain</th>
-              <th>Evoked Sub-Domain Effect</th>
+              <th>Sub-Domain</th>
               <th>Procedure &amp; Pathology</th>
               <th>Actions</th>
             </tr>
@@ -262,7 +277,7 @@
   </footer>
 
   <!-- Load Dataset Script with cache buster -->
-  <script src="data/ebs_dataset.js?v=2.3"></script>
+  <script src="data/ebs_dataset.js?v=2.4"></script>
 
   <script>
     let dataTable = null;
@@ -382,17 +397,49 @@
         const subCatSelect = document.getElementById('filterSubCat');
         subCatSelect.innerHTML = '<option value="">All Sub-Domains</option>';
 
+        const domainsToList = selectedDomain
+          ? [selectedDomain]
+          : Object.keys(taxonomy).length > 0
+            ? Object.keys(taxonomy)
+            : [...new Set(sites.map(s => s.category).filter(Boolean))];
+
+        domainsToList.forEach(domainName => {
+          const domainSites = sites.filter(s => s.category === domainName);
+          const uniqueSubCats = [...new Set(domainSites.map(s => s.subcategory || s.effect).filter(Boolean))].sort();
+          if (!uniqueSubCats.length) return;
+
+          const optgroup = document.createElement('optgroup');
+          optgroup.label = domainName;
+          uniqueSubCats.forEach(sub => {
+            const opt = document.createElement('option');
+            opt.value = sub;
+            opt.innerText = sub;
+            optgroup.appendChild(opt);
+          });
+          subCatSelect.appendChild(optgroup);
+        });
+
+        updateEffectDropdown(selectedDomain, '');
+      }
+
+      function updateEffectDropdown(selectedDomain, selectedSubCat) {
+        const effectSelect = document.getElementById('filterEffect');
+        effectSelect.innerHTML = '<option value="">All Response Types</option>';
+
         let relevantSites = sites;
         if (selectedDomain) {
-          relevantSites = sites.filter(s => s.category === selectedDomain);
+          relevantSites = relevantSites.filter(s => s.category === selectedDomain);
+        }
+        if (selectedSubCat) {
+          relevantSites = relevantSites.filter(s => (s.subcategory || s.effect) === selectedSubCat);
         }
 
-        const uniqueSubCats = [...new Set(relevantSites.map(s => s.subcategory || s.effect).filter(Boolean))].sort();
-        uniqueSubCats.forEach(sub => {
+        const uniqueEffects = [...new Set(relevantSites.map(s => s.effect).filter(Boolean))].sort();
+        uniqueEffects.forEach(effect => {
           const opt = document.createElement('option');
-          opt.value = sub;
-          opt.innerText = sub;
-          subCatSelect.appendChild(opt);
+          opt.value = effect;
+          opt.innerText = effect;
+          effectSelect.appendChild(opt);
         });
       }
 
@@ -443,8 +490,8 @@
             </span>
           </td>
           <td>
-            <span class="fw-medium text-dark d-block" style="font-size: 0.88rem; max-width: 240px;">
-              ${site.subcategory || site.effect}
+            <span class="fw-medium text-dark d-block" style="font-size: 0.88rem; max-width: 220px;">
+              ${site.subcategory || site.category}
             </span>
           </td>
           <td>
@@ -485,13 +532,24 @@
 
           const selCat = document.getElementById('filterCat').value;
           const selSubCat = document.getElementById('filterSubCat').value;
+          const selEffect = document.getElementById('filterEffect').value;
           const selProc = document.getElementById('filterProc').value;
           const selRegion = document.getElementById('filterRegion').value;
+          const quickSearch = (document.getElementById('filterTextSearch').value || '').trim().toLowerCase();
 
           if (selCat && site.category !== selCat) return false;
           if (selSubCat && (site.subcategory || site.effect) !== selSubCat) return false;
+          if (selEffect && site.effect !== selEffect) return false;
           if (selProc && site.procedure !== selProc) return false;
           if (selRegion && site.region !== selRegion) return false;
+
+          if (quickSearch) {
+            const authors = site.publication && site.publication.authors ? site.publication.authors.toLowerCase() : '';
+            const doi = site.publication && site.publication.doi ? site.publication.doi.toLowerCase() : '';
+            const title = site.publication && site.publication.title ? site.publication.title.toLowerCase() : '';
+            const searchText = `${authors} ${doi} ${title}`;
+            if (!searchText.includes(quickSearch)) return false;
+          }
 
           return true;
         }
@@ -514,9 +572,17 @@
         updateTableFilters();
       });
 
-      document.getElementById('filterSubCat').addEventListener('change', updateTableFilters);
+      document.getElementById('filterSubCat').addEventListener('change', (e) => {
+        const domain = document.getElementById('filterCat').value;
+        const selectedSubCat = e.target.value;
+        updateEffectDropdown(domain, selectedSubCat);
+        updateTableFilters();
+      });
+
+      document.getElementById('filterEffect').addEventListener('change', updateTableFilters);
       document.getElementById('filterProc').addEventListener('change', updateTableFilters);
       document.getElementById('filterRegion').addEventListener('change', updateTableFilters);
+      document.getElementById('filterTextSearch').addEventListener('input', updateTableFilters);
 
       // Category Pills Handler
       pillsContainer.addEventListener('click', (e) => {
@@ -534,8 +600,10 @@
       document.getElementById('btnResetFilters').addEventListener('click', () => {
         document.getElementById('filterCat').value = '';
         document.getElementById('filterSubCat').value = '';
+        document.getElementById('filterEffect').value = '';
         document.getElementById('filterProc').value = '';
         document.getElementById('filterRegion').value = '';
+        document.getElementById('filterTextSearch').value = '';
         updateSubCatDropdown('');
         document.querySelectorAll('#categoryPills .category-pill').forEach(b => {
           b.classList.toggle('active', b.getAttribute('data-cat') === '');
